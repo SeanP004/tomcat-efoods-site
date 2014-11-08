@@ -2,7 +2,7 @@ package model;
 
 public class ItemBean {
 
-    private int number;
+    private String number;
     private String name;
     private double price;
     private int qty;
@@ -15,7 +15,7 @@ public class ItemBean {
 
     // Setters
 
-    public void setNumber   (int number)       {this.number = number;}
+    public void setNumber   (String number)    {this.number = number;}
     public void setName     (String name)      {this.name = name;}
     public void setPrice    (double price)     {this.price = price;}
     public void setQty      (int qty)          {this.qty = qty;}
@@ -28,7 +28,7 @@ public class ItemBean {
 
     // Getters
 
-    public int    getNumber()    {return number;}
+    public String getNumber()    {return number;}
     public String getName()      {return name;}
     public double getPrice()     {return price;}
     public int    getQty()       {return qty;}
