@@ -1,0 +1,28 @@
+jdbc:derby://roumani.eecs.yorku.ca:64413/CSE
+
+connect 'jdbc:derby://roumani.eecs.yorku.ca:64413/CSE;user=student;password=secret;';
+
+
+ij> describe CATEGORY
+> ;
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+------------------------------------------------------------------------------
+ID                  |INTEGER  |0   |10  |10    |AUTOINCRE&|NULL      |NO
+NAME                |VARCHAR  |NULL|NULL|20    |NULL      |40        |YES
+DESCRIPTION         |VARCHAR  |NULL|NULL|50    |NULL      |100       |YES
+PICTURE             |BLOB     |NULL|NULL|10485&|NULL      |NULL      |YES
+
+4 rows selected
+ij> describe item;
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+------------------------------------------------------------------------------
+NUMBER              |CHAR     |NULL|NULL|8     |NULL      |16        |NO
+NAME                |VARCHAR  |NULL|NULL|50    |NULL      |100       |YES
+PRICE               |DOUBLE   |NULL|2   |52    |NULL      |NULL      |YES
+QTY                 |INTEGER  |0   |10  |10    |NULL      |NULL      |YES
+ONORDER             |INTEGER  |0   |10  |10    |NULL      |NULL      |YES
+REORDER             |INTEGER  |0   |10  |10    |NULL      |NULL      |YES
+CATID               |INTEGER  |0   |10  |10    |NULL      |NULL      |YES
+SUPID               |INTEGER  |0   |10  |10    |NULL      |NULL      |YES
+COSTPRICE           |DOUBLE   |NULL|2   |52    |NULL      |NULL      |YES
+UNIT                |VARCHAR  |NULL|NULL|20    |NULL      |40        |YES
