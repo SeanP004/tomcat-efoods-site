@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 /**
  * Servlet implementation class Main
  */
-@WebServlet("/")
+@WebServlet("/*")
 public class Main extends HttpServlet {
 
     /**
@@ -19,25 +19,50 @@ public class Main extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-	}
+    /**
+     * @see Servlet#init(ServletConfig)
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        // TODO Auto-generated method stub
+    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("GET", req, res);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("POST", req, res);
+    }
+
+    // Private
+    
+    /**
+     * Handles HTTP request from various methods, both: GET and POST.
+     * And responses as appropriate.
+     * 
+     * @param method    HTTP method: GET or POST
+     * @param req       the HTTP request object
+     * @param res       the HTTP response object
+     * 
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void doRequest(String method, HttpServletRequest req,
+            HttpServletResponse res) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+    }
 
 } // Main Servlet
