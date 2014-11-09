@@ -22,6 +22,9 @@ body {
 .navbar-nav > li > .dropdown-menu {
     margin-top: 0;
 }
+.cart .badge {
+    margin-left: 5px;
+}
 .jumbotron {
     position: relative;
     background-image: url('http://lorempixel.com/800/600/food/');
