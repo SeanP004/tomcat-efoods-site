@@ -4,13 +4,13 @@ import java.sql.*;
 import java.util.*;
 import javax.naming.*;
 
-public class FoodSystem {
+public class FoodSys {
 
     private final DAO dao;
     private final String errDBCP = "Could not init database connection pools.";
     private final String errSQL  = "Could not execute database query.";
 
-    public FoodSystem() {
+    public FoodSys() {
         try {
             dao = new DAOImpl();
         } catch (NamingException e) {

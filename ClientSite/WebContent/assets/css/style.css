@@ -1,0 +1,36 @@
+
+body {
+    padding-top: 70px;
+}
+form[role=search] .input-group .input-group-btn .btn {
+    height: 34px;
+}
+.dropdown-toggle:hover + .dropdown-menu, .dropdown-menu:hover,
+.dropdown-toggle:focus + .dropdown-menu, .dropdown-menu:focus {
+    display: block;
+}
+.jumbotron {
+    position: relative;
+    background-image: url('http://lorempixel.com/800/600/food/');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: white;
+    overflow: hidden;
+}
+.jumbotron-screen {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+            filter: blur(5px);
+    -webkit-filter: blur(5px); /* Webkit */
+         -o-filter: blur(5px); /* Opera */
+}
+.jumbotron-content {
+    position: relative;
+    z-index: 1;
+}
