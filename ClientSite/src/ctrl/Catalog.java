@@ -55,29 +55,20 @@ public class Catalog extends HttpServlet {
         String          jspx = "/WEB-INF/views/Catalog.jspx";
         ServletContext  sc   = getServletContext();
         FoodSystem      fs  = (FoodSystem)(sc.getAttribute("model"));
-        HttpSession     sess = req.getSession();
-        String          name = getParameter("name", sess, req);
-        String          gpa  = getParameter("gpa" , sess, req);
-        
-        if ("POST".equals(method) && req.getParameter("category") != null)
-        {
-        	req.setAttribute("response", true);
-        	try {
-                req.setAttribute("category", fs.getCategories());
-            } catch (Exception e) {
-                req.setAttribute("error", e.getMessage());
-                e.printStackTrace();
-            }
+        //HttpSession   sess = req.getSession();
+
+    	try {
+            req.setAttribute("categories", fs.getCategories());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else if ("POST".equals(method) && req.getParameter("item") != null) {
-            req.setAttribute("response", true);
-            try {
-                req.setAttribute("item", fs.getItems());
-            } catch (Exception e) {
-                req.setAttribute("error", e.getMessage());
-                e.printStackTrace();
-            }
+
+        try {
+            req.setAttribute("items", fs.getItems());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         req.getRequestDispatcher(jspx).forward(req, res);
     } // doRequest
 

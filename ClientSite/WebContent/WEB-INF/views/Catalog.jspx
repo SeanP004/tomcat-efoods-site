@@ -13,123 +13,96 @@
             <meta charset="UTF-8" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>sisRE1 Form</title>
-            <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/style.css" />
+            <title>Foods R Us!</title>
+            <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+            <style type="text/css">
+                .dropdown-toggle:hover + .dropdown-menu, .dropdown-menu:hover,
+                .dropdown-toggle:focus + .dropdown-menu, .dropdown-menu:focus {
+                    display: block;
+                }
+                .nav.navbar-nav li:hover,
+                .nav.navbar-nav li:focus {
+                    background-color: #e7e7e7;
+                }
+            </style>
         </head>
         <body>
+
+            <header>
+                <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                    <div class="container">
+
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">Foods R Us!</a>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#">Popular</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <c:forEach var="category" items="${categories}">
+                                            <li>
+                                                <a href="#" data-id="${category.ID}">
+                                                    <span>${category.name}</span>
+                                                    <span>${category.description}</span>
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group"><input type="text" class="form-control" placeholder="Search"/></div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#">Cart <span class="badge">42</span></a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">User <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Account</a></li>
+                                        <li><a href="#">Profile</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Sign out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </header>
+
             <div class="container">
 
-                <form role="form" action="" method="POST" class="panel panel-primary form-horizontal">
-                    <legend class="panel-heading">Student Information System Reporting Engine</legend>
-                    <fieldset class="panel-body">
-                        <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">Name Prefix:</label>
-                            <div class="col-sm-10">
-                                <input name="name" type="text" class="form-control outline" value="${name}" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="gpa" class="col-sm-2 control-label">Minimum GPA:</label>
-                            <div class="col-sm-10">
-                                <input name="gpa" type="text" class="form-control outline" value="${gpa}" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="sort" class="col-sm-2 control-label">Sort By:</label>
-                            <div class="col-sm-10">
-                                <select name="sort" class="form-control outline">
-                                    <c:forEach var="orderBy" items="${sorts}">
-                                        <c:choose>
-                                            <c:when test="${orderBy.key eq sort}">
-                                                <option value="${orderBy.key}" selected="selected">${orderBy.value}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${orderBy.key}">${orderBy.value}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-10 col-sm-offset-2 btn-set">
-                                <input type="submit" class="btn btn-primary" name="category" value="Category" />
-                                <input type="submit" class="btn btn-primary" name="item" value="Item" />
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
+                <div class="jumbotron">
+                    <h1>Foods R Us!</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                </div>
 
-                <c:if test="${response}">
-                    <c:choose>
-                        <c:when test="${not empty error}">
-                            <div class="alert alert-danger" role="alert">${error}</div>
-                        </c:when>
-                        <c:when test="${not empty category}">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="category" items="${category}">
-                                        <tr>
-                                            <td>${category.ID}</td>
-                                            <td>${category.name}</td>
-                                            <td>${category.description}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                            <c:if test="${empty category}">
-                                <p class="no-result">category No results found.</p>
-                            </c:if>
-                        </c:when>
-                        <c:when test="${not empty item}">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Number</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Qty</th>
-                                        <th>On Order</th>
-                                        <th>Re Order</th>
-                                        <th>Cat ID</th>
-                                        <th>Sup ID</th>
-                                        <th>Cost Price</th>
-                                        <th>Unit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="item" items="${item}">
-                                        <tr>
-                                            <td>${item.number}</td>
-                                            <td>${item.name}</td>
-                                            <td>${item.price}</td>
-                                            <td>${item.qty}</td>
-                                            <td>${item.onOrder}</td>
-                                            <td>${item.reOrder}</td>
-                                            <td>${item.catId}</td>
-                                            <td>${item.supId}</td>
-                                            <td>${item.costPrice}</td>
-                                            <td>${item.unit}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                            <c:if test="${empty item}">
-                                <p class="no-result">item No results found.</p>
-                            </c:if>
-                        </c:when>
-                    </c:choose>
-                </c:if>
+                <c:set var="i" value="0" />
+                <c:forEach var="item" items="${items}">
+                    <c:if test="${i mod 4 eq 0}"><![CDATA[<div class='row'>]]></c:if>
+                    <div class="col-sm-6 col-md-3">
+                            <h3>${item.number}: ${item.name}</h3>
+                            <p>${item.price}</p>
+                    </div>
+                    <c:set var="i" value="${i + 1}" />
+                    <c:if test="${i mod 4 eq 0}"><![CDATA[</div>]]></c:if>
+                </c:forEach>
 
             </div>
+
         </body>
     </html>
 </jsp:root>
