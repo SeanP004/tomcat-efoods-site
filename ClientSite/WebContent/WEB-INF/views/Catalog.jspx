@@ -16,6 +16,9 @@
             <title>Foods R Us!</title>
             <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
             <style type="text/css">
+                body {
+                    padding-top: 70px;
+                }
                 .dropdown-toggle:hover + .dropdown-menu, .dropdown-menu:hover,
                 .dropdown-toggle:focus + .dropdown-menu, .dropdown-menu:focus {
                     display: block;
@@ -31,53 +34,38 @@
             <header>
                 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div class="container">
-
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
+                        <div class="navbar-header">                        
                             <a class="navbar-brand" href="#">Foods R Us!</a>
                         </div>
-
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#">Popular</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <c:forEach var="category" items="${categories}">
-                                            <li>
-                                                <a href="#" data-id="${category.ID}">
-                                                    <span>${category.name}</span>
-                                                    <span>${category.description}</span>
-                                                </a>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <form class="navbar-form navbar-left" role="search">
-                                <div class="form-group"><input type="text" class="form-control" placeholder="Search"/></div>
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </form>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Cart <span class="badge">42</span></a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">User <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Account</a></li>
-                                        <li><a href="#">Profile</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Sign out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">Popular</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <c:forEach var="category" items="${categories}">
+                                        <li>
+                                            <a href="#" data-id="${category.ID}">
+                                                <strong>${category.name}</strong>
+                                                <br/><span class="small">${category.description}</span>
+                                            </a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">Cart <span class="badge">42</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">User <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Account</a></li>
+                                    <li><a href="#">Profile</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Sign out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
             </header>
@@ -90,12 +78,35 @@
                     <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
                 </div>
 
+                <form role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"><!--  --></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
                 <c:set var="i" value="0" />
                 <c:forEach var="item" items="${items}">
                     <c:if test="${i mod 4 eq 0}"><![CDATA[<div class='row'>]]></c:if>
                     <div class="col-sm-6 col-md-3">
-                            <h3>${item.number}: ${item.name}</h3>
-                            <p>${item.price}</p>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p class="small">${item.number}</p>
+                                <h3>${item.name}</h3>
+                                <p>$<f:formatNumber
+                                        groupingUsed="true"
+                                        maxFractionDigits="2"
+                                        minFractionDigits="2"
+                                        minIntegerDigits="1"
+                                    >${item.price}</f:formatNumber></p>
+                            </div>
+                        </div>
                     </div>
                     <c:set var="i" value="${i + 1}" />
                     <c:if test="${i mod 4 eq 0}"><![CDATA[</div>]]></c:if>
