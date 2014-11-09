@@ -31,12 +31,8 @@ public class ServletUtil {
     public static String getParameter(String param, ServletContext ctx,
             HttpSession sess, ServletRequest req) {
         String value = req.getParameter(param);
-        if (value == null) {
-            value = (String) sess.getAttribute(param);
-        }
-        if (value == null) {
-            value = ctx.getInitParameter(param);
-        }
+        if (value == null) {value = (String)sess.getAttribute(param);}
+        if (value == null) {value = ctx.getInitParameter(param);}
         req.setAttribute(param, value);
         sess.setAttribute(param, value);
         return value;

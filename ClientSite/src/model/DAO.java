@@ -1,68 +1,24 @@
-package model;
-
-import java.sql.*;
 import java.util.*;
-import javax.naming.*;
-import javax.sql.*;
 
-public class DAO {
+public interface DAO {
+    List<ItemBean>     getItems(GetItemOption options);
+    List<CategoryBean> getCategories(GetCategoryOption options);
+    ItemBean           getItemById(String id);
+}
 
-    private final DataSource ds;
+class GetItemOption {
+    String  orderBy    = "name";  // Ordered by the item name
+    int     offset     = -1;      // No offset set
+    int     fetch      = -1;      // Unlimited page size
+    String  category   = null;    // No category filter
+    String  searchTerm = null;    // No search filter
+    double  minPrice   = -1;      // No minimum price filter
+    double  maxPrice   = -1;      // No maximum price filter
+}
 
-    private final String SQL_GET_CATEGORY = "SELECT * FROM CATEGORY";
-    private final String SQL_GET_ITEM = "SELECT * FROM ITEM";
-    //private final String SQL_ORDERED  = "ORDER BY S.$field";
-
-    public DAO() throws NamingException {
-        ds = (DataSource)(new InitialContext()).lookup("java:/comp/env/jdbc/EECS");
-    }
-
-    public List<CategoryBean> retrieveCategory() throws SQLException {
-        String sqlStmt = SQL_GET_CATEGORY;
-
-        Connection con = ds.getConnection();
-            con.createStatement().executeUpdate("set schema roumani");
-            PreparedStatement ps = con.prepareStatement(sqlStmt);
-            List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
-            ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    CategoryBean item = new CategoryBean();
-                        item.setID(rs.getInt("ID"));
-                        item.setName(rs.getString("name"));
-                        item.setDescription(rs.getString("description"));
-                        //item.setPicture(rs.getString("picture"));
-                    categoryList.add(item);
-                }
-            rs.close();
-        con.close();
-        return categoryList;
-    }
-
-    
-    public List<ItemBean> retrieveItem() throws SQLException {
-        String sqlStmt = SQL_GET_ITEM;
-
-        Connection con = ds.getConnection();
-            con.createStatement().executeUpdate("set schema roumani");
-            PreparedStatement ps = con.prepareStatement(sqlStmt);
-            List<ItemBean> itemList = new ArrayList<ItemBean>();
-            ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    ItemBean item = new ItemBean();
-                        item.setNumber(rs.getString("number"));
-                        item.setName(rs.getString("name"));
-                        item.setPrice(rs.getDouble("price"));
-                        item.setQty(rs.getInt("qty"));
-                        item.setOnOrder(rs.getInt("onorder"));
-                        item.setReOrder(rs.getInt("reorder"));
-                        item.setCatId(rs.getInt("catid"));
-                        item.setSupId(rs.getInt("supid"));
-                        item.setCostPrice(rs.getDouble("costprice"));
-                        item.setUnit(rs.getString("unit"));
-                    itemList.add(item);
-                }
-            rs.close();
-        con.close();
-        return itemList;
-    }
+class GetCategoryOption {
+    String  orderBy    = "name";  // Ordered by the category name
+    int     offset     = -1;      // No offset set
+    int     fetch      = -1;      // Unlimited page size
+    String  searchTerm = null;    // No search filter
 }

@@ -6,13 +6,13 @@ import javax.naming.*;
 
 public class FoodSystem {
 
-    private final DAO dao;
+    private final DAO2 dao;
     private final String errDBCP = "Could not init database connection pools.";
     private final String errSQL  = "Could not execute database query.";
 
     public FoodSystem() {
         try {
-            dao = new DAO();
+            dao = new DAO2();
         } catch (NamingException e) {
             throw new RuntimeException(errDBCP);
         }

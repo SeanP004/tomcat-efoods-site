@@ -3,8 +3,8 @@ jdbc:derby://roumani.eecs.yorku.ca:64413/CSE
 connect 'jdbc:derby://roumani.eecs.yorku.ca:64413/CSE;user=student;password=secret;';
 
 
-ij> describe CATEGORY
-> ;
+ij> describe CATEGORY;
+
 COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
 ------------------------------------------------------------------------------
 ID                  |INTEGER  |0   |10  |10    |AUTOINCRE&|NULL      |NO
