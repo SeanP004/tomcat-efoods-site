@@ -2,12 +2,25 @@
 body {
     padding-top: 70px;
 }
-form[role=search] .input-group .input-group-btn .btn {
+/*form[role=search] .input-group .input-group-btn .btn {
     height: 34px;
-}
+}*/
 .dropdown-toggle:hover + .dropdown-menu, .dropdown-menu:hover,
 .dropdown-toggle:focus + .dropdown-menu, .dropdown-menu:focus {
     display: block;
+}
+.navbar-default .navbar-form .form-control:focus + .input-group-btn .btn.btn-primary,
+.navbar-default .navbar-form .select2-search input[type="text"]:focus + .input-group-btn .btn.btn-primary {
+    border-color: #1abc9c;
+}
+.form-group.focus .form-control + .input-group-btn .btn.btn-primary,
+.form-control:focus + .input-group-btn .btn.btn-primary,
+.form-group.focus .select2-search input[type="text"] + .input-group-btn .btn.btn-primary,
+.select2-search input[type="text"]:focus + .input-group-btn .btn.btn-primary {
+    border-color: #1abc9c;
+}
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 0;
 }
 .jumbotron {
     position: relative;
