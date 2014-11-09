@@ -1,9 +1,11 @@
+package model;
+
 import java.util.*;
 
 public interface DAO {
-    List<ItemBean>     getItems(GetItemOption options);
-    List<CategoryBean> getCategories(GetCategoryOption options);
-    ItemBean           getItemById(String id);
+    List<ItemBean>     getItems(GetItemOption options) throws Exception;
+    List<CategoryBean> getCategories(GetCategoryOption options) throws Exception;
+    ItemBean           getItemById(String id) throws Exception;
 }
 
 class GetItemOption {

@@ -10,10 +10,10 @@ import model.*;
 /**
  * Servlet implementation class Start
  */
-@WebServlet("/Start")
-public class Start extends HttpServlet {
+@WebServlet("/")
+public class Catalog extends HttpServlet {
 
-    public Start() {}
+    public Catalog() {}
 
     @Override
     public void init() throws ServletException {
@@ -52,7 +52,7 @@ public class Start extends HttpServlet {
     private void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException
     {
-        String          jspx = "/Form.jspx";
+        String          jspx = "/WEB-INF/views/Catalog.jspx";
         ServletContext  sc   = getServletContext();
         FoodSystem      fs  = (FoodSystem)(sc.getAttribute("model"));
         HttpSession     sess = req.getSession();
@@ -63,19 +63,19 @@ public class Start extends HttpServlet {
         {
         	req.setAttribute("response", true);
         	try {
-                req.setAttribute("category", fs.retrieveCategory());
+                req.setAttribute("category", fs.getCategories());
             } catch (Exception e) {
                 req.setAttribute("error", e.getMessage());
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
         else if ("POST".equals(method) && req.getParameter("item") != null) {
             req.setAttribute("response", true);
             try {
-                req.setAttribute("item", fs.retrieveItem());
+                req.setAttribute("item", fs.getItems());
             } catch (Exception e) {
                 req.setAttribute("error", e.getMessage());
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
         req.getRequestDispatcher(jspx).forward(req, res);

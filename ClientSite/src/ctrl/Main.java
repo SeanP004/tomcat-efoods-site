@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 /**
  * Servlet implementation class Main
  */
-@WebServlet("/*")
+//@WebServlet("/*")
 public class Main extends HttpServlet {
 
     /**

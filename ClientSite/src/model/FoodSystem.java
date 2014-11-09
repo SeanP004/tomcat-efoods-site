@@ -6,31 +6,31 @@ import javax.naming.*;
 
 public class FoodSystem {
 
-    private final DAO2 dao;
+    private final DAO dao;
     private final String errDBCP = "Could not init database connection pools.";
     private final String errSQL  = "Could not execute database query.";
 
     public FoodSystem() {
         try {
-            dao = new DAO2();
+            dao = new DAOImpl();
         } catch (NamingException e) {
             throw new RuntimeException(errDBCP);
         }
     }
 
-    public List<CategoryBean> retrieveCategory() throws Exception {
+    public List<CategoryBean> getCategories() throws Exception {
         try {
-            return dao.retrieveCategory();
+            return dao.getCategories(new GetCategoryOption());
         } catch (SQLException e) {
             Exception ex = new RuntimeException(errSQL);
             ex.setStackTrace(e.getStackTrace());
             throw ex;
         } 
     }
-    
-    public List<ItemBean> retrieveItem() throws Exception {
+
+    public List<ItemBean> getItems() throws Exception {
         try {
-            return dao.retrieveItem();
+            return dao.getItems(new GetItemOption());
         } catch (SQLException e) {
             Exception ex = new RuntimeException(errSQL);
             ex.setStackTrace(e.getStackTrace());

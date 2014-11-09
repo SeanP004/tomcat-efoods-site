@@ -112,11 +112,11 @@
                                             <td>${item.name}</td>
                                             <td>${item.price}</td>
                                             <td>${item.qty}</td>
-                                            <td>${item.onorder}</td>
-                                            <td>${item.reorder}</td>
-                                            <td>${item.catid}</td>
-                                            <td>${item.supid}</td>
-                                            <td>${item.costprice}</td>
+                                            <td>${item.onOrder}</td>
+                                            <td>${item.reOrder}</td>
+                                            <td>${item.catId}</td>
+                                            <td>${item.supId}</td>
+                                            <td>${item.costPrice}</td>
                                             <td>${item.unit}</td>
                                         </tr>
                                     </c:forEach>

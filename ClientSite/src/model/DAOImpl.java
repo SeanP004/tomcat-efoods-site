@@ -2,10 +2,11 @@ package model;
 
 import java.sql.*;
 import java.util.*;
+
 import javax.naming.*;
 import javax.sql.*;
 
-public class DAO2 {
+public class DAOImpl implements DAO {
 
     private final DataSource ds;
 
@@ -13,11 +14,12 @@ public class DAO2 {
     private final String SQL_GET_ITEM = "SELECT * FROM ITEM";
     //private final String SQL_ORDERED  = "ORDER BY S.$field";
 
-    public DAO2() throws NamingException {
+    public DAOImpl() throws NamingException {
         ds = (DataSource)(new InitialContext()).lookup("java:/comp/env/jdbc/EECS");
     }
 
-    public List<CategoryBean> retrieveCategory() throws SQLException {
+    @Override
+    public List<CategoryBean> getCategories(GetCategoryOption opts) throws SQLException {
         String sqlStmt = SQL_GET_CATEGORY;
 
         Connection con = ds.getConnection();
@@ -38,8 +40,8 @@ public class DAO2 {
         return categoryList;
     }
 
-    
-    public List<ItemBean> retrieveItem() throws SQLException {
+    @Override
+    public List<ItemBean> getItems(GetItemOption opts) throws SQLException {
         String sqlStmt = SQL_GET_ITEM;
 
         Connection con = ds.getConnection();
@@ -64,5 +66,11 @@ public class DAO2 {
             rs.close();
         con.close();
         return itemList;
+    }
+
+    @Override
+    public ItemBean getItemById(String id) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
