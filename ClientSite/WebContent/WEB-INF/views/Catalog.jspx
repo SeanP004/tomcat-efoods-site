@@ -44,18 +44,18 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <form class="navbar-form navbar-left" role="search">
+                            <!--<form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search"/>
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" type="submit">
-                                                <i class="glyphicon glyphicon-search"><!-- --></i>
+                                                <i class="glyphicon glyphicon-search"></i>
                                             </button>
                                         </span>
                                     </div>
                                 </div>
-                            </form>
+                            </form>-->
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="#">Cart <span class="badge badge-primary">42</span></a></li>
                                 <li class="dropdown">
