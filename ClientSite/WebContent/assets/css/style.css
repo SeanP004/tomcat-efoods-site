@@ -19,12 +19,24 @@ body {
 .select2-search input[type="text"]:focus + .input-group-btn .btn.btn-primary {
     border-color: #1abc9c;
 }
+.navbar-nav > li .glyphicon {
+    margin-right: 5px;
+}
 .navbar-nav > li > .dropdown-menu {
     margin-top: 0;
 }
 .cart .badge {
     margin-left: 5px;
+    background-color: #34495e;
+    -webkit-transition: .25s;
+            transition: .25s;
+    vertical-align: text-top;
 }
+.navbar-default .navbar-nav > li > a:hover .badge,
+.navbar-default .navbar-nav > li > a:focus .badge {
+    background-color: #1abc9c;
+}
+
 .jumbotron {
     position: relative;
     background-image: url('http://lorempixel.com/800/600/food/');
