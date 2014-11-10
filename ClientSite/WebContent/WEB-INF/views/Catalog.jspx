@@ -117,7 +117,7 @@
                                         maxFractionDigits="2"
                                         minFractionDigits="2"
                                         minIntegerDigits="1"
-                                    >${item.price}</f:formatNumber></p>
+                                    >${item.price}</f:formatNumber> ${item.unit}</p>
                             </div>
                         </div>
                     </div>
