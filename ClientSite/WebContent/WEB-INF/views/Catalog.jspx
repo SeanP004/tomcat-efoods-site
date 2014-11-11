@@ -71,7 +71,7 @@
                         <form role="search">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search"/>
+                                    <input name="searchTerm" type="text" class="form-control" placeholder="Search" value="${searchTerm}" />
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="submit">
                                             <i class="glyphicon glyphicon-search"><!--  --></i>
@@ -83,18 +83,6 @@
                     </div>
                 </div>
 
-                <form role="search">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input name="query" type="text" class="form-control" placeholder="Search" value="${query}" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="glyphicon glyphicon-search"><!--  --></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
             </header>
 
             <div class="container">

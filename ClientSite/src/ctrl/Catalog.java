@@ -57,7 +57,7 @@ public class Catalog extends HttpServlet {
         FoodSys         fs   = (FoodSys)(sc.getAttribute("model"));
         
         HttpSession   sess = req.getSession();
-        String query = getParameter("query", sess, req);
+        String searchTerm = getParameter("searchTerm", sess, req);
 
     	try {
             req.setAttribute("categories", fs.getCategories());
@@ -66,8 +66,8 @@ public class Catalog extends HttpServlet {
         }
 
         try {
-        	if (req.getParameter("query") != null) {
-        		req.setAttribute("items", fs.getItems(query));
+        	if (req.getParameter("searchTerm") != null) {
+        		req.setAttribute("items", fs.getItems(searchTerm));
         	}
         	else {
         		req.setAttribute("items", fs.getItems());

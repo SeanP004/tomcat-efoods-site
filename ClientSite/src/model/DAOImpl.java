@@ -9,25 +9,14 @@ import javax.sql.*;
 public class DAOImpl implements DAO {
 
     private final DataSource ds;
-    
-    /**
-     * *** example idea
-     * 
-     SELECT first_name, last_name
-	  FROM employees
-	  WHERE (     employee_id = ? OR ? IS NULL)
-	   AND (   subsidiary_id = ? OR ? IS NULL)
-	   AND (UPPER(last_name) = ? OR ? IS NULL) 
-     */
-    
 
     private final String SQL_GET_CATEGORY = "SELECT * FROM CATEGORY";
     private final String SQL_GET_ITEM = "SELECT * FROM ITEM I"
     				  		+ " WHERE (I.name LIKE ? OR I.number LIKE ? OR ? IS NULL)"
     				  		+ " AND (I.price >= ? OR ? = -1)"
     				  		+ " AND (I.price <= ? OR ? = -1)"
-    				  		+ " AND (I.catid IN (SELECT ID FROM CATEGORY C WHERE C.name LIKE ?) OR ? IS NULL)"; 
-    //private final String SQL_ORDERED  = "ORDER BY S.$field";
+    				  		+ " AND (I.catid IN (SELECT ID FROM CATEGORY C WHERE C.name LIKE ?) OR ? IS NULL)";
+    private final String SQL_ORDERED  = "ORDER BY I.$field";
 
     public DAOImpl() throws NamingException {
         ds = (DataSource)(new InitialContext()).lookup("java:/comp/env/jdbc/EECS");
@@ -60,21 +49,16 @@ public class DAOImpl implements DAO {
         String sqlStmt = SQL_GET_ITEM;
         Connection con = ds.getConnection();
         
+        if (opts.orderBy != null) {
+            sqlStmt += " " + SQL_ORDERED.replace("$field", opts.orderBy);
+        }
+        
         System.out.println(opts.searchTerm);
         System.out.println(opts.category);
         System.out.println(opts.minPrice);
         System.out.println(opts.maxPrice);
         
             con.createStatement().executeUpdate("set schema roumani");
-            
-            /**
-    private final String SQL_GET_ITEM = "SELECT * FROM ITEM I"
-    				  		+ "WHERE (I.name LIKE ? OR I.number LIKE ? OR ? IS NULL)"
-    				  		+ "AND (I.price >= ? OR ? = -1)"
-    				  		+ "AND (I.price <= ? OR ? = -1)"
-    				  		+ "AND (I.catid IN (SELECT ID FROM CATEGORY C WHERE C.name LIKE ?) OR ? IS NULL)"; 
-             * **/
-            
             PreparedStatement ps = con.prepareStatement(sqlStmt);
             	//searchTerm
             	ps.setString(1, "%" + opts.searchTerm + "%");
