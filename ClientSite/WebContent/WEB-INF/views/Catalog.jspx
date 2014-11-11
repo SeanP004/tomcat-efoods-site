@@ -83,7 +83,6 @@
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <form role="search">
                     <div class="form-group">
                         <div class="input-group">
@@ -96,11 +95,9 @@
                         </div>
                     </div>
                 </form>
-=======
             </header>
 
             <div class="container">
->>>>>>> 739051f0ed167ebd0b362fd7eb83c642ef9b54f1
 
                 <c:set var="i" value="0" />
                 <c:forEach var="item" items="${items}">
