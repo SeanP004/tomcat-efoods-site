@@ -79,6 +79,9 @@
                                     </span>
                                 </div>
                             </div>
+                        <c:forEach var="category" items="${categories}">
+                            <input data-id="${category.ID}" type="submit" class="btn btn-primary" name="category" value="${category.name}" />
+                        </c:forEach>
                         </form>
                     </div>
                 </div>
