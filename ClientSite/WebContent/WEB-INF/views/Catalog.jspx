@@ -14,14 +14,13 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <title>Foods R Us!</title>
-            <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/flat-ui.css" />
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css" />
         </head>
         <body>
 
             <header>
-                <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+                <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                     <div class="container">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">Foods R Us!</a>
@@ -44,18 +43,6 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <!--<form class="navbar-form navbar-left" role="search">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search"/>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="submit">
-                                                <i class="glyphicon glyphicon-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>-->
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="cart"><a href="#">
                                     <i class="glyphicon glyphicon-shopping-cart"><!--  --></i>
@@ -76,21 +63,27 @@
                         </div>
                     </div>
                 </nav>
-            </header>
-
-            <div class="container">
 
                 <div class="jumbotron clearfix">
                     <div class="jumbotron-screen"><!--  --></div>
-                    <div class="jumbotron-content">
-                        <h1>Foods R Us!</h1>
-                        <h2>Delicious. Fresh.
-                            <br/>Gourmet Food Eveywhere.
-                        </h2>
-                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                    <div class="jumbotron-content container">
+                        <h1>Delicious. Fresh. Gourmet Food Eveywhere.</h1>
+                        <form role="search">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="glyphicon glyphicon-search"><!--  --></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <form role="search">
                     <div class="form-group">
                         <div class="input-group">
@@ -103,24 +96,29 @@
                         </div>
                     </div>
                 </form>
+=======
+            </header>
+
+            <div class="container">
+>>>>>>> 739051f0ed167ebd0b362fd7eb83c642ef9b54f1
 
                 <c:set var="i" value="0" />
                 <c:forEach var="item" items="${items}">
                     <c:if test="${i mod 4 eq 0}"><![CDATA[<div class='row'>]]></c:if>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <p class="small">${item.number}</p>
-                                <h3>${item.name}</h3>
-                                <p>$<f:formatNumber
-                                        groupingUsed="true"
-                                        maxFractionDigits="2"
-                                        minFractionDigits="2"
-                                        minIntegerDigits="1"
-                                    >${item.price}</f:formatNumber> ${item.unit}</p>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <p class="small">${item.number}</p>
+                                    <h3>${item.name}</h3>
+                                    <p>$<f:formatNumber
+                                            groupingUsed="true"
+                                            maxFractionDigits="2"
+                                            minFractionDigits="2"
+                                            minIntegerDigits="1"
+                                        >${item.price}</f:formatNumber> ${item.unit}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <c:set var="i" value="${i + 1}" />
                     <c:if test="${i mod 4 eq 0}"><![CDATA[</div>]]></c:if>
                 </c:forEach>
