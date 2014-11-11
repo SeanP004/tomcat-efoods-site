@@ -37,5 +37,17 @@ public class FoodSys {
             throw ex;
         } 
     }
+    
+    public List<ItemBean> getItems(String queryString) throws Exception {
+        try {
+        	GetItemOption query = new GetItemOption();
+        	query.searchTerm = queryString;
+            return dao.getItems(query);
+        } catch (SQLException e) {
+            Exception ex = new RuntimeException(errSQL);
+            ex.setStackTrace(e.getStackTrace());
+            throw ex;
+        } 
+    }
 
 } // SIS

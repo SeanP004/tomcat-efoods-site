@@ -1,6 +1,7 @@
 package ctrl;
 
 import java.io.*;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -36,14 +37,27 @@ public class Catalog extends HttpServlet {
     {
         doRequest("POST", req, res);
     } // doPost
+    
+    private String getParameter(String param, HttpSession sess, HttpServletRequest req) {
+        String value = req.getParameter(param);
+
+        if (value == null) {value = (String)sess.getAttribute(param);}
+        if (value == null) {value = getServletContext().getInitParameter(param);}
+
+        req.setAttribute(param, value);
+        sess.setAttribute(param, value);
+        return value;
+    }
 
     private void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException
     {
         String          jspx = "/WEB-INF/views/Catalog.jspx";
         ServletContext  sc   = getServletContext();
-        FoodSys      fs  = (FoodSys)(sc.getAttribute("model"));
-        //HttpSession   sess = req.getSession();
+        FoodSys         fs   = (FoodSys)(sc.getAttribute("model"));
+        
+        HttpSession   sess = req.getSession();
+        String query = getParameter("query", sess, req);
 
     	try {
             req.setAttribute("categories", fs.getCategories());
@@ -52,7 +66,12 @@ public class Catalog extends HttpServlet {
         }
 
         try {
-            req.setAttribute("items", fs.getItems());
+        	if (req.getParameter("query") != null) {
+        		req.setAttribute("items", fs.getItems(query));
+        	}
+        	else {
+        		req.setAttribute("items", fs.getItems());
+        	}
         } catch (Exception e) {
             e.printStackTrace();
         }

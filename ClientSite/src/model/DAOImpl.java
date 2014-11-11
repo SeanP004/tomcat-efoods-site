@@ -9,9 +9,24 @@ import javax.sql.*;
 public class DAOImpl implements DAO {
 
     private final DataSource ds;
+    
+    /**
+     * *** example idea
+     * 
+     SELECT first_name, last_name
+	  FROM employees
+	  WHERE (     employee_id = ? OR ? IS NULL)
+	   AND (   subsidiary_id = ? OR ? IS NULL)
+	   AND (UPPER(last_name) = ? OR ? IS NULL) 
+     */
+    
 
     private final String SQL_GET_CATEGORY = "SELECT * FROM CATEGORY";
-    private final String SQL_GET_ITEM = "SELECT * FROM ITEM";
+    private final String SQL_GET_ITEM = "SELECT * FROM ITEM I"
+    				  		+ " WHERE (I.name LIKE ? OR I.number LIKE ? OR ? IS NULL)"
+    				  		+ " AND (I.price >= ? OR ? = -1)"
+    				  		+ " AND (I.price <= ? OR ? = -1)"
+    				  		+ " AND (I.catid IN (SELECT ID FROM CATEGORY C WHERE C.name LIKE ?) OR ? IS NULL)"; 
     //private final String SQL_ORDERED  = "ORDER BY S.$field";
 
     public DAOImpl() throws NamingException {
@@ -43,10 +58,38 @@ public class DAOImpl implements DAO {
     @Override
     public List<ItemBean> getItems(GetItemOption opts) throws SQLException {
         String sqlStmt = SQL_GET_ITEM;
-
         Connection con = ds.getConnection();
+        
+        System.out.println(opts.searchTerm);
+        System.out.println(opts.category);
+        System.out.println(opts.minPrice);
+        System.out.println(opts.maxPrice);
+        
             con.createStatement().executeUpdate("set schema roumani");
+            
+            /**
+    private final String SQL_GET_ITEM = "SELECT * FROM ITEM I"
+    				  		+ "WHERE (I.name LIKE ? OR I.number LIKE ? OR ? IS NULL)"
+    				  		+ "AND (I.price >= ? OR ? = -1)"
+    				  		+ "AND (I.price <= ? OR ? = -1)"
+    				  		+ "AND (I.catid IN (SELECT ID FROM CATEGORY C WHERE C.name LIKE ?) OR ? IS NULL)"; 
+             * **/
+            
             PreparedStatement ps = con.prepareStatement(sqlStmt);
+            	//searchTerm
+            	ps.setString(1, "%" + opts.searchTerm + "%");
+            	ps.setString(2, "%" + opts.searchTerm + "%");
+            	ps.setString(3, opts.searchTerm);
+            	//minPrice
+            	ps.setDouble(4, opts.minPrice);
+            	ps.setDouble(5, opts.minPrice);
+            	//maxPrice
+            	ps.setDouble(6, opts.maxPrice);
+            	ps.setDouble(7, opts.maxPrice);
+            	//categroy
+            	ps.setString(8, "%" + opts.category + "%");
+            	ps.setString(9, opts.category);
+            	
             List<ItemBean> itemList = new ArrayList<ItemBean>();
             ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
