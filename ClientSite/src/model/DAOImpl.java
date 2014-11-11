@@ -53,11 +53,6 @@ public class DAOImpl implements DAO {
         if (opts.orderBy != null) {
             sqlStmt += " " + SQL_ORDERED.replace("$field", opts.orderBy);
         }
-        
-        System.out.println(opts.searchTerm);
-        System.out.println(opts.category);
-        System.out.println(opts.minPrice);
-        System.out.println(opts.maxPrice);
 
         //System.out.println(opts.searchTerm);
         //System.out.println(opts.category);
