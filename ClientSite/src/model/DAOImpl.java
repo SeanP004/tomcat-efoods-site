@@ -60,10 +60,10 @@ public class DAOImpl implements DAO {
         String sqlStmt = SQL_GET_ITEM;
         Connection con = ds.getConnection();
         
-        System.out.println(opts.searchTerm);
-        System.out.println(opts.category);
-        System.out.println(opts.minPrice);
-        System.out.println(opts.maxPrice);
+        //System.out.println(opts.searchTerm);
+        //System.out.println(opts.category);
+        //System.out.println(opts.minPrice);
+        //System.out.println(opts.maxPrice);
         
             con.createStatement().executeUpdate("set schema roumani");
             
