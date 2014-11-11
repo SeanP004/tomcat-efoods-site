@@ -1,0 +1,19 @@
+//
+// Base Styles
+//
+
+    ::selection {
+        background-color: lighten(@brand-primary, 30%);
+    }
+    ::-moz-selection {
+        background-color: lighten(@brand-primary, 30%);
+    }
+
+    // Search
+    button,
+    input[type="search"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"] {
+      -webkit-appearance: none !important; // removes rounded corners for searchfields on iOS
+    }
