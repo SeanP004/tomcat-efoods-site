@@ -19,7 +19,7 @@ class CatalogDBQuery {
       , CATALOG_GET_ITEMS              = "SELECT I.* FROM Item I"
       , CATALOG_ITEM_BY_NUMBER         = "I.number = ?"
       , CATALOG_CATEGORY_BY_ID         = "C.id = ?"
-      , CATALOG_FILTER_BY_SEARCH_ITEMS = "I.name LIKE ? OR I.number LIKE ?"
+      , CATALOG_FILTER_BY_SEARCH_ITEMS = "I.name LIKE ?"
       , CATALOG_FILTER_BY_MIN_PRICE    = "I.price >= ?"
       , CATALOG_FILTER_BY_MAX_PRICE    = "I.price <= ?"
       , CATALOG_FILTER_BY_CATEGORY     = "I.catid IN (SELECT C.id FROM Category C WHERE C.id = ?)"
@@ -114,7 +114,7 @@ class CatalogDBQuery {
             return ps;}
 
         if (filter.getSearchTerm() != null) {
-            ps.setString(i, filter.getSearchTerm());}
+            ps.setString(i, "%" + filter.getSearchTerm() + "%");}
         if (filter.getCategory() >= 0) {
             ps.setInt(i, filter.getCategory());}
         if (filter.getMinPrice() >= 0) {
