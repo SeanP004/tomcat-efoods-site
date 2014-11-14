@@ -1,11 +1,7 @@
 package model.catalog;
 
-import java.io.*;
-import java.sql.*;
 import java.util.*;
-
 import javax.naming.*;
-
 import model.database.*;
 import model.exception.*;
 
@@ -118,8 +114,8 @@ public class Catalog {
                 searchTerm, offset, fetch));
     }
 
-    public ItemCategory getItemCategory(String number) {
-        return dao.getCategory(Integer.parseInt(number));
+    public ItemCategory getItemCategory(String id) {
+        return dao.getCategory(Integer.parseInt(id));
     }
 
     public List<Item> getItems(String orderBy, String searchTerm,

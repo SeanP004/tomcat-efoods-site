@@ -1,7 +1,6 @@
 package tests;
 
 import java.io.*;
-import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -26,9 +25,30 @@ public class TestCatalogModel extends HttpServlet {
 
         switch (type) {
             case "itemlist":
+            	catalog.getItems(
+        			req.getParameter("orderBy"),
+        			req.getParameter("searchTerm"),
+        			req.getParameter("category"),
+        			req.getParameter("offset"),
+        			req.getParameter("fetch"),
+        			req.getParameter("minPrice"),
+        			req.getParameter("maxPrice"));
+                break;
             case "item":
+                catalog.getItem(
+                    req.getParameter("number"));
+                break;
             case "catlist":
+                catalog.getItemCategories(
+                	req.getParameter("orderBy"),
+            		req.getParameter("searchTerm"),
+            		req.getParameter("offset"),
+            		req.getParameter("fetch"));
+                break;
             case "category":
+                catalog.getItemCategory(
+                    req.getParameter("id"));
+                break;
         }
 
 
