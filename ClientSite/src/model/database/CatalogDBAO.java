@@ -159,8 +159,11 @@ public class CatalogDBAO implements CatalogDB {
     public List<Item> getItems(ItemFilter filter) throws DataAccessException {
         try {
             Connection conn = getConnection();
+            System.out.println("connection accecpte");
             ResultSet rs = CatalogDBQuery.getItems(filter, conn);
+            System.out.println("query gotten items");
             List<Item> items = makeItemList(rs);
+            System.out.println("items added to list");
             rs.close();
             conn.close();
             return items;

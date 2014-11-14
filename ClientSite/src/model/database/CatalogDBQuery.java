@@ -90,6 +90,8 @@ class CatalogDBQuery {
         if (filter.getFetch() >= 0) {
             query += CATALOG_PAGINATION_FETCH_LIMIT;}
 
+        System.out.println(query);
+        
         return query;
     }
 
