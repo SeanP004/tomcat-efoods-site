@@ -6,6 +6,6 @@
   </welcome-file-list>
   <error-page>
     <error-code>404</error-code>
-    <location>/WEB-INF/views/Error-404.jspx</location>
+    <location>/WEB-INF/pages/Error-404.jspx</location>
   </error-page>
 </web-app>

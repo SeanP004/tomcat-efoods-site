@@ -45,18 +45,18 @@ public class CatalogDBAO implements CatalogDB {
         Connection con = datasource.getConnection();
         con.createStatement().executeUpdate("set schema roumani");
         return con;
-    }  
+    }
 
     /**
-     * Closes and releases all database related resources, 
+     * Closes and releases all database related resources,
      * including releasing the connection back to the pool.
-     * 
+     *
      * @param rs	the result set
      * @param ps	the prepared statement
      * @param conn	the connection
      * @throws 		SQLException
      */
-    private void close(ResultSet rs, PreparedStatement ps, 
+    private void close(ResultSet rs, PreparedStatement ps,
     			Connection conn) throws SQLException {
     	rs.close();
     	ps.close();
@@ -150,7 +150,7 @@ public class CatalogDBAO implements CatalogDB {
      * @throws          DataAccessException
      */
     public List<ItemCategory> getCategories(ItemCategoryFilter filter)
-            throws DataAccessException {
+                throws DataAccessException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getCategories(filter, conn);
@@ -159,7 +159,7 @@ public class CatalogDBAO implements CatalogDB {
             close(rs, ps, conn);
             return categories;
         } catch (SQLException e) {
-            throw new DataAccessException();
+            throw new DataAccessException(e);
         }
     }
 
@@ -181,9 +181,7 @@ public class CatalogDBAO implements CatalogDB {
             close(rs, ps, conn);
             return items;
         } catch (SQLException e) {
-        	DataAccessException ex = new DataAccessException();
-        	ex.setStackTrace(e.getStackTrace());
-        	throw ex;
+        	throw new DataAccessException(e);
         }
     }
 
@@ -204,7 +202,7 @@ public class CatalogDBAO implements CatalogDB {
             close(rs, ps, conn);
             return category;
         } catch (SQLException e) {
-            throw new DataAccessException();
+            throw new DataAccessException(e);
         }
     }
 
@@ -225,7 +223,7 @@ public class CatalogDBAO implements CatalogDB {
             close(rs, ps, conn);
             return item;
         } catch (SQLException e) {
-            throw new DataAccessException();
+            throw new DataAccessException(e);
         }
     }
 

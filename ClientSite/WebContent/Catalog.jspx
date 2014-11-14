@@ -17,24 +17,13 @@
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css" />
         </head>
         <body>
-
             <header>
-
-              <jsp:include page="WEB-INF/includes/nav.jspx">
-    			</jsp:include>     
-                
-              <jsp:include page="WEB-INF/includes/jumbotron.jspx">
-                </jsp:include>
-                
+                <jsp:include page="WEB-INF/includes/SiteNav.jspx"></jsp:include>
+                <jsp:include page="WEB-INF/includes/WelcomeJumbotron.jspx"></jsp:include>
             </header>
-
             <div class="container">
-                
-                 <jsp:include page="WEB-INF/includes/container.jspx">
-                </jsp:include>
-              
+                <jsp:include page="WEB-INF/includes/MainItemList.jspx"></jsp:include>
             </div>
-
         </body>
     </html>
 </jsp:root>

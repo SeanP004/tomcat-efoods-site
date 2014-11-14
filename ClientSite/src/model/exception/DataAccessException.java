@@ -1,8 +1,8 @@
 package model.exception;
 
-public class DataAccessException extends Exception {
+public class DataAccessException extends AppException {
     public DataAccessException() {}
-    public DataAccessException(String msg) {
-        super(msg);
+    public DataAccessException(Exception e) {
+        super("Could not execute data access request.", e);
     }
 }
