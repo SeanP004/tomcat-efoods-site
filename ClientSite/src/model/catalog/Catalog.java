@@ -60,12 +60,18 @@ public class Catalog {
     }
 
     private ItemCategoryFilter parseItemCategoryFilter(String orderBy,
-    			String searchTerm, String offset, String fetch) throws Exception {
+    			String searchTerm, String offset, String fetch) {
     	ItemCategoryFilter filter = new ItemCategoryFilter();
-    	filter.setOrderBy(orderBy);
-    	filter.setSearchTerm(searchTerm);
-    	filter.setOffset(Integer.parseInt(offset));
-    	filter.setFetch(Integer.parseInt(fetch));
+
+    	if (orderBy != null) {
+    		filter.setOrderBy(orderBy);}
+    	if (searchTerm != null) {
+    		filter.setSearchTerm(searchTerm);}
+    	if (offset != null) {
+    		filter.setOffset(Integer.parseInt(offset));}
+    	if (fetch != null) {
+    		filter.setFetch(Integer.parseInt(fetch));}
+
     	return filter;
     }
 
@@ -85,7 +91,7 @@ public class Catalog {
      */
     private ItemFilter parseItemFilter(String orderBy, String searchTerm,
         		String category, String offset, String fetch,
-                String minPrice, String maxPrice) throws Exception {
+                String minPrice, String maxPrice) {
         ItemFilter filter = new ItemFilter();
 
         if (orderBy != null) {
@@ -107,23 +113,23 @@ public class Catalog {
     }
 
     public List<ItemCategory> getItemCategories(String orderBy,
-                String searchTerm, String offset, String fetch) throws Exception {
+                String searchTerm, String offset, String fetch) {
         return dao.getCategories(parseItemCategoryFilter(orderBy,
                 searchTerm, offset, fetch));
     }
 
-    public ItemCategory getItemCategory(String number) throws Exception {
+    public ItemCategory getItemCategory(String number) {
         return dao.getCategory(Integer.parseInt(number));
     }
 
     public List<Item> getItems(String orderBy, String searchTerm,
     		String category, String offset, String fetch, String minPrice,
-    		String maxPrice) throws Exception {
+    		String maxPrice) {
         return dao.getItems(parseItemFilter(orderBy, searchTerm,
                 category, offset, fetch, minPrice, maxPrice));
     }
 
-    public Item getItem(String number) throws Exception {
+    public Item getItem(String number) {
         return dao.getItem(number);
     }
 
