@@ -45,6 +45,22 @@ public class CatalogDBAO implements CatalogDB {
         Connection con = datasource.getConnection();
         con.createStatement().executeUpdate("set schema roumani");
         return con;
+    }  
+
+    /**
+     * Closes and releases all database related resources, 
+     * including releasing the connection back to the pool.
+     * 
+     * @param rs	the result set
+     * @param ps	the prepared statement
+     * @param conn	the connection
+     * @throws 		SQLException
+     */
+    private void close(ResultSet rs, PreparedStatement ps, 
+    			Connection conn) throws SQLException {
+    	rs.close();
+    	ps.close();
+    	conn.close();
     }
 
     /**
@@ -137,10 +153,10 @@ public class CatalogDBAO implements CatalogDB {
             throws DataAccessException {
         try {
             Connection conn = getConnection();
-            ResultSet rs = CatalogDBQuery.getCategories(filter, conn);
+            PreparedStatement ps = CatalogDBQuery.getCategories(filter, conn);
+            ResultSet rs = ps.executeQuery();
             List<ItemCategory> categories = makeItemCategoryList(rs);
-            rs.close();
-            conn.close();
+            close(rs, ps, conn);
             return categories;
         } catch (SQLException e) {
             throw new DataAccessException();
@@ -159,16 +175,15 @@ public class CatalogDBAO implements CatalogDB {
     public List<Item> getItems(ItemFilter filter) throws DataAccessException {
         try {
             Connection conn = getConnection();
-            System.out.println("connection accecpte");
-            ResultSet rs = CatalogDBQuery.getItems(filter, conn);
-            System.out.println("query gotten items");
+            PreparedStatement ps = CatalogDBQuery.getItems(filter, conn);
+            ResultSet rs = ps.executeQuery();
             List<Item> items = makeItemList(rs);
-            System.out.println("items added to list");
-            rs.close();
-            conn.close();
+            close(rs, ps, conn);
             return items;
         } catch (SQLException e) {
-            throw new DataAccessException();
+        	DataAccessException ex = new DataAccessException();
+        	ex.setStackTrace(e.getStackTrace());
+        	throw ex;
         }
     }
 
@@ -183,10 +198,10 @@ public class CatalogDBAO implements CatalogDB {
     public ItemCategory getCategory(int id) throws DataAccessException {
         try {
             Connection conn = getConnection();
-            ResultSet rs = CatalogDBQuery.getCategory(id, conn);
+            PreparedStatement ps = CatalogDBQuery.getCategory(id, conn);
+            ResultSet rs = ps.executeQuery();
             ItemCategory category = rs.next() ? makeItemCategory(rs) : null;
-            rs.close();
-            conn.close();
+            close(rs, ps, conn);
             return category;
         } catch (SQLException e) {
             throw new DataAccessException();
@@ -204,10 +219,10 @@ public class CatalogDBAO implements CatalogDB {
     public Item getItem(String number) throws DataAccessException {
         try {
             Connection conn = getConnection();
-            ResultSet rs = CatalogDBQuery.getItem(number, conn);
+            PreparedStatement ps = CatalogDBQuery.getItem(number, conn);
+            ResultSet rs = ps.executeQuery();
             Item item = rs.next() ? makeItem(rs) : null;
-            rs.close();
-            conn.close();
+            close(rs, ps, conn);
             return item;
         } catch (SQLException e) {
             throw new DataAccessException();

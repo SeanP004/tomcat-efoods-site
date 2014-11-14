@@ -116,18 +116,18 @@ class CatalogDBQuery {
             return ps;}
 
         if (filter.getSearchTerm() != null) {
-            ps.setString(i, "%" + filter.getSearchTerm() + "%");}
+            ps.setString(i++, "%" + filter.getSearchTerm() + "%");}
         if (filter.getCategory() >= 0) {
-            ps.setInt(i, filter.getCategory());}
+            ps.setInt(i++, filter.getCategory());}
         if (filter.getMinPrice() >= 0) {
-            ps.setDouble(i, filter.getMinPrice());}
+            ps.setDouble(i++, filter.getMinPrice());}
         if (filter.getMaxPrice() >= 0) {
-            ps.setDouble(i, filter.getMaxPrice());}
+            ps.setDouble(i++, filter.getMaxPrice());}
 
         if (filter.getOffset() >= 0) {
-            ps.setInt(i, filter.getOffset());}
+            ps.setInt(i++, filter.getOffset());}
         if (filter.getFetch() >= 0) {
-            ps.setInt(i, filter.getFetch());}
+            ps.setInt(i++, filter.getFetch());}
 
         return ps;
     }
@@ -135,92 +135,82 @@ class CatalogDBQuery {
     // Execute SQL
 
     /**
-     * Generates and executes a query for a list of
+     * Generates and prepares a query for a list of
      * Items from the Item relation in the Catalog
      * database, given a set of filtering rules.
-     * Returns the result set.
+     * Returns the prepared statement.
      *
      * @param  filter object defining rules to
      *                filtering and specifies
      *                the format of the result data.
      * @param  conn   the database connection
-     * @return        the result set
+     * @return        the Prepared Statement
      * @throws        SQLException
      */
-    public static ResultSet getItems(ItemFilter filter,
+    public static PreparedStatement getItems(ItemFilter filter,
                     Connection conn) throws SQLException {
         String sql = generateGetItemsQuery(filter);
         PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = prepareGetItemsQuery(filter, ps).executeQuery();
-        ps.close();
-        return rs;
+        return prepareGetItemsQuery(filter, ps);
     }
 
     /**
-     * Generates and executes a query for a list of
+     * Generates and prepares a query for a list of
      * Item Categories from the Category relation in
      * the Catalog database, given a set of filtering
-     * rules. Returns the result set.
+     * rules. Returns the prepared statement.
      *
      * @param  filter object defining rules to
      *                filtering and specifies
      *                the format of the result data.
      * @param  conn   the database connection
-     * @return        the result set
+     * @return        the Prepared Statement
      * @throws        SQLException
      */
-    public static ResultSet getCategories(ItemCategoryFilter filter,
+    public static PreparedStatement getCategories(ItemCategoryFilter filter,
                     Connection conn) throws SQLException {
         // Currently, this implementation ignores the filter argument.
         // This is a placeholder if the implementator choose to
         // later, implement filter for the categories.
         // But at the current time of writing, it is not
         // needed.
-        String sql = CATALOG_GET_CATEGORIES;
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        ps.close();
-        return rs;
+        return conn.prepareStatement(CATALOG_GET_CATEGORIES);
     }
 
     /**
-     * Generates and executes a query for retrieving a
+     * Generates and prepares a query for retrieving a
      * specific Category from the Category relation in
      * the Catalog database, given the category's unique
-     * identifier. Returns the result set.
+     * identifier. Returns the Prepare Statement.
      *
      * @param  id     the category's unique identifier
      * @param  conn   the database connection
-     * @return        the result set
+     * @return        the Prepared Statement
      * @throws        SQLException
      */
-    public static ResultSet getCategory(int id, Connection conn) throws SQLException {
+    public static PreparedStatement getCategory(int id, Connection conn) throws SQLException {
         String sql = CATALOG_GET_CATEGORIES + whereConj(false) + CATALOG_CATEGORY_BY_ID;
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        ps.close();
-        return rs;
+        return ps;
     }
 
     /**
-     * Generates and executes a query for retrieving a
+     * Generates and prepares a query for retrieving a
      * specific Item from the Item relation in
      * the Catalog database, given the item's unique
-     * identifier. Returns the result set.
+     * identifier. Returns the Prepared Statement.
      *
      * @param  number the item's unique identifier
      * @param  conn   the database connection
-     * @return        the result set
+     * @return        the Prepared Statement
      * @throws        SQLException
      */
-    public static ResultSet getItem(String number, Connection conn) throws SQLException {
+    public static PreparedStatement getItem(String number, Connection conn) throws SQLException {
         String sql = CATALOG_GET_ITEMS + whereConj(false) + CATALOG_ITEM_BY_NUMBER;
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, number);
-        ResultSet rs = ps.executeQuery();
-        ps.close();
-        return rs;
+        return ps;
     }
 
 } // CatalogDBQuery
