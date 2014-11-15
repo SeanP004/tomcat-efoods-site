@@ -1,7 +1,6 @@
 package model.database;
 
 import java.sql.*;
-import java.util.*;
 import model.catalog.*;
 
 /**
@@ -19,28 +18,16 @@ class CatalogDBQuery {
       , CATALOG_GET_ITEMS              = "SELECT I.* FROM Item I"
       , CATALOG_ITEM_BY_NUMBER         = "I.number = ?"
       , CATALOG_CATEGORY_BY_ID         = "C.id = ?"
-      , CATALOG_FILTER_BY_SEARCH_ITEMS = "I.name LIKE ?"
+      , CATALOG_FILTER_BY_SEARCH_ITEMS = "UPPER(I.name) LIKE UPPER(?)"
+      , CATALOG_FILTER_BY_SEARCH_CAT   = "UPPER(C.name) LIKE UPPER(?)"
       , CATALOG_FILTER_BY_MIN_PRICE    = "I.price >= ?"
       , CATALOG_FILTER_BY_MAX_PRICE    = "I.price <= ?"
       , CATALOG_FILTER_BY_CATEGORY     = "I.catid IN (SELECT C.id FROM Category C WHERE C.id = ?)"
-      , CATALOG_ORDER_BY               = "ORDER BY I.${orderBy}"
-      , CATALOG_PAGINATION_OFFSET      = "OFFSET ?"
-      , CATALOG_PAGINATION_FETCH_LIMIT = "FETCH FIRST ? ROWS ONLY";
-
-    private static final List<String> sorts;
-    static {
-        sorts = new ArrayList<String>();
-        sorts.add("number");
-        sorts.add("name");
-        sorts.add("price");
-        sorts.add("qty");
-        sorts.add("onorder");
-        sorts.add("reorder");
-        sorts.add("catid");
-        sorts.add("supid");
-        sorts.add("costprice");
-        sorts.add("unit");
-    }
+      , CATALOG_ITEM_ORDER_BY          = "ORDER BY I.${orderBy}"
+      , CATALOG_CAT_ORDER_BY           = "ORDER BY C.${orderBy}"
+      , CATALOG_PAGINATION_OFFSET      = "OFFSET ? ROWS"
+      , CATALOG_PAGINATION_FETCH_LIMIT = "FETCH FIRST ? ROWS ONLY"
+      ;
 
     /**
      * Returns the WHERE keyword if the WHERE clause
@@ -83,15 +70,13 @@ class CatalogDBQuery {
         if (filter.getMaxPrice() >= 0) {
             query += whereConj(w) + CATALOG_FILTER_BY_MAX_PRICE; w = true;}
 
-        if (sorts.contains(filter.getOrderBy())) {
-            query += CATALOG_ORDER_BY.replace("${orderBy}", filter.getOrderBy());}
+        if (filter.getOrderBy() != null) {
+            query += " " + CATALOG_ITEM_ORDER_BY.replace("${orderBy}", filter.getOrderBy());}
         if (filter.getOffset() >= 0) {
-            query += CATALOG_PAGINATION_OFFSET;}
+            query += " " + CATALOG_PAGINATION_OFFSET;}
         if (filter.getFetch() >= 0) {
-            query += CATALOG_PAGINATION_FETCH_LIMIT;}
-
-        System.out.println(query);
-        
+            query += " " + CATALOG_PAGINATION_FETCH_LIMIT;}
+       
         return query;
     }
 
@@ -116,18 +101,80 @@ class CatalogDBQuery {
             return ps;}
 
         if (filter.getSearchTerm() != null) {
-            ps.setString(i++, "%" + filter.getSearchTerm() + "%");}
+            ps.setString(i, "%" + filter.getSearchTerm() + "%"); i += 1;}
         if (filter.getCategory() >= 0) {
-            ps.setInt(i++, filter.getCategory());}
+            ps.setInt(i, filter.getCategory()); i += 1;}
         if (filter.getMinPrice() >= 0) {
-            ps.setDouble(i++, filter.getMinPrice());}
+            ps.setDouble(i, filter.getMinPrice()); i += 1;}
         if (filter.getMaxPrice() >= 0) {
-            ps.setDouble(i++, filter.getMaxPrice());}
+            ps.setDouble(i, filter.getMaxPrice()); i += 1;}
 
         if (filter.getOffset() >= 0) {
-            ps.setInt(i++, filter.getOffset());}
+            ps.setInt(i, filter.getOffset()); i += 1;}
         if (filter.getFetch() >= 0) {
-            ps.setInt(i++, filter.getFetch());}
+            ps.setInt(i, filter.getFetch()); i += 1;}
+
+        return ps;
+    }
+
+    /**
+     * Generates and returns a SQL statement for
+     * querying for a list of Item Categories from
+     * the Category relation in the Catalog database,
+     * given a set of filtering rules.
+     *
+     * @param  filter object defining rules to
+     *                filtering and specifies
+     *                the format of the result data.
+     * @return        the SQL statement generated
+     */
+    private static String generateGetCategoriesQuery(ItemCategoryFilter filter) {
+        boolean w = false;
+        String query = CATALOG_GET_CATEGORIES;
+
+        if (filter == null) {
+            return query;}
+
+        if (filter.getSearchTerm() != null) {
+            query += whereConj(w) + CATALOG_FILTER_BY_SEARCH_CAT; w = true;}
+
+        if (filter.getOrderBy() != null) {
+            query += " " + CATALOG_CAT_ORDER_BY.replace("${orderBy}", filter.getOrderBy());}
+        if (filter.getOffset() >= 0) {
+            query += " " + CATALOG_PAGINATION_OFFSET;}
+        if (filter.getFetch() >= 0) {
+            query += " " + CATALOG_PAGINATION_FETCH_LIMIT;}
+        
+        return query;
+    }
+
+    /**
+     * Populates and returns the given prepared
+     * statement for querying for a list of Item
+     * Categories from the Category relation in
+     * the Catalog database, given a set of
+     * filtering rules.
+     *
+     * @param  filter object defining rules to
+     *                filtering and specifies
+     *                the format of the result data.
+     * @param  ps     the PreparedStatement to populate
+     * @return        the given PreparedStatement `ps`
+     * @throws        SQLException
+     */
+    private static PreparedStatement prepareGetCategoriesQuery(
+                ItemCategoryFilter filter, PreparedStatement ps) throws SQLException {
+        int i = 1;
+
+        if (filter == null) {
+            return ps;}
+
+        if (filter.getSearchTerm() != null) {
+            ps.setString(i, "%" + filter.getSearchTerm() + "%"); i += 1;}
+        if (filter.getOffset() >= 0) {
+            ps.setInt(i, filter.getOffset()); i += 1;}
+        if (filter.getFetch() >= 0) {
+            ps.setInt(i, filter.getFetch()); i += 1;}
 
         return ps;
     }
@@ -169,12 +216,9 @@ class CatalogDBQuery {
      */
     public static PreparedStatement getCategories(ItemCategoryFilter filter,
                     Connection conn) throws SQLException {
-        // Currently, this implementation ignores the filter argument.
-        // This is a placeholder if the implementator choose to
-        // later, implement filter for the categories.
-        // But at the current time of writing, it is not
-        // needed.
-        return conn.prepareStatement(CATALOG_GET_CATEGORIES);
+        String sql = generateGetCategoriesQuery(filter);
+        PreparedStatement ps = conn.prepareStatement(sql);
+        return prepareGetCategoriesQuery(filter, ps);
     }
 
     /**

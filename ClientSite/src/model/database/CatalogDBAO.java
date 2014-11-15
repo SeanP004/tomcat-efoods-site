@@ -191,15 +191,18 @@ public class CatalogDBAO implements CatalogDB {
      *
      * @param  id       the category unique identifer
      * @return          the corresponding category or null
-     * @throws          DataAccessException
+     * @throws          DataAccessException, ItemCategoryNotFoundException
      */
-    public ItemCategory getCategory(int id) throws DataAccessException {
+    public ItemCategory getCategory(int id) throws DataAccessException, ItemCategoryNotFoundException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getCategory(id, conn);
             ResultSet rs = ps.executeQuery();
             ItemCategory category = rs.next() ? makeItemCategory(rs) : null;
             close(rs, ps, conn);
+            if (category == null) {
+                throw new ItemCategoryNotFoundException();
+            }
             return category;
         } catch (SQLException e) {
             throw new DataAccessException(e);
@@ -212,15 +215,18 @@ public class CatalogDBAO implements CatalogDB {
      *
      * @param  number   the item unique identifer
      * @return          the corresponding item or null
-     * @throws          DataAccessException
+     * @throws          DataAccessException, ItemNotFoundException
      */
-    public Item getItem(String number) throws DataAccessException {
+    public Item getItem(String number) throws DataAccessException, ItemNotFoundException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getItem(number, conn);
             ResultSet rs = ps.executeQuery();
             Item item = rs.next() ? makeItem(rs) : null;
             close(rs, ps, conn);
+            if (item == null) {
+                throw new ItemNotFoundException();
+            }
             return item;
         } catch (SQLException e) {
             throw new DataAccessException(e);

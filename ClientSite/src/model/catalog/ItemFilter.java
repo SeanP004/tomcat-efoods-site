@@ -1,5 +1,8 @@
 package model.catalog;
 
+import java.util.*;
+import model.exception.*;
+
 /**
  * Object for filtering the items query.
  * This object is created for each query to
@@ -44,6 +47,8 @@ public class ItemFilter {
     // Setters
 
     public void setOrderBy(String orderBy) {
+        if (!hasOrder(orderBy)) {
+            throw new InvalidQueryFilterException(ERR_ORDERBY);}
         this.orderBy = orderBy;
     }
     public void setSearchTerm(String searchTerm) {
@@ -53,15 +58,27 @@ public class ItemFilter {
         this.category = category;
     }
     public void setOffset(int offset) {
+        if (offset < 0) {
+            throw new InvalidQueryFilterException(ERR_OFFSET);}
         this.offset = offset;
     }
     public void setFetch(int fetch) {
+        if (fetch <= 0) {
+            throw new InvalidQueryFilterException(ERR_FETCH);}
         this.fetch = fetch;
     }
     public void setMinPrice(double minPrice) {
+        if (minPrice < 0) {
+            throw new InvalidQueryFilterException(ERR_MINPRICE);}
+        if (maxPrice > 0 && maxPrice <= minPrice) {
+            throw new InvalidQueryFilterException(ERR_PRICERANGE);}
         this.minPrice = minPrice;
     }
     public void setMaxPrice(double maxPrice) {
+        if (maxPrice <= 0) {
+            throw new InvalidQueryFilterException(ERR_MAXPRICE);}
+        if (minPrice >= 0 && maxPrice <= minPrice) {
+            throw new InvalidQueryFilterException(ERR_PRICERANGE);}
         this.maxPrice = maxPrice;
     }
 
@@ -75,6 +92,36 @@ public class ItemFilter {
     public void setPriceRange(double minPrice, double maxPrice) {
         setMinPrice(minPrice);
         setMaxPrice(maxPrice);
+    }
+
+    // Static
+
+    private static final String
+        ERR_ORDERBY    = "Invalid orderBy argument."
+      , ERR_OFFSET     = "Cannot have negative offset."
+      , ERR_FETCH      = "Cannot have non-positive fetch."
+      , ERR_MINPRICE   = "Cannot have negative minPrice."
+      , ERR_MAXPRICE   = "Cannot have non-positive maxPrice."
+      , ERR_PRICERANGE = "minPrice cannot be equal or greater than maxPrice."
+      ;
+
+    private static final List<String> sorts;
+    static {
+        sorts = new ArrayList<String>();
+        sorts.add("number");
+        sorts.add("name");
+        sorts.add("price");
+        sorts.add("qty");
+        sorts.add("onorder");
+        sorts.add("reorder");
+        sorts.add("catid");
+        sorts.add("supid");
+        sorts.add("costprice");
+        sorts.add("unit");
+    }
+
+    private static boolean hasOrder(String order) {
+        return sorts.contains(order);
     }
 
 } // ItemFilter

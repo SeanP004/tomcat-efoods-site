@@ -39,7 +39,8 @@ public interface CatalogDB {
      * @return          list of items
      * @throws          DataAccessException
      */
-    List<Item> getItems(ItemFilter filter) throws DataAccessException;
+    List<Item> getItems(ItemFilter filter)
+            throws DataAccessException;
 
     /**
      * Returns the category that corresponds to
@@ -47,9 +48,10 @@ public interface CatalogDB {
      *
      * @param  id       the category unique identifer
      * @return          the corresponding category or null
-     * @throws          DataAccessException
+     * @throws          DataAccessException, ItemCategoryNotFoundException
      */
-    ItemCategory getCategory(int id) throws DataAccessException;
+    ItemCategory getCategory(int id)
+            throws DataAccessException, ItemCategoryNotFoundException;
 
     /**
      * Returns the item that corresponds to
@@ -57,8 +59,9 @@ public interface CatalogDB {
      *
      * @param  id       the item unique identifer
      * @return          the corresponding item or null
-     * @throws          DataAccessException
+     * @throws          DataAccessException, ItemNotFoundException
      */
-    Item getItem(String number) throws DataAccessException;
+    Item getItem(String number)
+            throws DataAccessException, ItemNotFoundException;
 
 } // CatalogDB
