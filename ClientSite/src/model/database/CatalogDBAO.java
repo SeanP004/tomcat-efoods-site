@@ -8,10 +8,9 @@ import javax.naming.*;
 import java.util.*;
 
 /**
- * Implementation of the Catalog database access object.
- * Allows the application to query for a list
- * of categories or items, or an individual
- * category or item given its unique identifier.
+ * Implementation of the Catalog database access object. Allows the application
+ * to query for a list of categories or items, or an individual category or item
+ * given its unique identifier.
  *
  * Utilizes the database connection at jdbc/EECS,
  * and utilizes pooled connections.
@@ -21,16 +20,15 @@ public class CatalogDBAO implements CatalogDB {
     private DataSource datasource;
 
     /**
-     * CatalogDBAO constructor.
-     * Obtains a reference to the pooled connections
-     * to the data source.
+     * CatalogDBAO constructor. Obtains a reference to the pooled connections to
+     * the data source.
      *
-     * @throws NamingException
+     * @throws      NamingException
      */
     public CatalogDBAO() throws NamingException {
         Context initCtx = new InitialContext();
-        Context envCtx = (Context)initCtx.lookup("java:comp/env");
-        datasource = (DataSource)envCtx.lookup("jdbc/EECS");
+        Context envCtx = (Context) initCtx.lookup("java:comp/env");
+        datasource = (DataSource) envCtx.lookup("jdbc/EECS");
     }
 
     // Private
@@ -38,8 +36,8 @@ public class CatalogDBAO implements CatalogDB {
     /**
      * Returns a free connection to the database.
      *
-     * @return a connection to the database
-     * @throws SQLException
+     * @return      a connection to the database
+     * @throws      SQLException
      */
     private Connection getConnection() throws SQLException {
         Connection con = datasource.getConnection();
@@ -48,26 +46,25 @@ public class CatalogDBAO implements CatalogDB {
     }
 
     /**
-     * Closes and releases all database related resources,
-     * including releasing the connection back to the pool.
+     * Closes and releases all database related resources, including releasing
+     * the connection back to the pool.
      *
-     * @param rs	the result set
-     * @param ps	the prepared statement
-     * @param conn	the connection
-     * @throws 		SQLException
+     * @param rs    the result set
+     * @param ps    the prepared statement
+     * @param conn  the connection
+     * @throws      SQLException
      */
-    private void close(ResultSet rs, PreparedStatement ps,
-    			Connection conn) throws SQLException {
-    	rs.close();
-    	ps.close();
-    	conn.close();
+    private void close(ResultSet rs, PreparedStatement ps, Connection conn)
+            throws SQLException {
+        rs.close();
+        ps.close();
+        conn.close();
     }
 
     /**
-     * Creates a new Item and populates
-     * its properties given a result set.
+     * Creates a new Item and populates its properties given a result set.
      *
-     * @param  rs   the given result set from the database
+     * @param rs    the given result set from the database
      * @return      the resulting Item
      * @throws      SQLException
      */
@@ -87,11 +84,10 @@ public class CatalogDBAO implements CatalogDB {
     }
 
     /**
-     * Creates a new list of Items and populates
-     * the properties of the newly created Items
-     * given a result set.
+     * Creates a new list of Items and populates the properties of the newly
+     * created Items given a result set.
      *
-     * @param  rs   the given result set from the database
+     * @param rs    the given result set from the database
      * @return      the resulting list of Items
      * @throws      SQLException
      */
@@ -104,10 +100,10 @@ public class CatalogDBAO implements CatalogDB {
     }
 
     /**
-     * Creates a new Item Category and populates
-     * its properties given a result set.
+     * Creates a new Item Category and populates its properties given a result
+     * set.
      *
-     * @param  rs   the given result set from the database
+     * @param rs    the given result set from the database
      * @return      the resulting Item Category
      * @throws      SQLException
      */
@@ -117,20 +113,20 @@ public class CatalogDBAO implements CatalogDB {
         category.setId(rs.getInt("id"));
         category.setName(rs.getString("name"));
         category.setDescription(rs.getString("description"));
-        category.setPicture(pic.getBytes(1, (int)pic.length()));
+        category.setPicture(pic.getBytes(1, (int) pic.length()));
         return category;
     }
 
     /**
-     * Creates a new list of Item Categories and populates
-     * the properties of the newly created Item Categories
-     * given a result set.
+     * Creates a new list of Item Categories and populates the properties of the
+     * newly created Item Categories given a result set.
      *
-     * @param  rs   the given result set from the database
+     * @param rs    the given result set from the database
      * @return      the resulting list of Item Categories
      * @throws      SQLException
      */
-    private List<ItemCategory> makeItemCategoryList(ResultSet rs) throws SQLException {
+    private List<ItemCategory> makeItemCategoryList(ResultSet rs)
+            throws SQLException {
         List<ItemCategory> categories = new ArrayList<ItemCategory>();
         while (rs.next()) {
             categories.add(makeItemCategory(rs));
@@ -141,16 +137,15 @@ public class CatalogDBAO implements CatalogDB {
     // Public
 
     /**
-     * Returns a list of all the item categories
-     * that exist in the database and satisfy the
-     * given filtering rules.
+     * Returns a list of all the item categories that exist in the database and
+     * satisfy the given filtering rules.
      *
-     * @param  filter   specifies filtering rules
+     * @param filter    specifies filtering rules
      * @return          list of categories
      * @throws          DataAccessException
      */
     public List<ItemCategory> getCategories(ItemCategoryFilter filter)
-                throws DataAccessException {
+            throws DataAccessException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getCategories(filter, conn);
@@ -164,11 +159,10 @@ public class CatalogDBAO implements CatalogDB {
     }
 
     /**
-     * Returns a list of all the items
-     * that exist in the database and satisfy the
-     * given filtering rules.
+     * Returns a list of all the items that exist in the database and satisfy
+     * the given filtering rules.
      *
-     * @param  filter   specifies filtering rules
+     * @param filter    specifies filtering rules
      * @return          list of items
      * @throws          DataAccessException
      */
@@ -181,28 +175,27 @@ public class CatalogDBAO implements CatalogDB {
             close(rs, ps, conn);
             return items;
         } catch (SQLException e) {
-        	throw new DataAccessException(e);
+            throw new DataAccessException(e);
         }
     }
 
     /**
-     * Returns the category that corresponds to
-     * the given category unique identifer.
+     * Returns the category that corresponds to the given category unique
+     * identifer.
      *
-     * @param  id       the category unique identifer
-     * @return          the corresponding category or null
-     * @throws          DataAccessException, ItemCategoryNotFoundException
+     * @param id    the category unique identifer
+     * @return      the corresponding category or null
+     * @throws      DataAccessException , ItemCategoryNotFoundException
      */
-    public ItemCategory getCategory(int id) throws DataAccessException, ItemCategoryNotFoundException {
+    public ItemCategory getCategory(int id) throws DataAccessException,
+            ItemCategoryNotFoundException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getCategory(id, conn);
             ResultSet rs = ps.executeQuery();
             ItemCategory category = rs.next() ? makeItemCategory(rs) : null;
             close(rs, ps, conn);
-            if (category == null) {
-                throw new ItemCategoryNotFoundException();
-            }
+            if (category == null) { throw new ItemCategoryNotFoundException(); }
             return category;
         } catch (SQLException e) {
             throw new DataAccessException(e);
@@ -210,23 +203,21 @@ public class CatalogDBAO implements CatalogDB {
     }
 
     /**
-     * Returns the item that corresponds to
-     * the given item unique identifer.
+     * Returns the item that corresponds to the given item unique identifer.
      *
-     * @param  number   the item unique identifer
+     * @param number    the item unique identifer
      * @return          the corresponding item or null
-     * @throws          DataAccessException, ItemNotFoundException
+     * @throws          DataAccessException , ItemNotFoundException
      */
-    public Item getItem(String number) throws DataAccessException, ItemNotFoundException {
+    public Item getItem(String number) throws DataAccessException,
+            ItemNotFoundException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getItem(number, conn);
             ResultSet rs = ps.executeQuery();
             Item item = rs.next() ? makeItem(rs) : null;
             close(rs, ps, conn);
-            if (item == null) {
-                throw new ItemNotFoundException();
-            }
+            if (item == null) { throw new ItemNotFoundException(); }
             return item;
         } catch (SQLException e) {
             throw new DataAccessException(e);

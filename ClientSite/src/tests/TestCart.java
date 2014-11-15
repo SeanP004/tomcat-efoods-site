@@ -1,11 +1,9 @@
 package tests;
 
 import java.io.*;
-
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-
 import model.cart.*;
 import model.catalog.*;
 
@@ -24,20 +22,25 @@ public class TestCart extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
-                throws ServletException, IOException {
+            throws ServletException, IOException {
         ServletContext sc = getServletContext();
-        Cart cart = (Cart)(sc.getAttribute("cart"));
+        Cart cart = (Cart) (sc.getAttribute("cart"));
         String action = req.getParameter("action");
         String number = req.getParameter("number");
         PrintWriter out = res.getWriter();
-        
+
         res.setContentType("text/plain");
-        
+
         if (action != null) {
             switch (action) {
-                case "add": cart.add(number); break;
-                case "remove": cart.remove(number); break;
-                case "list": break;
+                case "add":
+                    cart.add(number);
+                    break;
+                case "remove":
+                    cart.remove(number);
+                    break;
+                case "list":
+                    break;
             }
         }
 

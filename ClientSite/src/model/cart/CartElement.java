@@ -3,15 +3,17 @@ package model.cart;
 import model.catalog.*;
 
 /**
- * CartElement stores the item collected as an object shopping cart 
- * stores the item object and the quanity
+ * CartElement stores the item collected as an
+ * object shopping cart stores the item object and
+ * the quanity
  */
 public class CartElement {
     private Item item;
-    private int quantity;
+    private int  quantity;
 
     /**
-     * CartElement constructor 
+     * CartElement constructor
+     * 
      * @param item      catalog item
      */
     public CartElement(Item item) {
@@ -33,8 +35,8 @@ public class CartElement {
         quantity -= 1;
     }
 
-    // Getters  
-    
+    // Getters
+
     /**
      * Returns the item stored in cart.
      * 

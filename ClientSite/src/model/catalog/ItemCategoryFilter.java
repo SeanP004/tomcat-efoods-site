@@ -4,11 +4,10 @@ import java.util.*;
 import model.exception.*;
 
 /**
- * Object for filtering the item category query.
- * This object is created for each query to
- * get multiple items from the category relation.
- * Faciliates a multitude of search and filtering
- * combinations, including pagination and ordering.
+ * Object for filtering the item category query. This object is created for each
+ * query to get multiple items from the category relation. Faciliates a
+ * multitude of search and filtering combinations, including pagination and
+ * ordering.
  */
 public class ItemCategoryFilter {
 
@@ -22,12 +21,15 @@ public class ItemCategoryFilter {
     public String getOrderBy() {
         return orderBy;
     }
+
     public String getSearchTerm() {
         return searchTerm;
     }
+
     public int getOffset() {
         return offset;
     }
+
     public int getFetch() {
         return fetch;
     }
@@ -35,21 +37,22 @@ public class ItemCategoryFilter {
     // Setters
 
     public void setOrderBy(String orderBy) {
-        if (!hasOrder(orderBy)) {
-            throw new InvalidQueryFilterException(ERR_ORDERBY);}
+        if (!hasOrder(orderBy)) { throw new InvalidQueryFilterException(
+                ERR_ORDERBY); }
         this.orderBy = orderBy;
     }
+
     public void setSearchTerm(String searchTerm) {
         this.searchTerm = searchTerm;
     }
+
     public void setOffset(int offset) {
-        if (offset < 0) {
-            throw new InvalidQueryFilterException(ERR_OFFSET);}
+        if (offset < 0) { throw new InvalidQueryFilterException(ERR_OFFSET); }
         this.offset = offset;
     }
+
     public void setFetch(int fetch) {
-        if (fetch <= 0) {
-            throw new InvalidQueryFilterException(ERR_FETCH);}
+        if (fetch <= 0) { throw new InvalidQueryFilterException(ERR_FETCH); }
         this.fetch = fetch;
     }
 
@@ -61,9 +64,9 @@ public class ItemCategoryFilter {
     // Static
 
     private static final String
-        ERR_ORDERBY    = "Invalid orderBy argument."
-      , ERR_OFFSET     = "Cannot have negative offset."
-      , ERR_FETCH      = "Cannot have non-positive fetch."
+        ERR_ORDERBY = "Invalid orderBy argument."
+      , ERR_OFFSET  = "Cannot have negative offset."
+      , ERR_FETCH   = "Cannot have non-positive fetch."
       ;
 
     private static final List<String> sorts;

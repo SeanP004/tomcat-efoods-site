@@ -7,7 +7,7 @@ package model.catalog;
  */
 public class ItemCategory {
 
-    private int id;
+    private int    id;
     private String name;
     private String description;
     private byte[] picture;
@@ -17,12 +17,15 @@ public class ItemCategory {
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public String getDescription() {
         return description;
     }
+
     public byte[] getPicture() {
         return picture;
     }
@@ -32,12 +35,15 @@ public class ItemCategory {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public void setPicture(byte[] picture) { // base64 encoded
         this.picture = picture;
     }

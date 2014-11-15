@@ -10,29 +10,28 @@ public class Catalog {
     private final CatalogDB dao;
 
     /**
-     * Catalog constructor prepare DAO
-     * to retrive data from database.
+     * Catalog constructor prepare DAO to retrive data from database.
      *
-     * @throws DataAccessException
+     * @throws      DataAccessException
      */
     public Catalog() throws DataAccessException {
         try {
             dao = new CatalogDBAO();
         } catch (NamingException e) {
-            throw new DataAccessException("Could not create data access handler.", e);
+            throw new DataAccessException(
+                    "Could not create data access handler.", e);
         }
     }
 
     // Private
 
     /**
-     * Parse a String as an Integer.
-     * Returns integer value if parseable
+     * Parse a String as an Integer. Returns integer value if parseable
      * otherwise throws InvalidQueryFilterException.
      *
-     * @param  value to be parsed
-     * @return       integer value
-     * @throws       InvalidQueryFilterException
+     * @param value     to be parsed
+     * @return          integer value
+     * @throws          InvalidQueryFilterException
      */
     private int parseInt(String value) {
         try {
@@ -43,14 +42,12 @@ public class Catalog {
     }
 
     /**
-     * Parse a String as a Double precision
-     * Float point. Returns double value if
-     * parseable otherwise throws
-     * InvalidQueryFilterException.
+     * Parse a String as a Double precision Float point. Returns double value if
+     * parseable otherwise throws InvalidQueryFilterException.
      *
-     * @param  value to be parsed
-     * @return       double value
-     * @throws       InvalidQueryFilterException
+     * @param value     to be parsed
+     * @return          double value
+     * @throws          InvalidQueryFilterException
      */
     private double parseDouble(String value) {
         try {
@@ -71,24 +68,25 @@ public class Catalog {
      * @return              ItemCategoryFilter
      * @throws              InvalidQueryFilterException
      */
-    private ItemCategoryFilter parseItemCategoryFilter(String orderBy, String searchTerm, String offset, String fetch) {
+    private ItemCategoryFilter parseItemCategoryFilter(String orderBy,
+            String searchTerm, String offset, String fetch) {
         ItemCategoryFilter filter = new ItemCategoryFilter();
 
         if (orderBy != null) {
-            filter.setOrderBy(orderBy);}
+            filter.setOrderBy(orderBy); }
         if (searchTerm != null) {
-            filter.setSearchTerm(searchTerm);}
+            filter.setSearchTerm(searchTerm); }
         if (offset != null) {
-            filter.setOffset(parseInt(offset));}
+            filter.setOffset(parseInt(offset)); }
         if (fetch != null) {
-            filter.setFetch(parseInt(fetch));}
+            filter.setFetch(parseInt(fetch)); }
 
         return filter;
     }
 
     /**
-     * Create an Item Filter according to the value of the retrived
-     * variable and send to the correct corresponding value set
+     * Create an Item Filter according to the value of the retrived variable and
+     * send to the correct corresponding value set
      *
      * @param orderBy       the sort order
      * @param searchTerm    the search query string
@@ -101,24 +99,24 @@ public class Catalog {
      * @throws              InvalidQueryFilterException
      */
     private ItemFilter parseItemFilter(String orderBy, String searchTerm,
-                String category, String offset, String fetch,
-                String minPrice, String maxPrice) {
+            String category, String offset, String fetch, String minPrice,
+            String maxPrice) {
         ItemFilter filter = new ItemFilter();
 
         if (orderBy != null) {
-            filter.setOrderBy(orderBy);}
+            filter.setOrderBy(orderBy); }
         if (searchTerm != null) {
-            filter.setSearchTerm(searchTerm);}
+            filter.setSearchTerm(searchTerm); }
         if (category != null) {
-            filter.setCategory(parseInt(category));}
+            filter.setCategory(parseInt(category)); }
         if (offset != null) {
-            filter.setOffset(parseInt(offset));}
+            filter.setOffset(parseInt(offset)); }
         if (fetch != null) {
-            filter.setFetch(parseInt(fetch));}
+            filter.setFetch(parseInt(fetch)); }
         if (minPrice != null) {
-            filter.setMinPrice(parseDouble(minPrice));}
+            filter.setMinPrice(parseDouble(minPrice)); }
         if (maxPrice != null) {
-            filter.setMaxPrice(parseDouble(maxPrice));}
+            filter.setMaxPrice(parseDouble(maxPrice)); }
 
         return filter;
     }
@@ -126,9 +124,9 @@ public class Catalog {
     // Public
 
     /**
-     * Returns a list of item categories given the specified
-     * filtering rules. The returned list is filtered by
-     * search term or by pagination and sorted as specified.
+     * Returns a list of item categories given the specified filtering rules.
+     * The returned list is filtered by search term or by pagination and sorted
+     * as specified.
      *
      * @param orderBy       the sort order
      * @param searchTerm    the search query string
@@ -137,27 +135,26 @@ public class Catalog {
      * @return              list of categories
      * @throws              InvalidQueryFilterException
      */
-    public List<ItemCategory> getItemCategories(String orderBy, String searchTerm,
-                String offset, String fetch) throws InvalidQueryFilterException {
-        return dao.getCategories(parseItemCategoryFilter(orderBy,
-                searchTerm, offset, fetch));
+    public List<ItemCategory> getItemCategories(String orderBy,
+            String searchTerm, String offset, String fetch)
+            throws InvalidQueryFilterException {
+        return dao.getCategories(parseItemCategoryFilter(orderBy, searchTerm,
+                offset, fetch));
     }
 
     /**
-     * Returns the iten category given the
-     * specified category id.
+     * Returns the iten category given the specified category id.
      *
-     * @param  id the category unique identifier
-     * @return    the category corresponding to the given id.
+     * @param id    the category unique identifier
+     * @return      the category corresponding to the given id.
      */
     public ItemCategory getItemCategory(String id) {
         return dao.getCategory(parseInt(id));
     }
 
     /**
-     * Returns a list of items given the specified
-     * filtering rules. The returned list is filtered by
-     * search term, price range, category or by pagination
+     * Returns a list of items given the specified filtering rules. The returned
+     * list is filtered by search term, price range, category or by pagination
      * and sorted as specified.
      *
      * @param orderBy       the sort order
@@ -171,17 +168,16 @@ public class Catalog {
      * @throws              InvalidQueryFilterException
      */
     public List<Item> getItems(String orderBy, String searchTerm,
-                String category, String offset, String fetch, String minPrice,
-                String maxPrice) throws InvalidQueryFilterException {
-        return dao.getItems(parseItemFilter(orderBy, searchTerm,
-                category, offset, fetch, minPrice, maxPrice));
+            String category, String offset, String fetch, String minPrice,
+            String maxPrice) throws InvalidQueryFilterException {
+        return dao.getItems(parseItemFilter(orderBy, searchTerm, category,
+                offset, fetch, minPrice, maxPrice));
     }
 
     /**
-     * Returns the iten given the
-     * specified item number.
+     * Returns the iten given the specified item number.
      *
-     * @param  number   the iten unique identifier
+     * @param number    the iten unique identifier
      * @return          the item corresponding to the given number.
      */
     public Item getItem(String number) {

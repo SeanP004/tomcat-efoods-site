@@ -2,12 +2,12 @@ package model.cart;
 
 import java.util.*;
 import model.catalog.*;
- 
+
 public class Cart {
 
     private Map<String, CartElement> elements;
-    private int numberOfItems;
-    private Catalog catalog;
+    private int                      numberOfItems;
+    private Catalog                  catalog;
 
     public Cart(Catalog catalog) {
         this.catalog = catalog;
