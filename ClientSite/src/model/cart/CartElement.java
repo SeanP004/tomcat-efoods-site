@@ -1,5 +1,6 @@
 package model.cart;
 
+import javax.xml.bind.annotation.*;
 import model.catalog.*;
 
 /**
@@ -11,16 +12,24 @@ public class CartElement {
     private Item item;
     private int  quantity;
 
+    
+    /**
+     * CartElement constructor
+     */
+    public CartElement() {
+        quantity = 1;
+    }
+    
     /**
      * CartElement constructor
      * 
      * @param item      catalog item
      */
     public CartElement(Item item) {
-        this.item = item;
-        quantity = 1;
+       this();
+       setItem(item);
     }
-
+   
     /**
      * Increase the quantity counter by 1 increment.
      */
@@ -42,6 +51,7 @@ public class CartElement {
      * 
      * @return the catalog item
      */
+    @XmlElement
     public Item getItem() {
         return item;
     }
@@ -51,8 +61,20 @@ public class CartElement {
      * 
      * @return the quantity of the item in the cart
      */
+    @XmlAttribute
     public int getQuantity() {
         return quantity;
     }
 
+    // Setters
+   
+    /**
+     * Set the value of item.
+     * 
+     * @param item      catalog item
+     */
+    public void setItem(Item item) {
+        this.item = item;
+    }
+    
 } // CartElement

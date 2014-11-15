@@ -1,12 +1,14 @@
 package model.cart;
 
 import java.util.*;
+import javax.xml.bind.annotation.*;
 import model.catalog.*;
 
 /**
  * Cart stores the item collected of CartElement as an object shopping cart
  * stores the item object and the number of item in cart
  */
+@XmlRootElement(name="cart")
 public class Cart {
 
     private Map<String, CartElement> elements;
@@ -15,12 +17,28 @@ public class Cart {
 
     /**
      * Cart constructor
+     */
+    public Cart() {
+        this.elements = new LinkedHashMap<String, CartElement>();
+        this.numberOfItems = 0;
+    }
+
+    /**
+     * Cart constructor
      * @param catalog   catalog object
      */
     public Cart(Catalog catalog) {
+        this();
+        setCatalog(catalog);
+    }
+    
+    /**
+     * Set the cart's catalog reference
+     * 
+     * @param catalog   catalog object
+     */
+    public void setCatalog(Catalog catalog) {
         this.catalog = catalog;
-        this.elements = new LinkedHashMap<String, CartElement>();
-        this.numberOfItems = 0;
     }
 
     /**
@@ -64,6 +82,7 @@ public class Cart {
      *
      * @return a copy of a list of cart elements
      */
+    @XmlElement(name="element")
     public synchronized List<CartElement> getElements() {
         return new ArrayList<CartElement>(elements.values());
     }
@@ -73,6 +92,7 @@ public class Cart {
      *
      * @return the number of items in the cart
      */
+    @XmlAttribute(name="size")
     public synchronized int getNumberOfItems() {
         return numberOfItems;
     }
