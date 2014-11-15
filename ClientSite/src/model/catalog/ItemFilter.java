@@ -1,6 +1,7 @@
 package model.catalog;
 
 import java.util.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import model.exception.*;
 
 /**
@@ -8,6 +9,7 @@ import model.exception.*;
  * to get multiple items from the item relation. Faciliates a multitude of
  * search and filtering combinations, including pagination and ordering.
  */
+@XmlRootElement(name="filter")
 public class ItemFilter {
 
     private String orderBy    = null;

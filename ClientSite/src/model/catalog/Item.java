@@ -1,10 +1,14 @@
 package model.catalog;
 
+import javax.xml.bind.annotation.*;
+
 /**
- * Simple representation of a catalog item.
- * Corresponds to a record in the item
+ * Simple representation of a catalog item. Corresponds to a record in the item
  * relation within the catalog database.
  */
+@XmlRootElement(name = "item")
+@XmlType(propOrder={"number", "name", "price", "qty", "onOrder",
+                    "reOrder", "catId", "supId", "costPrice", "unit"})
 public class Item {
 
     private String number;

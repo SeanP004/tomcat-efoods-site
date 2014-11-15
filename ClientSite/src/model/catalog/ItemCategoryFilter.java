@@ -1,6 +1,7 @@
 package model.catalog;
 
 import java.util.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import model.exception.*;
 
 /**
@@ -9,6 +10,7 @@ import model.exception.*;
  * multitude of search and filtering combinations, including pagination and
  * ordering.
  */
+@XmlRootElement(name="filter")
 public class ItemCategoryFilter {
 
     private String orderBy    = null;

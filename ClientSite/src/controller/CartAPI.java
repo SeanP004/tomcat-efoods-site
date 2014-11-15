@@ -6,6 +6,7 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import model.cart.*;
 import model.catalog.*;
+import model.common.*;
 
 /**
  * Servlet implementation class CartAPI
@@ -20,13 +21,6 @@ public class CartAPI extends HttpServlet {
       ;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        ServletContext sc = getServletContext();
-        sc.setAttribute("xmlgen", new CartXML());
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
@@ -34,7 +28,6 @@ public class CartAPI extends HttpServlet {
         HttpSession    sess    = req.getSession();
         String         action  = req.getParameter("action");
         String         number  = req.getParameter("number");
-        CartXML        xml     = (CartXML)sc.getAttribute("xmlgen");
         Catalog        catalog = (Catalog)sc.getAttribute("catalog");
         Cart           cart    = (Cart)sess.getAttribute("cart");
 
@@ -65,13 +58,13 @@ public class CartAPI extends HttpServlet {
                         }
                         break;
                     case "list":
-                        req.setAttribute("data", xml.generate(new StringWriter(), cart).toString());
+                        req.setAttribute("data", XMLUtil.<Cart>generate(new StringWriter(), cart).toString());
                         break;
                     default:
                         throw new RuntimeException("Bad action");
                 }
             } else {
-                req.setAttribute("data", xml.generate(new StringWriter(), cart).toString());
+                req.setAttribute("data", XMLUtil.<Cart>generate(new StringWriter(), cart).toString());
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

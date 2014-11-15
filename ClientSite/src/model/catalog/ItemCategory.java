@@ -1,10 +1,14 @@
 package model.catalog;
 
+import javax.xml.bind.annotation.*;
+
 /**
  * Simple representation of a catalog category.
  * Corresponds to a record in the category relation
  * within the catalog database.
  */
+@XmlRootElement(name="category")
+@XmlType(propOrder={"id", "name", "description", "picture"})
 public class ItemCategory {
 
     private int    id;
@@ -13,7 +17,6 @@ public class ItemCategory {
     private byte[] picture;
 
     // Getters
-
     public int getId() {
         return id;
     }

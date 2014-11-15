@@ -1,20 +1,20 @@
-package model.cart;
+package model.common;
 
 import java.io.*;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.*;
-import model.exception.XMLGenerationException;
+import model.exception.*;
 
-public class CartXML {
+public class XMLUtil {
 
-    public Writer generate(Writer out, Cart cart)
+    public static <T> Writer generate(Writer out, T object)
             throws XMLGenerationException, IOException {
         try {
-            Marshaller marsh = JAXBContext.newInstance(cart.getClass())
+            Marshaller marsh = JAXBContext.newInstance(object.getClass())
                     .createMarshaller();
             marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marsh.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-            marsh.marshal(cart, new StreamResult(out));
+            marsh.marshal(object, new StreamResult(out));
             return out;
         } catch (JAXBException e) {
             throw new XMLGenerationException(e);

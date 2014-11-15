@@ -135,7 +135,7 @@ public class Catalog {
      * @return              list of categories
      * @throws              InvalidQueryFilterException
      */
-    public List<ItemCategory> getItemCategories(String orderBy,
+    public List<ItemCategory> getCategories(String orderBy,
             String searchTerm, String offset, String fetch)
             throws InvalidQueryFilterException {
         return dao.getCategories(parseItemCategoryFilter(orderBy, searchTerm,
@@ -143,12 +143,33 @@ public class Catalog {
     }
 
     /**
+     * Returns a list of item categories given the specified filtering rules.
+     * The returned list is filtered by search term or by pagination and sorted
+     * as specified.
+     *
+     * @param orderBy       the sort order
+     * @param searchTerm    the search query string
+     * @param offset        pagination offset
+     * @param fetch         number of items to return
+     * @return              list of categories
+     * @throws              InvalidQueryFilterException
+     */
+    public ItemCategoryList getCategoryList(String orderBy,
+            String searchTerm, String offset, String fetch)
+            throws InvalidQueryFilterException {
+        ItemCategoryFilter filter = parseItemCategoryFilter(orderBy, searchTerm,
+                offset, fetch);
+        return new ItemCategoryList(dao.getCategories(filter), filter);
+    }
+
+
+    /**
      * Returns the iten category given the specified category id.
      *
      * @param id    the category unique identifier
      * @return      the category corresponding to the given id.
      */
-    public ItemCategory getItemCategory(String id) {
+    public ItemCategory getCategory(String id) {
         return dao.getCategory(parseInt(id));
     }
 
@@ -172,6 +193,29 @@ public class Catalog {
             String maxPrice) throws InvalidQueryFilterException {
         return dao.getItems(parseItemFilter(orderBy, searchTerm, category,
                 offset, fetch, minPrice, maxPrice));
+    }
+
+    /**
+     * Returns a list of items given the specified filtering rules. The returned
+     * list is filtered by search term, price range, category or by pagination
+     * and sorted as specified.
+     *
+     * @param orderBy       the sort order
+     * @param searchTerm    the search query string
+     * @param category      the category filter
+     * @param offset        pagination offset
+     * @param fetch         number of items to return
+     * @param minPrice      minimum price of items
+     * @param maxPrice      maximum price of items
+     * @return              list of items
+     * @throws              InvalidQueryFilterException
+     */
+    public ItemList getItemList(String orderBy, String searchTerm,
+            String category, String offset, String fetch, String minPrice,
+            String maxPrice) throws InvalidQueryFilterException {
+        ItemFilter filter = parseItemFilter(orderBy, searchTerm, category,
+                offset, fetch, minPrice, maxPrice);
+        return new ItemList(dao.getItems(filter), filter);
     }
 
     /**
