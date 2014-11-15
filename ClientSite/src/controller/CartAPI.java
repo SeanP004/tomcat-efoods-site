@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.*;
-import javax.management.RuntimeErrorException;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -9,10 +8,16 @@ import model.cart.*;
 import model.catalog.*;
 
 /**
- * Servlet implementation class TestCart
+ * Servlet implementation class CartAPI
+ * Cart API Endpoint.
  */
 @WebServlet("/api/cart")
 public class CartAPI extends HttpServlet {
+
+    private static final String
+        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx"
+      , DATA_XML = "<quantity number='%s'>%d</quantity><total>%d</total>"
+      ;
 
     @Override
     public void init() throws ServletException {
@@ -24,9 +29,9 @@ public class CartAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+
         ServletContext sc      = getServletContext();
         HttpSession    sess    = req.getSession();
-        PrintWriter    out     = res.getWriter();        
         String         action  = req.getParameter("action");
         String         number  = req.getParameter("number");
         CartXML        xml     = (CartXML)sc.getAttribute("xmlgen");
@@ -34,51 +39,45 @@ public class CartAPI extends HttpServlet {
         Cart           cart    = (Cart)sess.getAttribute("cart");
 
         if (catalog == null) {
-            sc.setAttribute("catalog", catalog = new Catalog());
-        }
+            sc.setAttribute("catalog", catalog = new Catalog()); }
         if (cart == null) {
-            sess.setAttribute("cart", cart = new Cart(catalog));
-        }
+            sess.setAttribute("cart", cart = new Cart(catalog)); }
 
-        out.println("<?xml version='1.0' encoding='UTF-8'?>");
-        out.println("<response>");
-
-        if (req.getQueryString() != null) {
-            out.println("<request>");
-            for (String param : req.getParameterMap().keySet()) {
-                out.printf("<param name='%s' value='%s' />", param, req.getParameter(param));
-            }
-            out.println("</request>");
-        }
-
-        out.println("<data>");
-        
-        if (action != null) {
-            try {
+        try {
+            if (action != null) {
                 switch (action) {
                     case "add":
                         cart.add(number);
-                        out.println("<status>Successfully Added</status>");
+                        req.setAttribute("status", "Successfully Added");
+                        req.setAttribute("data", String.format(DATA_XML, number,
+                                cart.getElement(number).getQuantity(),
+                                cart.getNumberOfItems()));
                         break;
                     case "remove":
-                        cart.remove(number);
-                        out.println("<status>Successfully Removed</status>");
+                        if (cart.hasElement(number)) {
+                            cart.remove(number);
+                            req.setAttribute("status", "Successfully Removed");
+                            req.setAttribute("data", String.format(DATA_XML, number,
+                                    cart.hasElement(number) ? cart.getElement(number).getQuantity() : 0,
+                                    cart.getNumberOfItems()));
+                        } else {
+                            req.setAttribute("status", "Nothing to remove");
+                        }
                         break;
                     case "list":
-                        xml.generate(out, cart);                    
+                        req.setAttribute("data", xml.generate(new StringWriter(), cart).toString());
                         break;
                     default:
-                        throw new RuntimeException("bad action");
+                        throw new RuntimeException("Bad action");
                 }
-            } catch (Exception e) {
-                out.printf("<error>%s</error>", e.getMessage());
+            } else {
+                req.setAttribute("data", xml.generate(new StringWriter(), cart).toString());
             }
-        } else {
-            out.printf("<error>%s</error>", "no action");
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
         }
 
-        out.println("</data>");
-        out.println("</response>");       
+        req.getRequestDispatcher(JSP_FILE).forward(req, res);
     } // doGet
 
 } // CartAPI

@@ -49,8 +49,8 @@ public class Cart {
      * @param number    the item number string
      */
     public synchronized void add(String number) {
-        if (elements.containsKey(number)) {
-            elements.get(number).incrementQuantity();
+        if (hasElement(number)) {
+            getElement(number).incrementQuantity();
         } else {
             Item item = catalog.getItem(number);
             CartElement newItem = new CartElement(item);
@@ -67,14 +67,37 @@ public class Cart {
      * @param number    the item number string
      */
     public synchronized void remove(String number) {
-        if (elements.containsKey(number)) {
-            CartElement scitem = elements.get(number);
+        if (hasElement(number)) {
+            CartElement scitem = getElement(number);
             scitem.decrementQuantity();
             if (scitem.getQuantity() <= 0) {
                 elements.remove(number);
             }
             numberOfItems -= 1;
         }
+    }
+
+    /**
+     * Returns true if the cart element for given
+     * the specified item number exists in the carts,
+     * otherwise false.
+     *
+     * @param number    the item number string
+     * @return          true if cart element exists, otherwise false.
+     */
+    public synchronized boolean hasElement(String number) {
+        return elements.containsKey(number);
+    }
+
+    /**
+     * Returns the cart element from the cart
+     * given the specified item number.
+     *
+     * @param number    the item number string
+     * @return          the cart element
+     */
+    public synchronized CartElement getElement(String number) {
+        return elements.get(number);
     }
 
     /**
