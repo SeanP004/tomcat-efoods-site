@@ -6,31 +6,24 @@
         xmlns:f="http://java.sun.com/jsp/jstl/fmt"
         version="2.0"
     >
-    <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"/>
-    <jsp:output doctype-root-element="html" doctype-system="" doctype-public="" omit-xml-declaration="true" />
-    <html xmlns="http://www.w3.org/1999/xhtml">
-        <head></head>
-        <body>
-            <c:set var="i" value="0" />
-            <c:forEach var="item" items="${items}">
-                <c:if test="${i mod 4 eq 0}"><![CDATA[<div class='row'>]]></c:if>
-                <div class="col-sm-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <p class="small">${item.number}</p>
-                            <h3>${item.name}</h3>
-                            <p>$<f:formatNumber
-                                    groupingUsed="true"
-                                    maxFractionDigits="2"
-                                    minFractionDigits="2"
-                                    minIntegerDigits="1"
-                                >${item.price}</f:formatNumber> ${item.unit}</p>
-                        </div>
-                    </div>
+    <c:set var="i" value="0" />
+    <c:forEach var="item" items="${items}">
+        <c:if test="${i mod 4 eq 0}"><![CDATA[<div class='row'>]]></c:if>
+        <div class="col-sm-6 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p class="small">${item.number}</p>
+                    <h3>${item.name}</h3>
+                    <p>$<f:formatNumber
+                            groupingUsed="true"
+                            maxFractionDigits="2"
+                            minFractionDigits="2"
+                            minIntegerDigits="1"
+                        >${item.price}</f:formatNumber> ${item.unit}</p>
                 </div>
-                <c:set var="i" value="${i + 1}" />
-                <c:if test="${i mod 4 eq 0}"><![CDATA[</div>]]></c:if>
-            </c:forEach>
-        </body>
-    </html>
+            </div>
+        </div>
+        <c:set var="i" value="${i + 1}" />
+        <c:if test="${i mod 4 eq 0}"><![CDATA[</div>]]></c:if>
+    </c:forEach>
 </jsp:root>
