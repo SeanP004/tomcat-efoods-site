@@ -42,8 +42,8 @@ public class Cart {
     }
 
     /**
-     * add an CartElement to the cart
-     * if the current item exist in the cart then increment it quanty by 1
+     * Add an CartElement to the cart
+     * If the current item exist in the cart then increment it quanty by 1
      * else create and add an new cart element to cart
      *
      * @param number    the item number string
@@ -60,9 +60,9 @@ public class Cart {
     }
 
     /**
-     * remove an cart element from the cart
-     * only if the request number exist in cart quanty decrease by 1
-     * if the quanty is 0 the entire cart element is removed from cart
+     * Remove an cart element from the cart
+     * Only if the request number exist in cart quanty decrease by 1
+     * If the quanty is 0 the entire cart element is removed from cart
      *
      * @param number    the item number string
      */
@@ -78,7 +78,7 @@ public class Cart {
     }
 
     /**
-     * Convet the current cart to an list of items
+     * Convert the current cart to an list of items
      *
      * @return a copy of a list of cart elements
      */
@@ -98,7 +98,7 @@ public class Cart {
     }
 
     /**
-     * clear the cart back to intial state
+     * Clear the cart back to intial state
      */
     public synchronized void clear() {
         elements.clear();
