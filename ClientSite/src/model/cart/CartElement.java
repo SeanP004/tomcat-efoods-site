@@ -2,6 +2,7 @@ package model.cart;
 
 import javax.xml.bind.annotation.*;
 import model.catalog.*;
+import model.pricing.*;
 
 /**
  * CartElement stores the item collected as an
@@ -11,6 +12,7 @@ import model.catalog.*;
 public class CartElement {
 
     private Item item;
+    private Cost cost;
     private int  quantity;
     
     /**
@@ -24,9 +26,11 @@ public class CartElement {
      * CartElement constructor
      * 
      * @param item      catalog item
+     * @param cost      costing object
      */
-    public CartElement(Item item) {
+    public CartElement(Item item, Cost cost) {
        this();
+       this.cost = cost;
        setItem(item);
     }
    
@@ -34,14 +38,14 @@ public class CartElement {
      * Increase the quantity counter by 1 increment.
      */
     public void incrementQuantity() {
-        quantity += 1;
+        setQuantity(quantity + 1);
     }
 
     /**
      * Decrease the the quantity counter by 1 decrement.
      */
     public void decrementQuantity() {
-        quantity -= 1;
+        setQuantity(quantity - 1);
     }
 
     // Getters
@@ -66,6 +70,16 @@ public class CartElement {
         return quantity;
     }
 
+    /**
+     * Returns the extended cost of the item.
+     * 
+     * @return the extended cost of the item in the cart
+     */
+    @XmlAttribute
+    public double getExtendedCost() {
+        return cost.getExtendedCost(this);
+    }
+
     // Setters
    
     /**
@@ -84,6 +98,7 @@ public class CartElement {
      */
     public void setQuantity(int quantity) {
         if (quantity > 0) {
+            cost.updateCost(this, quantity);
             this.quantity = quantity;
         }
     }

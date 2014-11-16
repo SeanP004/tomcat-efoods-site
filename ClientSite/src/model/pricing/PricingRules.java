@@ -1,19 +1,25 @@
 package model.pricing;
 
+import model.exception.*;
+
 public class PricingRules {
 
     private double shippingCost;
     private double shippingWaverCost;
     private double taxRate;
     
-    public PricingRules () { }
-    
-    public PricingRules (double shippingCost, double shippingWaverCost, double taxRate) {
+    public PricingRules() { }
+
+    public PricingRules(double shippingCost, double shippingWaverCost, double taxRate) {
         this.shippingCost = shippingCost;
         this.shippingWaverCost = shippingWaverCost;
         this.taxRate = taxRate;
     }
 
+    public PricingRules(String shippingCost, String shippingWaverCost, String taxRate) {
+        this(parseDouble(shippingCost), parseDouble(shippingWaverCost), parseTaxRate(taxRate));
+    }
+    
     // Getters
     
     public double getShippingCost() {
@@ -42,4 +48,22 @@ public class PricingRules {
         this.taxRate = taxRate;
     }
 
+    // Static Helpers
+
+    private static double parseDouble(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (Exception e) {
+            throw new PricingRuleValueException("Invalid number.", e);
+        }
+    }
+
+    private static double parseTaxRate(String s) {
+        double rate = parseDouble(s);
+        if (rate < 0 || rate > 1) {
+            throw new PricingRuleValueException("Invalid tax rate.");
+        }
+        return rate;
+    }
+    
 } // PricingRules

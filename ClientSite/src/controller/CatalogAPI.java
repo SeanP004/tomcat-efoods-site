@@ -2,7 +2,6 @@ package controller;
 
 import java.io.*;
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import model.catalog.*;
 import model.common.*;
@@ -11,7 +10,7 @@ import model.common.*;
  * Servlet implementation class CartAPI
  * Cart API Endpoint.
  */
-@WebServlet("/api/catalog")
+//@WebServlet("/api/catalog")
 public class CatalogAPI extends HttpServlet {
 
     private static final String
@@ -24,7 +23,7 @@ public class CatalogAPI extends HttpServlet {
         ServletContext sc      = getServletContext();
         String         type    = req.getParameter("type");
         Catalog        catalog = (Catalog)sc.getAttribute("catalog");
-
+        
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog()); }
 

@@ -1,9 +1,10 @@
 package model.cart;
 
-import java.util.*;
+import java.util.*;	
 import javax.xml.bind.annotation.*;
 import model.catalog.*;
 import model.exception.*;
+import model.pricing.*;
 
 /**
  * Cart stores the item collected of CartElement as an object shopping cart
@@ -15,6 +16,7 @@ public class Cart {
     private Map<String, CartElement> elements;
     private int                      numberOfItems;
     private Catalog                  catalog;
+    private Cost                     cost;
 
     /**
      * Cart constructor
@@ -23,6 +25,7 @@ public class Cart {
         this.elements = new LinkedHashMap<String, CartElement>();
         this.catalog = Catalog.getCatalog();
         this.numberOfItems = 0;
+        this.cost = PriceManager.getPriceManager().getCostInstance();
     }
 
     /**
@@ -46,7 +49,7 @@ public class Cart {
             getElement(number).incrementQuantity();
         } else {
             Item item = catalog.getItem(number);
-            CartElement ce = new CartElement(item);
+            CartElement ce = new CartElement(item, cost);
             elements.put(number, ce);
         }
         numberOfItems += 1;
@@ -85,7 +88,7 @@ public class Cart {
         if (quantity < 0) { throw new InvalidCartQuantityException(); }
         if (!hasElement(number)) {
             Item item = catalog.getItem(number);
-            CartElement ce = new CartElement(item);
+            CartElement ce = new CartElement(item, cost);
             ce.setQuantity(quantity);
             elements.put(number, ce);
             numberOfItems += quantity;
@@ -161,6 +164,16 @@ public class Cart {
     @XmlAttribute(name="size")
     public synchronized int getNumberOfItems() {
         return numberOfItems;
+    }
+
+    /**
+     * Returns the cost object stored in the cart
+     *
+     * @return the cost object in the cart
+     */
+    @XmlElement(name="cost")
+    public synchronized Cost getCost() {
+        return cost;
     }
 
     /**
