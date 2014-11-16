@@ -5,13 +5,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import model.exception.*;
 
 /**
- * Object for filtering the item category query. This object is created for each
+ * Object for filtering the category query. This object is created for each
  * query to get multiple items from the category relation. Faciliates a
  * multitude of search and filtering combinations, including pagination and
  * ordering.
  */
 @XmlRootElement(name="filter")
-public class ItemCategoryFilter {
+public class CategoryFilter {
 
     private String orderBy    = null;
     private String searchTerm = null;
@@ -82,4 +82,4 @@ public class ItemCategoryFilter {
         return sorts.contains(order);
     }
 
-} // ItemCategoryFilter
+} // CategoryFilter

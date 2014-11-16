@@ -114,7 +114,7 @@ class CatalogDBQuery {
      *                  specifies the format of the result data.
      * @return          the SQL statement generated
      */
-    private static String generateGetCategoriesQuery(ItemCategoryFilter filter) {
+    private static String generateGetCategoriesQuery(CategoryFilter filter) {
         boolean w = false;
         String query = CATALOG_GET_CATEGORIES;
 
@@ -135,7 +135,7 @@ class CatalogDBQuery {
 
     /**
      * Populates and returns the given prepared statement for querying for a
-     * list of Item Categories from the Category relation in the Catalog
+     * list of Categories from the Category relation in the Catalog
      * database, given a set of filtering rules.
      *
      * @param filter    object defining rules to filtering and
@@ -145,7 +145,7 @@ class CatalogDBQuery {
      * @throws          SQLException
      */
     private static PreparedStatement prepareGetCategoriesQuery(
-            ItemCategoryFilter filter, PreparedStatement ps)
+            CategoryFilter filter, PreparedStatement ps)
             throws SQLException {
         int i = 1;
 
@@ -182,7 +182,7 @@ class CatalogDBQuery {
     }
 
     /**
-     * Generates and prepares a query for a list of Item Categories from the
+     * Generates and prepares a query for a list of Categories from the
      * Category relation in the Catalog database, given a set of filtering
      * rules. Returns the prepared statement.
      *
@@ -192,7 +192,7 @@ class CatalogDBQuery {
      * @return          the Prepared Statement
      * @throws          SQLException
      */
-    public static PreparedStatement getCategories(ItemCategoryFilter filter,
+    public static PreparedStatement getCategories(CategoryFilter filter,
             Connection conn) throws SQLException {
         String sql = generateGetCategoriesQuery(filter);
         PreparedStatement ps = conn.prepareStatement(sql);

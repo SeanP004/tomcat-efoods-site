@@ -5,13 +5,13 @@ import java.util.*;
 
 @XmlRootElement(name="collection")
 @XmlType(propOrder={"filter", "categories"})
-public class ItemCategoryList {
+public class CategoryList {
 
-    private List<ItemCategory> categories;
-    private ItemCategoryFilter filter;
+    private List<Category> categories;
+    private CategoryFilter filter;
 
-    public ItemCategoryList() {}
-    public ItemCategoryList(List<ItemCategory> categories, ItemCategoryFilter filter) {
+    public CategoryList() {}
+    public CategoryList(List<Category> categories, CategoryFilter filter) {
         this.categories = categories;
         this.filter     = filter;
     }
@@ -22,16 +22,16 @@ public class ItemCategoryList {
     public int getSize() {
         return categories.size();
     }
-    
+
     @XmlElement
-    public ItemCategoryFilter getFilter() {
+    public CategoryFilter getFilter() {
         return filter;
     }
-    
+
     @XmlElementWrapper(name="categories")
     @XmlElement(name="category")
-    public List<ItemCategory> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-} // ItemCategoryList
+} // CategoryList

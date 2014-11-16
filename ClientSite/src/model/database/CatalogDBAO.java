@@ -100,16 +100,16 @@ public class CatalogDBAO implements CatalogDB {
     }
 
     /**
-     * Creates a new Item Category and populates its properties given a result
+     * Creates a new Category and populates its properties given a result
      * set.
      *
      * @param rs    the given result set from the database
-     * @return      the resulting Item Category
+     * @return      the resulting Category
      * @throws      SQLException
      */
-    private ItemCategory makeItemCategory(ResultSet rs) throws SQLException {
+    private Category makeCategory(ResultSet rs) throws SQLException {
         Blob pic = rs.getBlob("picture");
-        ItemCategory category = new ItemCategory();
+        Category category = new Category();
         category.setId(rs.getInt("id"));
         category.setName(rs.getString("name"));
         category.setDescription(rs.getString("description"));
@@ -118,18 +118,18 @@ public class CatalogDBAO implements CatalogDB {
     }
 
     /**
-     * Creates a new list of Item Categories and populates the properties of the
-     * newly created Item Categories given a result set.
+     * Creates a new list of Categories and populates the properties of the
+     * newly created Categories given a result set.
      *
      * @param rs    the given result set from the database
-     * @return      the resulting list of Item Categories
+     * @return      the resulting list of Categories
      * @throws      SQLException
      */
-    private List<ItemCategory> makeItemCategoryList(ResultSet rs)
+    private List<Category> makeCategoryList(ResultSet rs)
             throws SQLException {
-        List<ItemCategory> categories = new ArrayList<ItemCategory>();
+        List<Category> categories = new ArrayList<Category>();
         while (rs.next()) {
-            categories.add(makeItemCategory(rs));
+            categories.add(makeCategory(rs));
         }
         return categories;
     }
@@ -137,20 +137,20 @@ public class CatalogDBAO implements CatalogDB {
     // Public
 
     /**
-     * Returns a list of all the item categories that exist in the database and
+     * Returns a list of all the categories that exist in the database and
      * satisfy the given filtering rules.
      *
      * @param filter    specifies filtering rules
      * @return          list of categories
      * @throws          DataAccessException
      */
-    public List<ItemCategory> getCategories(ItemCategoryFilter filter)
+    public List<Category> getCategories(CategoryFilter filter)
             throws DataAccessException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getCategories(filter, conn);
             ResultSet rs = ps.executeQuery();
-            List<ItemCategory> categories = makeItemCategoryList(rs);
+            List<Category> categories = makeCategoryList(rs);
             close(rs, ps, conn);
             return categories;
         } catch (SQLException e) {
@@ -185,17 +185,17 @@ public class CatalogDBAO implements CatalogDB {
      *
      * @param id    the category unique identifer
      * @return      the corresponding category or null
-     * @throws      DataAccessException , ItemCategoryNotFoundException
+     * @throws      DataAccessException , CategoryNotFoundException
      */
-    public ItemCategory getCategory(int id) throws DataAccessException,
-            ItemCategoryNotFoundException {
+    public Category getCategory(int id) throws DataAccessException,
+            CategoryNotFoundException {
         try {
             Connection conn = getConnection();
             PreparedStatement ps = CatalogDBQuery.getCategory(id, conn);
             ResultSet rs = ps.executeQuery();
-            ItemCategory category = rs.next() ? makeItemCategory(rs) : null;
+            Category category = rs.next() ? makeCategory(rs) : null;
             close(rs, ps, conn);
-            if (category == null) { throw new ItemCategoryNotFoundException(); }
+            if (category == null) { throw new CategoryNotFoundException(); }
             return category;
         } catch (SQLException e) {
             throw new DataAccessException(e);

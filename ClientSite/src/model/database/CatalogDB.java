@@ -16,14 +16,14 @@ import java.util.*;
 public interface CatalogDB {
 
     /**
-     * Returns a list of all the item categories that exist in the database and
+     * Returns a list of all the categories that exist in the database and
      * satisfy the given filtering rules.
      *
      * @param filter    specifies filtering rules
      * @return          list of categories
      * @throws          DataAccessException
      */
-    List<ItemCategory> getCategories(ItemCategoryFilter filter)
+    List<Category> getCategories(CategoryFilter filter)
             throws DataAccessException;
 
     /**
@@ -42,10 +42,10 @@ public interface CatalogDB {
      *
      * @param id    the category unique identifer
      * @return      the corresponding category or null
-     * @throws      DataAccessException , ItemCategoryNotFoundException
+     * @throws      DataAccessException , CategoryNotFoundException
      */
-    ItemCategory getCategory(int id) throws DataAccessException,
-            ItemCategoryNotFoundException;
+    Category getCategory(int id) throws DataAccessException,
+            CategoryNotFoundException;
 
     /**
      * Returns the item that corresponds to the given item unique identifer.

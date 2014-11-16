@@ -16,9 +16,8 @@ import model.common.*;
 public class CartAPI extends HttpServlet {
 
     private static final String
-        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx"
-      , DATA_XML = "<quantity number='%s'>%d</quantity><total>%d</total>"
-      ;
+        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx",
+        DATA_XML = "<quantity number='%s'>%d</quantity><total>%d</total>";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)

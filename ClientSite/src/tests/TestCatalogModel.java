@@ -67,12 +67,12 @@ public class TestCatalogModel extends HttpServlet {
                         item.getUnit());
                 break;
             case "catlist":
-                List<ItemCategory> categories = catalog.getCategories(
+                List<Category> categories = catalog.getCategories(
                         req.getParameter("orderBy"),
                         req.getParameter("searchTerm"),
                         req.getParameter("offset"),
                         req.getParameter("fetch"));
-                for (ItemCategory cat : categories) {
+                for (Category cat : categories) {
                     out.printf("%d|%s|%s\n",
                             cat.getId(),
                             cat.getName(),
@@ -80,7 +80,7 @@ public class TestCatalogModel extends HttpServlet {
                 }
                 break;
             case "category":
-                ItemCategory cat = catalog.getCategory(
+                Category cat = catalog.getCategory(
                         req.getParameter("id"));
                 out.printf("%d|%s|%s\n",
                         cat.getId(),

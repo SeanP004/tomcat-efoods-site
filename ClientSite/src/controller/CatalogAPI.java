@@ -1,11 +1,9 @@
 package controller;
 
 import java.io.*;
-import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import model.cart.*;
 import model.catalog.*;
 import model.common.*;
 
@@ -24,7 +22,6 @@ public class CatalogAPI extends HttpServlet {
             throws ServletException, IOException {
 
         ServletContext sc      = getServletContext();
-        HttpSession    sess    = req.getSession();
         String         type    = req.getParameter("type");
         Catalog        catalog = (Catalog)sc.getAttribute("catalog");
 
@@ -50,17 +47,17 @@ public class CatalogAPI extends HttpServlet {
                         req.setAttribute("data", XMLUtil.<Item>generate(new StringWriter(), item).toString());
                         break;
                     case "catlist":
-                        ItemCategoryList categories = catalog.getCategoryList(
+                        CategoryList categories = catalog.getCategoryList(
                                 req.getParameter("orderBy"),
                                 req.getParameter("searchTerm"),
                                 req.getParameter("offset"),
                                 req.getParameter("fetch"));
-                        req.setAttribute("data", XMLUtil.<ItemCategoryList>generate(new StringWriter(), categories).toString());
+                        req.setAttribute("data", XMLUtil.<CategoryList>generate(new StringWriter(), categories).toString());
                         break;
                     case "category":
-                        ItemCategory cat = catalog.getCategory(
+                        Category cat = catalog.getCategory(
                                 req.getParameter("id"));
-                        req.setAttribute("data", XMLUtil.<ItemCategory>generate(new StringWriter(), cat).toString());
+                        req.setAttribute("data", XMLUtil.<Category>generate(new StringWriter(), cat).toString());
                         break;
                     default:
                         throw new RuntimeException("Bad action");

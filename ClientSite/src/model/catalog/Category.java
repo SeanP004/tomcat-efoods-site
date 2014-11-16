@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.*;
  */
 @XmlRootElement(name="category")
 @XmlType(propOrder={"id", "name", "description", "picture"})
-public class ItemCategory {
+public class Category {
 
     private int    id;
     private String name;
@@ -51,4 +51,4 @@ public class ItemCategory {
         this.picture = picture;
     }
 
-} // ItemCategory
+} // Category

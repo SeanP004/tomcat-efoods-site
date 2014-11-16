@@ -89,7 +89,7 @@ public class ItemFilter {
         this.maxPrice = maxPrice;
     }
 
-    public void setCategory(ItemCategory category) {
+    public void setCategory(Category category) {
         setCategory(category.getId());
     }
 

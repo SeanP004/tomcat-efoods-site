@@ -58,19 +58,19 @@ public class Catalog {
     }
 
     /**
-     * Create an ItemCategory Filter according to the value of the retrived
+     * Create an Category Filter according to the value of the retrived
      * variable and send to the correct corresponding value set
      *
      * @param orderBy       the sort order
      * @param searchTerm    the search query string
      * @param offset        pagination offset
      * @param fetch         number of items to return
-     * @return              ItemCategoryFilter
+     * @return              CategoryFilter
      * @throws              InvalidQueryFilterException
      */
-    private ItemCategoryFilter parseItemCategoryFilter(String orderBy,
+    private CategoryFilter parseCategoryFilter(String orderBy,
             String searchTerm, String offset, String fetch) {
-        ItemCategoryFilter filter = new ItemCategoryFilter();
+        CategoryFilter filter = new CategoryFilter();
 
         if (orderBy != null) {
             filter.setOrderBy(orderBy); }
@@ -124,7 +124,7 @@ public class Catalog {
     // Public
 
     /**
-     * Returns a list of item categories given the specified filtering rules.
+     * Returns a list of categories given the specified filtering rules.
      * The returned list is filtered by search term or by pagination and sorted
      * as specified.
      *
@@ -135,15 +135,15 @@ public class Catalog {
      * @return              list of categories
      * @throws              InvalidQueryFilterException
      */
-    public List<ItemCategory> getCategories(String orderBy,
+    public List<Category> getCategories(String orderBy,
             String searchTerm, String offset, String fetch)
             throws InvalidQueryFilterException {
-        return dao.getCategories(parseItemCategoryFilter(orderBy, searchTerm,
+        return dao.getCategories(parseCategoryFilter(orderBy, searchTerm,
                 offset, fetch));
     }
 
     /**
-     * Returns a list of item categories given the specified filtering rules.
+     * Returns a list of categories given the specified filtering rules.
      * The returned list is filtered by search term or by pagination and sorted
      * as specified.
      *
@@ -154,12 +154,12 @@ public class Catalog {
      * @return              list of categories
      * @throws              InvalidQueryFilterException
      */
-    public ItemCategoryList getCategoryList(String orderBy,
+    public CategoryList getCategoryList(String orderBy,
             String searchTerm, String offset, String fetch)
             throws InvalidQueryFilterException {
-        ItemCategoryFilter filter = parseItemCategoryFilter(orderBy, searchTerm,
+        CategoryFilter filter = parseCategoryFilter(orderBy, searchTerm,
                 offset, fetch);
-        return new ItemCategoryList(dao.getCategories(filter), filter);
+        return new CategoryList(dao.getCategories(filter), filter);
     }
 
 
@@ -169,7 +169,7 @@ public class Catalog {
      * @param id    the category unique identifier
      * @return      the category corresponding to the given id.
      */
-    public ItemCategory getCategory(String id) {
+    public Category getCategory(String id) {
         return dao.getCategory(parseInt(id));
     }
 
