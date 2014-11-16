@@ -13,36 +13,38 @@ import model.catalog.*;
 /**
  * Servlet implementation class Main
  */
-@WebServlet("/*")
+@WebServlet("/Front/*")
 public class Main extends HttpServlet {
 
-	@Override
+    @Override
     public void init() throws ServletException {
         super.init();
         ServletContext sc = getServletContext();
         sc.setAttribute("Catalog", Catalog.getCatalog());
-        sc.setAttribute("PriceManager", PriceManager.getPriceManager(
-               new PricingRules(sc.getInitParameter("shippingCost"),
-                       sc.getInitParameter("shippingWaverCost"),
-                       sc.getInitParameter("taxRate"))));
+        sc.setAttribute("PriceManager", PriceManager
+                .getPriceManager(new PricingRules(sc
+                        .getInitParameter("shippingCost"), sc
+                        .getInitParameter("shippingWaverCost"), sc
+                        .getInitParameter("taxRate"))));
     }
 
     @Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	    ServletContext sc = getServletContext();
-	    String pathInfo   = req.getPathInfo();
-	    if (pathInfo != null) {
-	        switch (pathInfo) {
-	            case "/api/catalog":
-	                sc.getNamedDispatcher("CatalogAPI").forward(req, res);
-	                break;
-	            case "/api/cart":
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        ServletContext sc = getServletContext();
+        String pathInfo = req.getPathInfo();
+        if (pathInfo != null) {
+            switch (pathInfo) {
+                case "/api/catalog":
+                    sc.getNamedDispatcher("CatalogAPI").forward(req, res);
+                    break;
+                case "/api/cart":
                     sc.getNamedDispatcher("CartAPI").forward(req, res);
                     break;
-	        }
+            }
         } else {
             sc.getRequestDispatcher("/WEB-INF/pages/Catalog.jspx").forward(req, res);
         }
-	}
+    }
 
 } // Main
