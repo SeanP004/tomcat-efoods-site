@@ -15,13 +15,8 @@ public class CartElement {
     private Cost cost;
     private int  quantity;
     
-    /**
-     * CartElement constructor
-     */
-    public CartElement() {
-        quantity = 1;
-    }
-    
+    public CartElement() { } // To make JAXB happy
+
     /**
      * CartElement constructor
      * 
@@ -29,11 +24,11 @@ public class CartElement {
      * @param cost      costing object
      */
     public CartElement(Item item, Cost cost) {
-       this();
        this.cost = cost;
        setItem(item);
+       setQuantity(1);
     }
-   
+
     /**
      * Increase the quantity counter by 1 increment.
      */

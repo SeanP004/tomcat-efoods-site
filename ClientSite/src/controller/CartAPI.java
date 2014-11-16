@@ -6,17 +6,14 @@ import javax.servlet.http.*;
 import model.cart.*;
 import model.catalog.*;
 import model.common.*;
-import model.pricing.*;
 
 /**
- * Servlet implementation class CartAPI
- * Cart API Endpoint.
+ * Servlet implementation class CartAPI Cart API Endpoint.
  */
-//@WebServlet("/api/cart")
+// @WebServlet("/api/cart")
 public class CartAPI extends HttpServlet {
 
-    private static final String
-        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
+    private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -29,11 +26,13 @@ public class CartAPI extends HttpServlet {
         String         quantity = req.getParameter("quantity");
         Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
+        StringWriter   sw       = new StringWriter();
+        DummyCart      dc;
 
         if (catalog == null) {
-            sc.setAttribute("catalog", catalog = Catalog.getCatalog()); }
+            sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
         if (cart == null) {
-            sess.setAttribute("cart", cart = new Cart()); }
+            sess.setAttribute("cart", cart = new Cart());}
 
         try {
 
@@ -48,31 +47,34 @@ public class CartAPI extends HttpServlet {
                 switch (action) {
                     case "add":
                         cart.add(number);
+                        dc = cart.getDummyCart();
                         req.setAttribute("status", "Successfully Added");
-                        req.setAttribute("data", XMLUtil.<Cost>generate(new StringWriter(), cart.getCost()).toString());
+                        req.setAttribute("data", XMLUtil.<DummyCart>generate(sw, dc).toString());
                         break;
                     case "remove":
                         if (cart.hasElement(number)) {
                             cart.remove(number);
+                            dc = cart.getDummyCart();
                             req.setAttribute("status", "Successfully Removed");
-                            req.setAttribute("data", XMLUtil.<Cost>generate(new StringWriter(), cart.getCost()).toString());
+                            req.setAttribute( "data", XMLUtil.<DummyCart>generate(sw, dc).toString());
                         } else {
                             req.setAttribute("status", "Nothing to remove");
                         }
                         break;
                     case "bulk":
                         cart.bulkUpdate(number, quantity);
+                        dc = cart.getDummyCart();
                         req.setAttribute("status", "Successfully Performed Bulk Update");
-                        req.setAttribute("data", XMLUtil.<Cost>generate(new StringWriter(), cart.getCost()).toString());
+                        req.setAttribute( "data", XMLUtil.<DummyCart>generate(sw, dc).toString());
                         break;
                     case "list":
-                        req.setAttribute("data", XMLUtil.<Cart>generate(new StringWriter(), cart).toString());
+                        req.setAttribute("data", XMLUtil.<Cart>generate(sw, cart).toString());
                         break;
                     default:
                         throw new RuntimeException("Bad action");
                 }
             } else {
-                req.setAttribute("data", XMLUtil.<Cart>generate(new StringWriter(), cart).toString());
+                req.setAttribute("data", XMLUtil.<Cart>generate(sw, cart).toString());
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

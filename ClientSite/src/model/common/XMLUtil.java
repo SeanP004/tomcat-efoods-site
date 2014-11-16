@@ -7,6 +7,18 @@ import model.exception.*;
 
 public class XMLUtil {
 
+    private XMLUtil() { } // no constructor
+
+    /**
+     * Generates an XML output, given a output writer
+     * and an object, and specifying the object's type
+     * via the generic T.
+     *
+     * @param  out      output writer
+     * @param  object   to generate XML for
+     * @return          the given out writer
+     * @throws          XMLGenerationException, IOException
+     */
     public static <T> Writer generate(Writer out, T object)
             throws XMLGenerationException, IOException {
         try {

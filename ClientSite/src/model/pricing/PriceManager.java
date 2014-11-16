@@ -20,6 +20,7 @@ public class PriceManager {
     public double getExtendedCost(Item item, int quantity) {
         return item.getPrice() * quantity;
     }
+
     public double getExtendedCost(CartElement ce) {
         return getExtendedCost(ce.getItem(), ce.getQuantity());
     }

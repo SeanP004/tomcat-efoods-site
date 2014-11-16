@@ -1,6 +1,6 @@
 package model.cart;
 
-import java.util.*;	
+import java.util.*;
 import javax.xml.bind.annotation.*;
 import model.catalog.*;
 import model.exception.*;
@@ -14,9 +14,9 @@ import model.pricing.*;
 public class Cart {
 
     private Map<String, CartElement> elements;
-    private int                      numberOfItems;
-    private Catalog                  catalog;
-    private Cost                     cost;
+    private Catalog catalog;
+    private int numberOfItems;
+    private Cost cost;
 
     /**
      * Cart constructor
@@ -24,19 +24,12 @@ public class Cart {
     public Cart() {
         this.elements = new LinkedHashMap<String, CartElement>();
         this.catalog = Catalog.getCatalog();
-        this.numberOfItems = 0;
         this.cost = PriceManager.getPriceManager().getCostInstance();
+        setNumberOfItems(0);
     }
 
-    /**
-     * Set the cart's catalog reference
-     * 
-     * @param catalog   catalog object
-     */
-    public void setCatalog(Catalog catalog) {
-        this.catalog = catalog;
-    }
-
+    // Operations
+    
     /**
      * Add an CartElement to the cart
      * If the current item exist in the cart then increment it quanty by 1
@@ -49,10 +42,10 @@ public class Cart {
             getElement(number).incrementQuantity();
         } else {
             Item item = catalog.getItem(number);
-            CartElement ce = new CartElement(item, cost);
+            CartElement ce = new CartElement(item, getCost());
             elements.put(number, ce);
         }
-        numberOfItems += 1;
+        shiftNumberOfItems(1);
     }
 
     /**
@@ -69,7 +62,7 @@ public class Cart {
             if (ce.getQuantity() <= 0) {
                 elements.remove(number);
             }
-            numberOfItems -= 1;
+            shiftNumberOfItems(-1);
         }
     }
 
@@ -88,19 +81,17 @@ public class Cart {
         if (quantity < 0) { throw new InvalidCartQuantityException(); }
         if (!hasElement(number)) {
             Item item = catalog.getItem(number);
-            CartElement ce = new CartElement(item, cost);
+            CartElement ce = new CartElement(item, getCost());
             ce.setQuantity(quantity);
             elements.put(number, ce);
-            numberOfItems += quantity;
+            shiftNumberOfItems(quantity);
         } else {
             CartElement ce = getElement(number);
             if (quantity == 0) {
                 elements.remove(number);
-                numberOfItems -= ce.getQuantity();
-            } else {
-                numberOfItems += quantity - ce.getQuantity();
-                ce.setQuantity(quantity);
             }
+            shiftNumberOfItems(quantity - ce.getQuantity());
+            ce.setQuantity(quantity);
         }
     }
 
@@ -124,17 +115,15 @@ public class Cart {
     }
 
     /**
-     * Returns true if the cart element for given
-     * the specified item number exists in the carts,
-     * otherwise false.
-     *
-     * @param number    the item number string
-     * @return          true if cart element exists, otherwise false.
+     * Clear the cart back to intial state
      */
-    public synchronized boolean hasElement(String number) {
-        return elements.containsKey(number);
+    public synchronized void clear() {
+        elements.clear();
+        setNumberOfItems(0);
     }
 
+    // Getters
+    
     /**
      * Returns the cart element from the cart
      * given the specified item number.
@@ -151,7 +140,8 @@ public class Cart {
      *
      * @return a copy of a list of cart elements
      */
-    @XmlElement(name="element")
+    @XmlElementWrapper(name="card-elements")
+    @XmlElement(name="card-element")
     public synchronized List<CartElement> getElements() {
         return new ArrayList<CartElement>(elements.values());
     }
@@ -174,14 +164,52 @@ public class Cart {
     @XmlElement(name="cost")
     public synchronized Cost getCost() {
         return cost;
+    }    
+
+    // Queries
+    
+    /**
+     * Returns true if the cart element for given
+     * the specified item number exists in the carts,
+     * otherwise false.
+     *
+     * @param number    the item number string
+     * @return          true if cart element exists, otherwise false.
+     */
+    public synchronized boolean hasElement(String number) {
+        return elements.containsKey(number);
     }
 
     /**
-     * Clear the cart back to intial state
+     * Returns a "dummy" cart that lacks a list of items,
+     * Is only intended for outputting XML in the
+     * CartAPI servlet.
+     *
+     * @return          "thin" cart.
      */
-    public synchronized void clear() {
-        elements.clear();
-        numberOfItems = 0;
+    public synchronized DummyCart getDummyCart() {
+        return new DummyCart(numberOfItems, cost);
+    }    
+
+    // Private
+
+    /**
+     * Sets the number of items in the cart
+     *
+     * @param numberOfItems     in the cart
+     */
+    private void setNumberOfItems(int numberOfItems) {
+        this.numberOfItems = numberOfItems;
+    }
+
+    /**
+     * Shift the number of items in the cart by
+     * the specified amount.
+     *
+     * @param shift     the number of items to increase or decrease by
+     */
+    private void shiftNumberOfItems(int shift) {
+        setNumberOfItems(numberOfItems + shift);
     }
 
 } // Cart

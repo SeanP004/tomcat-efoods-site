@@ -2,6 +2,8 @@ package model.catalog;
 
 import javax.xml.bind.annotation.*;
 
+import static model.common.CommonUtil.*;
+
 /**
  * Simple representation of a catalog item. Corresponds to a record in the item
  * relation within the catalog database.
@@ -33,7 +35,7 @@ public class Item {
     }
 
     public double getPrice() {
-        return price;
+        return roundOff(price);
     }
 
     public int getQty() {
@@ -57,11 +59,21 @@ public class Item {
     }
 
     public double getCostPrice() {
-        return costPrice;
+        return roundOff(costPrice);
     }
 
     public String getUnit() {
         return unit;
+    }
+
+    // Raw Getters
+    
+    public double getRawPrice() {
+        return price;
+    }
+
+    public double getRawCostPrice() {
+        return costPrice;
     }
 
     // Setters

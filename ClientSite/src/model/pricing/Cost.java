@@ -1,7 +1,9 @@
 package model.pricing;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.*;	
 import model.cart.*;
+
+import static model.common.CommonUtil.*;
 
 @XmlRootElement(name="cost")
 public class Cost {
@@ -11,35 +13,51 @@ public class Cost {
     private double shipping;
     private double tax;
     private double grandTotal;
-    
+
+    public Cost() { } // To make JAXB happy
+
     public Cost(PriceManager priceManager) {
         this.pm = priceManager;
     }
 
     // Getters
-    
+
+    @XmlElement
     public double getTotal() {
-        return total;
+        return roundOff(total);
     }
 
+    @XmlElement
     public double getShipping() {
-        return shipping;
+        return roundOff(shipping);
     }
 
+    @XmlElement
     public double getTax() {
         return tax;
     }
 
+    @XmlElement
     public double getGrandTotal() {
-        return grandTotal;
+        return roundOff(grandTotal);
     }
 
     public double getExtendedCost(CartElement ce) {
         return pm.getExtendedCost(ce);
     }    
 
-    // Setters
+    // Package-Access Getters
     
+    double getRawTotal() {
+        return total;
+    }
+
+    double getRawGrandTotal() {
+        return grandTotal;
+    }
+
+    // Package-Access Setters
+
     void setTotal(double total) {
         this.total = total;
     }
@@ -57,9 +75,9 @@ public class Cost {
     }
 
     // Public Setters
-    
+
     public void updateCost(CartElement ce, int quantity) {
         pm.updateCost(this, ce, quantity);
     }
-
+    
 } // Cost

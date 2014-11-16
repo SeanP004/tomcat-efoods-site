@@ -13,8 +13,7 @@ import model.common.*;
 //@WebServlet("/api/catalog")
 public class CatalogAPI extends HttpServlet {
 
-    private static final String
-        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
+    private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -23,6 +22,7 @@ public class CatalogAPI extends HttpServlet {
         ServletContext sc      = getServletContext();
         String         type    = req.getParameter("type");
         Catalog        catalog = (Catalog)sc.getAttribute("catalog");
+        StringWriter   sw      = new StringWriter();
         
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog()); }
@@ -39,11 +39,11 @@ public class CatalogAPI extends HttpServlet {
                                 req.getParameter("fetch"),
                                 req.getParameter("minPrice"),
                                 req.getParameter("maxPrice"));
-                        req.setAttribute("data", XMLUtil.<ItemList>generate(new StringWriter(), items).toString());
+                        req.setAttribute("data", XMLUtil.<ItemList>generate(sw, items).toString());
                         break;
                     case "item":
                         Item item = catalog.getItem(req.getParameter("number"));
-                        req.setAttribute("data", XMLUtil.<Item>generate(new StringWriter(), item).toString());
+                        req.setAttribute("data", XMLUtil.<Item>generate(sw, item).toString());
                         break;
                     case "catlist":
                         CategoryList categories = catalog.getCategoryList(
@@ -51,12 +51,12 @@ public class CatalogAPI extends HttpServlet {
                                 req.getParameter("searchTerm"),
                                 req.getParameter("offset"),
                                 req.getParameter("fetch"));
-                        req.setAttribute("data", XMLUtil.<CategoryList>generate(new StringWriter(), categories).toString());
+                        req.setAttribute("data", XMLUtil.<CategoryList>generate(sw, categories).toString());
                         break;
                     case "category":
                         Category cat = catalog.getCategory(
                                 req.getParameter("id"));
-                        req.setAttribute("data", XMLUtil.<Category>generate(new StringWriter(), cat).toString());
+                        req.setAttribute("data", XMLUtil.<Category>generate(sw, cat).toString());
                         break;
                     default:
                         throw new RuntimeException("Bad action");
@@ -70,7 +70,7 @@ public class CatalogAPI extends HttpServlet {
                         req.getParameter("fetch"),
                         req.getParameter("minPrice"),
                         req.getParameter("maxPrice"));
-                req.setAttribute("data", XMLUtil.<ItemList>generate(new StringWriter(), items).toString());
+                req.setAttribute("data", XMLUtil.<ItemList>generate(sw, items).toString());
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
