@@ -26,7 +26,7 @@ public class CatalogAPI extends HttpServlet {
         Catalog        catalog = (Catalog)sc.getAttribute("catalog");
 
         if (catalog == null) {
-            sc.setAttribute("catalog", catalog = new Catalog()); }
+            sc.setAttribute("catalog", catalog = Catalog.getCatalog()); }
 
         try {
             if (type != null) {

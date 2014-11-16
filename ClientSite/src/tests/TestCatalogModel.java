@@ -11,19 +11,15 @@ import model.catalog.*;
 public class TestCatalogModel extends HttpServlet {
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        ServletContext sc = getServletContext();
-        sc.setAttribute("model", new Catalog());
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        ServletContext sc = getServletContext();
-        Catalog catalog = (Catalog) (sc.getAttribute("model"));
-        String type = req.getParameter("type");
-        PrintWriter out = res.getWriter();
+        ServletContext sc      = getServletContext();
+        String         type    = req.getParameter("type");
+        PrintWriter    out     = res.getWriter();
+        Catalog        catalog = (Catalog)sc.getAttribute("catalog");
+
+        if (catalog == null) {
+            sc.setAttribute("catalog", catalog = Catalog.getCatalog()); }
 
         res.setContentType("text/plain");
 

@@ -9,9 +9,9 @@ import model.catalog.*;
  * the quanity
  */
 public class CartElement {
+
     private Item item;
     private int  quantity;
-
     
     /**
      * CartElement constructor
@@ -77,4 +77,15 @@ public class CartElement {
         this.item = item;
     }
     
+    /**
+     * Set the value of quantity.
+     * 
+     * @param quantity
+     */
+    public void setQuantity(int quantity) {
+        if (quantity > 0) {
+            this.quantity = quantity;
+        }
+    }
+
 } // CartElement

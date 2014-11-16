@@ -7,6 +7,8 @@ import model.exception.*;
 
 public class Catalog {
 
+    private static Catalog singleton = null;
+
     private final CatalogDB dao;
 
     /**
@@ -14,7 +16,7 @@ public class Catalog {
      *
      * @throws      DataAccessException
      */
-    public Catalog() throws DataAccessException {
+    private Catalog() throws DataAccessException {
         try {
             dao = new CatalogDBAO();
         } catch (NamingException e) {
@@ -162,7 +164,6 @@ public class Catalog {
         return new CategoryList(dao.getCategories(filter), filter);
     }
 
-
     /**
      * Returns the iten category given the specified category id.
      *
@@ -226,6 +227,21 @@ public class Catalog {
      */
     public Item getItem(String number) {
         return dao.getItem(number);
+    }
+
+    // Static
+
+    /**
+     * Return a reference to the Catalog singleton.
+     * If the singleton does not exist, create it.
+     *
+     * @throws          DataAccessException
+     */
+    public static final Catalog getCatalog() throws DataAccessException {
+        if (singleton == null) {
+            singleton = new Catalog();
+        }
+        return singleton;
     }
 
 } // Catalog

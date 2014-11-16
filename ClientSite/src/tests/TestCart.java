@@ -14,20 +14,21 @@ import model.catalog.*;
 public class TestCart extends HttpServlet {
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        ServletContext sc = getServletContext();
-        sc.setAttribute("cart", new Cart(new Catalog()));
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        ServletContext sc = getServletContext();
-        Cart cart = (Cart) (sc.getAttribute("cart"));
-        String action = req.getParameter("action");
-        String number = req.getParameter("number");
-        PrintWriter out = res.getWriter();
+
+        ServletContext sc      = getServletContext();
+        PrintWriter    out     = res.getWriter();
+        HttpSession    sess    = req.getSession();
+        String         action  = req.getParameter("action");
+        String         number  = req.getParameter("number");
+        Catalog        catalog = (Catalog)sc.getAttribute("catalog");
+        Cart           cart    = (Cart)sess.getAttribute("cart");
+
+        if (catalog == null) {
+            sc.setAttribute("catalog", catalog = Catalog.getCatalog()); }
+        if (cart == null) {
+            sess.setAttribute("cart", cart = new Cart()); }
 
         res.setContentType("text/plain");
 

@@ -3,6 +3,7 @@ package model.cart;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import model.catalog.*;
+import model.exception.*;
 
 /**
  * Cart stores the item collected of CartElement as an object shopping cart
@@ -20,18 +21,10 @@ public class Cart {
      */
     public Cart() {
         this.elements = new LinkedHashMap<String, CartElement>();
+        this.catalog = Catalog.getCatalog();
         this.numberOfItems = 0;
     }
 
-    /**
-     * Cart constructor
-     * @param catalog   catalog object
-     */
-    public Cart(Catalog catalog) {
-        this();
-        setCatalog(catalog);
-    }
-    
     /**
      * Set the cart's catalog reference
      * 
@@ -53,8 +46,8 @@ public class Cart {
             getElement(number).incrementQuantity();
         } else {
             Item item = catalog.getItem(number);
-            CartElement newItem = new CartElement(item);
-            elements.put(number, newItem);
+            CartElement ce = new CartElement(item);
+            elements.put(number, ce);
         }
         numberOfItems += 1;
     }
@@ -68,12 +61,62 @@ public class Cart {
      */
     public synchronized void remove(String number) {
         if (hasElement(number)) {
-            CartElement scitem = getElement(number);
-            scitem.decrementQuantity();
-            if (scitem.getQuantity() <= 0) {
+            CartElement ce = getElement(number);
+            ce.decrementQuantity();
+            if (ce.getQuantity() <= 0) {
                 elements.remove(number);
             }
             numberOfItems -= 1;
+        }
+    }
+
+    /**
+     * Update the specified CartElement with the given quantity.
+     * If the item specified is not in the cart, add to cart
+     * If the quantity is negative throw an Exception
+     * If the quantity is zero remove from cart
+     * Otherwise set quantity.
+     *
+     * @param number    the item number string
+     * @param quantity  the number of items
+     * @throws          InvalidCartQuantityException
+     */
+    public synchronized void bulkUpdate(String number, int quantity) {
+        if (quantity < 0) { throw new InvalidCartQuantityException(); }
+        if (!hasElement(number)) {
+            Item item = catalog.getItem(number);
+            CartElement ce = new CartElement(item);
+            ce.setQuantity(quantity);
+            elements.put(number, ce);
+            numberOfItems += quantity;
+        } else {
+            CartElement ce = getElement(number);
+            if (quantity == 0) {
+                elements.remove(number);
+                numberOfItems -= ce.getQuantity();
+            } else {
+                numberOfItems += quantity - ce.getQuantity();
+                ce.setQuantity(quantity);
+            }
+        }
+    }
+
+    /**
+     * Update the specified CartElement with the given quantity.
+     * If the item specified is not in the cart, add to cart
+     * If the quantity is negative throw an Exception
+     * If the quantity is zero remove from cart
+     * Otherwise set quantity.
+     *
+     * @param number    the item number string
+     * @param quantity  the number of items
+     * @throws          InvalidCartQuantityException
+     */
+    public synchronized void bulkUpdate(String number, String quantity) {
+        try {
+            bulkUpdate(number, Integer.parseInt(quantity));
+        } catch (NumberFormatException e) {
+            throw new InvalidCartQuantityException(e);
         }
     }
 
