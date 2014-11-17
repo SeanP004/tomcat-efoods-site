@@ -2,6 +2,12 @@ package model.pricing;
 
 import model.exception.*;
 
+/**
+ * The pricing rules are stored
+ * in this object and loaded into
+ * the system at startup from the
+ * web.xml configuration file.
+ */
 public class PricingRules {
 
     private double shippingCost;

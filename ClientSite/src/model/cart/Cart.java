@@ -24,12 +24,12 @@ public class Cart {
     public Cart() {
         this.elements = new LinkedHashMap<String, CartElement>();
         this.catalog = Catalog.getCatalog();
-        this.cost = PriceManager.getPriceManager().getCostInstance();
+        this.cost = PriceManager.getPriceManager().getCostInstance(this);
         setNumberOfItems(0);
     }
 
     // Operations
-    
+
     /**
      * Add an CartElement to the cart
      * If the current item exist in the cart then increment it quanty by 1
@@ -123,7 +123,7 @@ public class Cart {
     }
 
     // Getters
-    
+
     /**
      * Returns the cart element from the cart
      * given the specified item number.
@@ -164,10 +164,10 @@ public class Cart {
     @XmlElement(name="cost")
     public synchronized Cost getCost() {
         return cost;
-    }    
+    }
 
     // Queries
-    
+
     /**
      * Returns true if the cart element for given
      * the specified item number exists in the carts,
@@ -189,7 +189,7 @@ public class Cart {
      */
     public synchronized DummyCart getDummyCart() {
         return new DummyCart(numberOfItems, cost);
-    }    
+    }
 
     // Private
 

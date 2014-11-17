@@ -1,14 +1,22 @@
 package model.pricing;
 
-import javax.xml.bind.annotation.*;	
+import javax.xml.bind.annotation.*;
 import model.cart.*;
 
 import static model.common.CommonUtil.*;
 
+/**
+ * The Cost object stores the values of
+ * a cart's total, shopping and tax costs.
+ * Has a reference to the PriceManager, and
+ * notifies the PriceManager when an update
+ * to the pricing is needed.
+ */
 @XmlRootElement(name="cost")
 public class Cost {
 
     private PriceManager pm;
+    private Cart cart;
     private double total;
     private double shipping;
     private double tax;
@@ -16,7 +24,16 @@ public class Cost {
 
     public Cost() { } // To make JAXB happy
 
-    public Cost(PriceManager priceManager) {
+    /**
+     * Construct a new Cost object
+     * Must be created by the PriceManager.
+     * Package level access only
+     * 
+     * @param priceManager  the price manager
+     * @param cart          the associate cart
+     */
+    Cost(PriceManager priceManager, Cart cart) {
+        this.cart = cart;
         this.pm = priceManager;
     }
 
@@ -44,10 +61,14 @@ public class Cost {
 
     public double getExtendedCost(CartElement ce) {
         return pm.getExtendedCost(ce);
-    }    
+    }
 
     // Package-Access Getters
-    
+
+    Cart getCart() {
+        return cart;
+    }
+
     double getRawTotal() {
         return total;
     }
@@ -79,5 +100,5 @@ public class Cost {
     public void updateCost(CartElement ce, int quantity) {
         pm.updateCost(this, ce, quantity);
     }
-    
+
 } // Cost
