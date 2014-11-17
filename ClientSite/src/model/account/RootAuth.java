@@ -4,22 +4,22 @@ import java.util.*;
 
 /**
  * This class represents the root
- * authenication authority. It provides
+ * authentication authority. It provides
  * a set of methods that abstraction the
  * actual means of authenicating the user.
  * (i.e.: could be basic auth, OAuth,
  * OpenID, or even a simple HashMap lookup.)
- * as well as the source of authenication.
- * 
+ * as well as the source of authentication.
+ *
  * Allows the user to signin with any known
- * authenication authority.
+ * authentication authority.
  */
 public class RootAuth {
 
     private static RootAuth singleton;
 
     private Map<String, AuthAuthority> auths;
-    
+
     private RootAuth() {
         auths = new HashMap<String, AuthAuthority>();
     }
@@ -28,7 +28,7 @@ public class RootAuth {
 
     private boolean hasAuthority(String authName) {
         return auths.containsKey(authName);
-    }   
+    }
 
     public void addAuthority(String authName, AuthAuthority auth) {
         auths.put(authName, auth);
@@ -49,7 +49,7 @@ public class RootAuth {
     }
 
     // Public - Amount Operations
-    
+
     public Account requestSignIn(String authName) {
         if (!hasAuthority(authName)) {
             return null;

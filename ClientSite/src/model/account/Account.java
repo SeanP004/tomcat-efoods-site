@@ -28,13 +28,13 @@ public class Account {
      * AuthAuthority. Package level access
      * only.
      *
-     * @param auth      the root authenication authority
-     * @param type      the authenication type
+     * @param auth      the root authentication authority
+     * @param type      the authentication type
      * @param id        the username (id)
      * @param name      the name of the user
      * @param avatar    URI to profile picture
      */
-    Account(RootAuth auth, String type, String id, 
+    Account(RootAuth auth, String type, String id,
             String name, String avatar) {
         this.auth   = auth;
         this.type   = type;
