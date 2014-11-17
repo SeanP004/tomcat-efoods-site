@@ -13,6 +13,7 @@ public class TestCatalogModel extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+
         ServletContext sc      = getServletContext();
         String         type    = req.getParameter("type");
         PrintWriter    out     = res.getWriter();

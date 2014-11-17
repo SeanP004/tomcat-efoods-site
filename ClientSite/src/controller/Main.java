@@ -1,19 +1,16 @@
 package controller;
 
-import java.io.IOException;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
 import model.pricing.*;
 import model.catalog.*;
 
 /**
  * Servlet implementation class Main
  */
-@WebServlet("/Front/*")
+@WebServlet(urlPatterns = {"/jsp/*", "/api/*"})
 public class Main extends HttpServlet {
 
     @Override
@@ -28,23 +25,49 @@ public class Main extends HttpServlet {
                         .getInitParameter("taxRate"))));
     }
 
+    private void doRequest(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        
+        ServletContext sc = getServletContext();
+        String pathInfo   = req.getPathInfo();
+        String context    = req.getContextPath();
+        String relative   = req.getRequestURI().substring(context.length());
+        String target     = "Error404";
+
+        if (relative.startsWith("/api")) {
+            if (pathInfo != null) {
+                switch (pathInfo) {
+                    case "/catalog": target = "CatalogAPI"; break;
+                    case "/cart":    target = "CartAPI";    break;
+                }                
+            }
+        } else { // starts with /jsp
+            if (pathInfo != null) {
+                switch (pathInfo) {
+                    case "/": target = "StoreFront"; break;
+                }
+            } else {
+                target = "StoreFront";
+            }
+        }
+
+        if ("Error404".equals(target)) {
+            res.sendError(404);
+        }
+
+        sc.getNamedDispatcher(target).forward(req, res);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        ServletContext sc = getServletContext();
-        String pathInfo = req.getPathInfo();
-        if (pathInfo != null) {
-            switch (pathInfo) {
-                case "/api/catalog":
-                    sc.getNamedDispatcher("CatalogAPI").forward(req, res);
-                    break;
-                case "/api/cart":
-                    sc.getNamedDispatcher("CartAPI").forward(req, res);
-                    break;
-            }
-        } else {
-            sc.getRequestDispatcher("/WEB-INF/pages/Catalog.jspx").forward(req, res);
-        }
+        doRequest(req, res);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest(req, res);
     }
 
 } // Main

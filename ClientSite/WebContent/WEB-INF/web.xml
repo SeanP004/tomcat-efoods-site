@@ -7,7 +7,7 @@
     <display-name>eFoods</display-name>
 
     <welcome-file-list>
-        <welcome-file>Front</welcome-file>
+        <welcome-file>jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>
@@ -30,6 +30,10 @@
     <servlet>
         <servlet-name>CartAPI</servlet-name>
         <servlet-class>controller.CartAPI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StoreFront</servlet-name>
+        <servlet-class>controller.StoreFront</servlet-class>
     </servlet>
 
     <error-page>

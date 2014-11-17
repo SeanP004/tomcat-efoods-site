@@ -1,7 +1,7 @@
 package model.catalog;
 
 import java.util.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import model.exception.*;
 
 /**
