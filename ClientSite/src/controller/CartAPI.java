@@ -76,7 +76,6 @@ public class CartAPI extends HttpServlet {
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
-            e.printStackTrace();
         }
 
         req.getRequestDispatcher(JSP_FILE).forward(req, res);

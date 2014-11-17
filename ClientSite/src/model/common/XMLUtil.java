@@ -3,28 +3,23 @@ package model.common;
 import java.io.*;
 import java.util.*;
 import javax.xml.bind.*;
-import javax.xml.parsers.*;
+import javax.xml.bind.util.*;
 import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import javax.xml.validation.*;
-import javax.xml.validation.Validator;
-import org.w3c.dom.*;
 import model.exception.*;
 import static javax.xml.XMLConstants.*;
 
 public class XMLUtil {
 
     private XMLUtil() { } // no constructor
-    
+
     // Private Static
-    
+
     private static final SchemaFactory sf
                 = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI);
     private static final TransformerFactory tf
                 = TransformerFactory.newInstance();
-    private static final DocumentBuilderFactory dbf
-                = DocumentBuilderFactory.newInstance();
     private static final Map<Class<? extends Object>, JAXBContext> jaxbCtx
                 = new HashMap<Class<? extends Object>, JAXBContext>();
 
@@ -32,7 +27,7 @@ public class XMLUtil {
      * For performance, we will cache our {@link JAXBContext}
      * instances and only create a new ones if we never created one
      * previously. JAXBContext objects are thread safe.
-     * 
+     *
      * @param o     the object to use as a reference type
      * @return      the JAXBContext for that type
      * @throws      JAXBException
@@ -69,25 +64,18 @@ public class XMLUtil {
             marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marsh.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
+            if (xsd != null) {
+                Schema schema = sf.newSchema(xsd);
+                marsh.setSchema(schema);
+            }
             if (xslt != null) {
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                Document doc = db.newDocument();
-                Source source = new DOMSource(doc); // Could be VERY SLOW!
-
+                JAXBSource source = new JAXBSource(getJAXBCtx(o), o);
                 Transformer trans = tf.newTransformer(new StreamSource(xslt));
+                trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
                 trans.setOutputProperty(OutputKeys.INDENT, "yes");
-                trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-                marsh.marshal(o, doc);
+                trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");                
                 trans.transform(source, result);
-
-                // TODO: Valid Schema
-
             } else {
-                if (xsd != null) {
-                    Schema schema = sf.newSchema(xsd);
-                    marsh.setSchema(schema);
-                }
                 marsh.marshal(o, result);
             }
             return out;
