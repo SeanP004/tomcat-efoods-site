@@ -180,17 +180,6 @@ public class Cart {
         return elements.containsKey(number);
     }
 
-    /**
-     * Returns a "dummy" cart that lacks a list of items,
-     * Is only intended for outputting XML in the
-     * CartAPI servlet.
-     *
-     * @return          "thin" cart.
-     */
-    public synchronized DummyCart getDummyCart() {
-        return new DummyCart(numberOfItems, cost);
-    }
-
     // Private
 
     /**

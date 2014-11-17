@@ -39,11 +39,11 @@ public class CatalogAPI extends HttpServlet {
                                 req.getParameter("fetch"),
                                 req.getParameter("minPrice"),
                                 req.getParameter("maxPrice"));
-                        req.setAttribute("data", XMLUtil.<ItemList>generate(sw, items).toString());
+                        req.setAttribute("data", XMLUtil.generate(sw, items).toString());
                         break;
                     case "item":
                         Item item = catalog.getItem(req.getParameter("number"));
-                        req.setAttribute("data", XMLUtil.<Item>generate(sw, item).toString());
+                        req.setAttribute("data", XMLUtil.generate(sw, item).toString());
                         break;
                     case "catlist":
                         CategoryList categories = catalog.getCategoryList(
@@ -51,12 +51,12 @@ public class CatalogAPI extends HttpServlet {
                                 req.getParameter("searchTerm"),
                                 req.getParameter("offset"),
                                 req.getParameter("fetch"));
-                        req.setAttribute("data", XMLUtil.<CategoryList>generate(sw, categories).toString());
+                        req.setAttribute("data", XMLUtil.generate(sw, categories).toString());
                         break;
                     case "category":
                         Category cat = catalog.getCategory(
                                 req.getParameter("id"));
-                        req.setAttribute("data", XMLUtil.<Category>generate(sw, cat).toString());
+                        req.setAttribute("data", XMLUtil.generate(sw, cat).toString());
                         break;
                     default:
                         throw new RuntimeException("Bad action");
@@ -70,7 +70,7 @@ public class CatalogAPI extends HttpServlet {
                         req.getParameter("fetch"),
                         req.getParameter("minPrice"),
                         req.getParameter("maxPrice"));
-                req.setAttribute("data", XMLUtil.<ItemList>generate(sw, items).toString());
+                req.setAttribute("data", XMLUtil.generate(sw, items).toString());
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

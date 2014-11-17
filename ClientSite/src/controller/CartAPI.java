@@ -27,7 +27,6 @@ public class CartAPI extends HttpServlet {
         Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
         StringWriter   sw       = new StringWriter();
-        DummyCart      dc;
 
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
@@ -47,34 +46,31 @@ public class CartAPI extends HttpServlet {
                 switch (action) {
                     case "add":
                         cart.add(number);
-                        dc = cart.getDummyCart();
                         req.setAttribute("status", "Successfully Added");
-                        req.setAttribute("data", XMLUtil.<DummyCart>generate(sw, dc).toString());
+                        req.setAttribute("data", XMLUtil.generate(sw, cart).toString());
                         break;
                     case "remove":
                         if (cart.hasElement(number)) {
                             cart.remove(number);
-                            dc = cart.getDummyCart();
                             req.setAttribute("status", "Successfully Removed");
-                            req.setAttribute( "data", XMLUtil.<DummyCart>generate(sw, dc).toString());
+                            req.setAttribute( "data", XMLUtil.generate(sw, cart).toString());
                         } else {
                             req.setAttribute("status", "Nothing to remove");
                         }
                         break;
                     case "bulk":
                         cart.bulkUpdate(number, quantity);
-                        dc = cart.getDummyCart();
                         req.setAttribute("status", "Successfully Performed Bulk Update");
-                        req.setAttribute( "data", XMLUtil.<DummyCart>generate(sw, dc).toString());
+                        req.setAttribute( "data", XMLUtil.generate(sw, cart).toString());
                         break;
                     case "list":
-                        req.setAttribute("data", XMLUtil.<Cart>generate(sw, cart).toString());
+                        req.setAttribute("data", XMLUtil.generate(sw, cart).toString());
                         break;
                     default:
                         throw new RuntimeException("Bad action");
                 }
             } else {
-                req.setAttribute("data", XMLUtil.<Cart>generate(sw, cart).toString());
+                req.setAttribute("data", XMLUtil.generate(sw, cart).toString());
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
