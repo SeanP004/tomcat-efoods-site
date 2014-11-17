@@ -6,6 +6,42 @@
         xmlns:f="http://java.sun.com/jsp/jstl/fmt"
         version="2.0"
     >
+    
+<div>                    
+     <ul class="nav nav-pills">
+   
+                       
+    <li role="presentation" class ="active">
+        <a href="#" data-id="All">
+            <strong>Categories</strong>                                
+            <br/><span class="small">All Categories</span> 
+        </a> 
+    </li>
+    <c:forEach var="category" items="${categories}">
+        <li role="presentation">
+            <a href="#" data-id="${category.id}">
+                <strong>${category.name}</strong> 
+                <br/><span class="small">${category.description}</span>
+            </a> 
+        </li>
+    </c:forEach>
+    <li>
+   <a href="#">
+      <i class="glyphicon glyphicon-heart">
+         <!--  -->
+      </i>
+      Popular
+   </a>
+</li>
+</ul>      
+</div>  
+    
+  
+                                    
+                      
+    
+    <br/> 
+    
     <c:set var="i" value="0" />
     <c:forEach var="item" items="${items}">
         <c:if test="${i mod 4 eq 0}"><![CDATA[<div class='row'>]]></c:if>
