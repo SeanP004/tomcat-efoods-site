@@ -14,6 +14,7 @@ import model.common.*;
 public class CartAPI extends HttpServlet {
 
     private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
+    private static final String XSL_FILE = "/WEB-INF/xmlres/CartElementDigest.xslt";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -27,7 +28,8 @@ public class CartAPI extends HttpServlet {
         Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
         StringWriter   sw       = new StringWriter();
-
+        File           xslt     = new File(sc.getRealPath(XSL_FILE));
+        
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
         if (cart == null) {
@@ -47,13 +49,13 @@ public class CartAPI extends HttpServlet {
                     case "add":
                         cart.add(number);
                         req.setAttribute("status", "Successfully Added");
-                        req.setAttribute("data", XMLUtil.generate(sw, cart).toString());
+                        req.setAttribute("data", XMLUtil.generate(sw, cart, null, xslt).toString());
                         break;
                     case "remove":
                         if (cart.hasElement(number)) {
                             cart.remove(number);
                             req.setAttribute("status", "Successfully Removed");
-                            req.setAttribute( "data", XMLUtil.generate(sw, cart).toString());
+                            req.setAttribute( "data", XMLUtil.generate(sw, cart, null, xslt).toString());
                         } else {
                             req.setAttribute("status", "Nothing to remove");
                         }
@@ -61,7 +63,7 @@ public class CartAPI extends HttpServlet {
                     case "bulk":
                         cart.bulkUpdate(number, quantity);
                         req.setAttribute("status", "Successfully Performed Bulk Update");
-                        req.setAttribute( "data", XMLUtil.generate(sw, cart).toString());
+                        req.setAttribute( "data", XMLUtil.generate(sw, cart, null, xslt).toString());
                         break;
                     case "list":
                         req.setAttribute("data", XMLUtil.generate(sw, cart).toString());
@@ -74,6 +76,7 @@ public class CartAPI extends HttpServlet {
             }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
+            e.printStackTrace();
         }
 
         req.getRequestDispatcher(JSP_FILE).forward(req, res);

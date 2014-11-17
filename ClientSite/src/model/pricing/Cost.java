@@ -2,7 +2,6 @@ package model.pricing;
 
 import javax.xml.bind.annotation.*;
 import model.cart.*;
-
 import static model.common.CommonUtil.*;
 
 /**
@@ -51,7 +50,7 @@ public class Cost {
 
     @XmlElement
     public double getTax() {
-        return tax;
+        return roundOff(tax);
     }
 
     @XmlElement
@@ -73,6 +72,10 @@ public class Cost {
         return total;
     }
 
+    double getRawTax() {
+        return tax;
+    }
+    
     double getRawGrandTotal() {
         return grandTotal;
     }

@@ -1,8 +1,9 @@
 package model.cart;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.*;	
 import model.catalog.*;
 import model.pricing.*;
+import static model.common.CommonUtil.*;
 
 /**
  * CartElement stores the item collected as an
@@ -72,7 +73,7 @@ public class CartElement {
      */
     @XmlAttribute
     public double getExtendedCost() {
-        return cost.getExtendedCost(this);
+        return roundOff(cost.getExtendedCost(this));
     }
 
     // Setters

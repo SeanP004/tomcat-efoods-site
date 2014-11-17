@@ -140,8 +140,8 @@ public class Cart {
      *
      * @return a copy of a list of cart elements
      */
-    @XmlElementWrapper(name="card-elements")
-    @XmlElement(name="card-element")
+    @XmlElementWrapper(name="cart-elements")
+    @XmlElement(name="cart-element")
     public synchronized List<CartElement> getElements() {
         return new ArrayList<CartElement>(elements.values());
     }
