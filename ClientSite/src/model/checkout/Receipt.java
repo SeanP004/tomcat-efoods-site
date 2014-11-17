@@ -4,6 +4,7 @@ import java.util.*;
 import java.text.*;
 import javax.xml.bind.annotation.*;
 import model.cart.*;
+import model.account.*;
 
 /**
  * A receipt for an purchase order.

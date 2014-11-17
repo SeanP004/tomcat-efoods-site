@@ -1,4 +1,4 @@
-package model.checkout;
+package model.account;
 
 import javax.xml.bind.annotation.*;
 import model.exception.*;
@@ -16,8 +16,9 @@ public class Account {
     private String name;
     private String avatar; // user picture
 
-    private AuthAuthority auth;
-    private boolean signin = true;
+    private RootAuth auth;
+    private String   type;
+    private boolean  signin = true;
 
     public Account() { } // To make JAXB happy
 
@@ -27,14 +28,16 @@ public class Account {
      * AuthAuthority. Package level access
      * only.
      *
-     * @param auth      the authenication authority
+     * @param auth      the root authenication authority
+     * @param type      the authenication type
      * @param id        the username (id)
      * @param name      the name of the user
      * @param avatar    URI to profile picture
      */
-    Account(AuthAuthority auth, String id,
-                String name, String avatar) {
+    Account(RootAuth auth, String type, String id, 
+            String name, String avatar) {
         this.auth   = auth;
+        this.type   = type;
         this.id     = id;
         this.name   = name;
         this.avatar = avatar;
@@ -86,7 +89,7 @@ public class Account {
      *              successful, otherwise false.
      */
     public boolean revalidate() {
-        signin = auth.checkCredentials(this);
+        signin = auth.checkCredentials(this, type);
         return signin;
     }
 
