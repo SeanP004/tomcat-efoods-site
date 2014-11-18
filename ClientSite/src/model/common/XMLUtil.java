@@ -2,6 +2,7 @@ package model.common;
 
 import java.io.*;
 import java.util.*;
+import javax.xml.*;
 import javax.xml.bind.*;
 import javax.xml.bind.util.*;
 import javax.xml.transform.*;
@@ -9,6 +10,13 @@ import javax.xml.transform.stream.*;
 import javax.xml.validation.*;
 import model.exception.*;
 import static javax.xml.XMLConstants.*;
+
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+ 
+import org.xml.sax.SAXException;
+
 
 public class XMLUtil {
 
@@ -89,5 +97,21 @@ public class XMLUtil {
     public static Writer generate(Writer out, Object o) throws XMLGenerationException {
         return XMLUtil.generate(out, o, null);
     }
+    
+    public static boolean validateXMLSchema(String xsdPath, String xmlPath){
+        
+        try {
+            SchemaFactory factory = 
+                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = factory.newSchema(new File(xsdPath));
+            Validator validator = schema.newValidator();
+            validator.validate(new StreamSource(new File(xmlPath)));
+        } catch (IOException | SAXException e) {
+            System.out.println("Exception: "+e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
 
 } // CartXML
