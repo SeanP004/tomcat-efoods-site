@@ -39,6 +39,10 @@ public class PriceManager {
         cost.setTax((cost.getTotal() + cost.getShipping()) * pricingRules.getTaxRate());
         cost.setGrandTotal(cost.getTotal() + cost.getTax() + cost.getShipping());
     }
+    
+    public void resetCost(Cost cost){
+    	cost.reset();
+    }
 
     // Static
 

@@ -120,6 +120,7 @@ public class Cart {
     public synchronized void clear() {
         elements.clear();
         setNumberOfItems(0);
+        PriceManager.getPriceManager().resetCost(this.cost);
     }
 
     // Getters

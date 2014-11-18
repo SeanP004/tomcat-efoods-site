@@ -14,7 +14,7 @@ import model.common.*;
 public class CartAPI extends HttpServlet {
 
     private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
-    private static final String XSL_FILE = "/WEB-INF/xmlres/PO.xslt";
+    private static final String XSL_FILE = "/WEB-INF/xmlres/CartElementDigest.xslt";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)

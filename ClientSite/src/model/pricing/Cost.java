@@ -97,6 +97,13 @@ public class Cost {
     void setGrandTotal(double grandTotal) {
         this.grandTotal = grandTotal;
     }
+    
+    void reset() {
+    	setTotal(0);
+    	setShipping(0);
+    	setTax(0);
+    	setGrandTotal(0);
+    }
 
     // Public Setters
 
