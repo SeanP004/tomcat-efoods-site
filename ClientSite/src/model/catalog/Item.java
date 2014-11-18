@@ -25,7 +25,7 @@ public class Item {
     private String unit;
 
     // Getters
-
+    @XmlAttribute(name="number")
     public String getNumber() {
         return number;
     }

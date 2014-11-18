@@ -12,8 +12,8 @@ import model.exception.*;
 @XmlRootElement(name="customer")
 public class Account {
 
-    private String id;
-    private String name;
+    private String id = "cse00000";
+    private String name = "Guest";
     private String avatar; // user picture
 
     private RootAuth auth;
@@ -45,7 +45,7 @@ public class Account {
 
     // Getters
 
-    @XmlAttribute(name="account")
+    @XmlAttribute(name="accountID")
     public String getId() {
         if (!isValid()) {
             throw new UserAccessDeniedException();
@@ -53,6 +53,7 @@ public class Account {
         return id;
     }
 
+    @XmlElement(name="accountName")
     public String getName() {
         if (!isValid()) {
             throw new UserAccessDeniedException();

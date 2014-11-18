@@ -18,7 +18,7 @@ import model.account.*;
 @XmlRootElement(name="order")
 public class Receipt {
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-mm-dd");
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private int     orderId;
     private Date    submitDate;
@@ -57,13 +57,15 @@ public class Receipt {
 
     @XmlAttribute
     public String getSubmitDate() {
-        return SDF.format(submitDate);
+        return SDF.format(submitDate).toString().split(" ")[0];
     }
 
+    @XmlElement(name="customer")
     public Account getCustomer() {
         return customer;
     }
 
+    @XmlElement(name="cart")
     public Cart getCart() {
         return cart;
     }
@@ -71,6 +73,12 @@ public class Receipt {
     @XmlAttribute(name="uri")
     public String getOrderUri() {
         return orderUri;
+    }
+    
+    //Setters
+    
+    public void setOrderUri(String orderUri ) {
+    	this.orderUri = orderUri;
     }
 
 } // Receipt

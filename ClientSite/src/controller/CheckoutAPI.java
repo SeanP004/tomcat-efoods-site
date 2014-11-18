@@ -5,6 +5,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import model.account.*;
 import model.cart.*;
 import model.catalog.*;
 import model.checkout.*;
@@ -17,7 +18,8 @@ import model.common.*;
 public class CheckoutAPI extends HttpServlet {
 
     private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
-    private static final String XSL_FILE = "/WEB-INF/xmlres/CheckoutDigest.xslt";
+    private static final String XSL_FILE = "/WEB-INF/xmlres/PO.xslt";
+    private static final String XSD_FILE = "/WEB-INF/xmlres/PO.xsd";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -32,14 +34,30 @@ public class CheckoutAPI extends HttpServlet {
         Cart           cart     = (Cart)sess.getAttribute("cart");  
         StringWriter   sw       = new StringWriter();
         File           xslt     = new File(sc.getRealPath(XSL_FILE));
+        String 		   xsdRealPath = sc.getRealPath(XSD_FILE);
         Receipt		   receipt;
+        Account		   account = (Account)sess.getAttribute("account");
         
         if (cart == null) {
-            sess.setAttribute("cart", cart = new Cart());}
+            sess.setAttribute("cart", cart = new Cart());
+        }
+        
+        if (account == null) {
+        	sess.setAttribute("account", account = new Account());
+        }
 
         try {
-            receipt = CheckoutClerk.getClerk().checkout(null, cart);
-            req.setAttribute( "data", XMLUtil.generate(sw, receipt, null, xslt).toString());
+            receipt = CheckoutClerk.getClerk().checkout(account, cart);
+            String  receiptData = XMLUtil.generate(sw, receipt, null, xslt).toString();
+            req.setAttribute( "data", receiptData);
+            StringReader receiptXML = new StringReader(receiptData);
+            if (XMLUtil.validateXMLSchema(xsdRealPath, receiptXML)) {
+            	System.out.println("write to file"); // and clear cart
+            	cart.clear();
+            }
+            else {
+            	System.out.println("template needs to be fixed");
+            }
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }
