@@ -12,18 +12,17 @@
         <jsp:include page="../includes/Head.jspx">
             <jsp:param name="title" value="Foods R Us!" />
         </jsp:include>
-        <body>
-            <jsp:include page="../includes/SiteNav.jspx"></jsp:include>
+        <body class="storefront">
+            <jsp:include page="../includes/SiteHeader.jspx"></jsp:include>
             <div class="page">
-                <header>
-                    <jsp:include page="../includes/Splash.jspx"></jsp:include>
-                </header>
-                <div class="container">
-                    <c:if test="${not empty error}">
-                        <div class="alert alert-danger" role="alert">${error}</div>
-                    </c:if>
+                <jsp:include page="../includes/Splash.jspx"></jsp:include>
+                <div class="container main">
+                    <jsp:include page="../includes/Search.jspx"></jsp:include>
+                    <jsp:include page="../includes/SearchFilters.jspx"></jsp:include>
+                    <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
                     <jsp:include page="../includes/CatalogList.jspx"></jsp:include>
                 </div>
+                <jsp:include page="../includes/Footer.jspx"></jsp:include>
             </div>
         </body>
     </html>

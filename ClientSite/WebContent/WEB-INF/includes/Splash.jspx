@@ -6,26 +6,15 @@
         xmlns:f="http://java.sun.com/jsp/jstl/fmt"
         version="2.0"
     >
-    <div class="jumbotron clearfix">
+
+    <div class="jumbotron">
         <div class="jumbotron-screen"><!--  --></div>
-        <div class="jumbotron-content container">
-            <h1>Delicious. Fresh. Gourmet Food Eveywhere.</h1>
-            <form role="search">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input name="searchTerm" type="text" class="form-control" placeholder="Search" value="${searchTerm}" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="glyphicon glyphicon-search"><!--  --></i>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </form>
+        <div class="jumbotron-content-wrap container">
+            <div class="jumbotron-content">
+                <h1>Foods R Us!</h1>
+                <h2>Gourmet culinary delights everywhere.</h2>
+            </div>
         </div>
     </div>
-    
-    
 
-    
 </jsp:root>

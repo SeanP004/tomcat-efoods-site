@@ -3,16 +3,21 @@
 // ----------------------------------------
 
     .navbar-nav > li {
+        & {
+            display: inline-block;
+        }
         .glyphicon {
             margin-right: 5px;
         }
         & > .dropdown-menu {
             margin-top: 0;
         }
+        a, .badge {
+            .transition(.25s);
+        }
         .badge {
             margin-left: 5px;
             vertical-align: text-top;
-            .transition(.25s);
         }
     }
     .dropdown-menu {
@@ -22,18 +27,83 @@
         }
     }
 
+    .storefront .navbar {
+        .navbar-static-top();
+    }
+    body:not(.storefront) .navbar {
+        .navbar-fixed-top();
+    }
+
+    .navbar-header {
+        width: 100%;
+    }
+    .navbar-brand {
+        min-width: 125px;
+    }
+    .navbar-right {
+        float: right !important;
+
+        @media screen and (max-width: @screen-xs) {
+            .user-label, .cart-label {
+                .hidden();
+            }
+        }
+    }
+
     // Theming
     // ------------------------------
 
-    .navbar-default .navbar-nav > li {
+    .navbar-brand {
+        background-color: @navbar-inverse-bg;
+        color: @navbar-inverse-link-color;
+
+        &:hover,
+        &:focus {
+            color: @navbar-inverse-link-hover-color;
+        }
+    }
+
+    .storefront .navbar {
+        & {
+            #gradient.vertical(rgba(0, 0, 0, 0.5); rgba(0, 0, 0, 0));
+            background-color: transparent;
+            border-color: transparent;
+        }
+        .navbar-collapse {
+            border-color: transparent;
+            box-shadow: none;
+        }
+        .navbar-nav > li {
+            a {
+                color: @brand-primary;
+
+                .badge {
+                    background-color: @brand-primary;
+                    color: white;
+                }
+            }
+            a:hover,
+            a:focus {
+                .add-alpha(background-color, @gray-darker, 0.5);
+                color: @navbar-inverse-link-hover-color;
+
+                .badge {
+                    background-color: @navbar-inverse-link-hover-color;
+                    color: @navbar-inverse-bg;
+                }
+            }
+        }
+    }
+
+    .navbar-nav > li {
         .badge {
-            background-color: @navbar-default-link-color;
+            background-color: @link-color;
             color: @navbar-default-bg;
         }
         a:hover,
         a:focus {
             .badge {
-                background-color: @navbar-default-link-hover-color;
+                background-color: @link-hover-color;
             }
         }
     }

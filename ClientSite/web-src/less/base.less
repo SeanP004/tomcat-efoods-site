@@ -2,6 +2,11 @@
 // Base Styles
 //
 
+    html,
+    body {
+        height: 100%;
+    }
+
     ::selection {
         background-color: lighten(@brand-primary, 30%);
     }
@@ -16,4 +21,12 @@
     input[type="reset"],
     input[type="submit"] {
       -webkit-appearance: none !important; // removes rounded corners for searchfields on iOS
+    }
+
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
     }

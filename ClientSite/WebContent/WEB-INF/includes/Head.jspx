@@ -12,5 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>${param.title}</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css" />
+        <script type="text/javascript" href="${pageContext.request.contextPath}/assets/js/main.js" async="async"><!-- --></script>
     </head>
 </jsp:root>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+        version="2.0"
+    >
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <h2>Food R Us!</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <p>Copyright <![CDATA[&copy;]]> 2014.</p>
+                    <p>Designed and Developed by Vincent Chu, Michael Leung,
+                        Manusha Patabendi for Building E-Commerce Systems
+                        (EECS 4413 Section A, Fall 2014) with Professor H.
+                        Roumani.</p>
+                    <p>License under the <a href="http://opensource.org/licenses/MIT"
+                        target="_blank">MIT License</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</jsp:root>
