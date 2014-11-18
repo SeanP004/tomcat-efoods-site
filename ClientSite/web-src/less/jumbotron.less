@@ -2,15 +2,21 @@
 // Jumbotron
 //
 
-    .jumbotron {
+    body:not(.storefront) .jumbotron {
+        .hidden();
+    }
+
+    .storefront .jumbotron {
         & {
             position: relative;
             background-image: url('http://lorempixel.com/800/600/food/');
+            background-attachment: fixed;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
             color: white;
             overflow: hidden;
+            height: 70%;
         }
         &-screen {
             position: absolute;
@@ -19,49 +25,26 @@
             left: 0;
             height: 100%;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-                    filter: blur(5px);
-            -webkit-filter: blur(5px); /* Webkit */
-                 -o-filter: blur(5px); /* Opera */
+            .add-alpha(background-color, black, 0.5);
+            .blur(5px);
+        }
+        &-content-wrap {
+            position: relative;
+            display: table;
+            top: 0;
+            height: 100%;
+
+            @media screen and (max-width: @screen-sm) {
+                width: 100%;
+            }
         }
         &-content {
             position: relative;
-            text-align: center;
+            display: table-cell;
+            //text-align: center;
+            vertical-align: middle;
             margin-top: 70px;
             margin-bottom: 70px;
             z-index: 1;
-
-            form[role=search] {
-                & {
-                    margin-top: 70px;
-                }
-                input[type="text"] {
-                    height: @input-height-large;
-                    border: 3px solid;
-                    border-color: @input-border;
-                    border-right-width: 0;
-                    outline: none;
-                    font-size: @font-size-large;
-                    transition: border .25s linear, color .25s linear, background-color .25s linear;
-
-                    &:focus,
-                    &:focus + .input-group-btn .btn.btn-primary {
-                        border-color: @brand-primary;
-                    }
-                    &:focus + .input-group-btn .btn.btn-primary {
-                        color: @brand-primary;
-                    }
-                }
-                .input-group-btn .btn.btn-primary {
-                    background-color: @input-bg;
-                    color: @input-color;
-                    height: @input-height-large;
-                    border: 3px solid;
-                    border-color: @input-border;
-                    border-left-width: 0;
-
-                    transition: border .25s linear, color .25s linear, background-color .25s linear;
-                }
-            }
         }
     }

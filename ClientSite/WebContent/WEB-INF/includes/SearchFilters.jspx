@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+        version="2.0"
+    >
+
+    <div class="search-filters">
+        <ul class="nav nav-tabs">
+            <li><a href="#">All</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-heart"><!-- --></i>Popular</a></li>
+            <c:set var="j" value="0" />
+            <c:forEach var="category" items="${categories}">
+                <c:choose>
+                <c:when test="${j lt 6}">
+                    <li><a href="#" data-id="${category.id}">${category.name}</a></li>
+                </c:when>
+                </c:choose>
+                <c:set var="j" value="${j + 1}" />
+            </c:forEach>
+            <li class="pull-right active">
+                <a href="#"><i class="glyphicon glyphicon-plus"><!-- --></i>More</a>
+            </li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h5 class="page-header">Advanced Search:</h5>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="catid" class="col-sm-2 control-label">Category:</label>
+                        <div class="col-sm-8 col-md-4">
+                            <select name="catid" class="form-control">
+                                <option value="-1">All</option>
+                                <c:forEach var="category" items="${categories}">
+                                    <option value="${category.id}">${category.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderBy" class="col-sm-2 control-label">Sort By:</label>
+                        <div class="col-sm-8 col-md-4">
+                            <select name="orderBy" class="form-control">
+                                <option value="">None</option>
+                                <!-- TODO -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="minPrice" class="col-sm-2 control-label">Minimum Price:</label>
+                        <div class="col-sm-8 col-md-4">
+                            <input type="range" name="minPrice" min="0" max="5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxPrice" class="col-sm-2 control-label">Maximum Price:</label>
+                        <div class="col-sm-8 col-md-4">
+                            <input type="range" name="maxPrice" min="0" max="5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 close-btn">
+                            <button type="submit" class="btn btn-primary">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>
