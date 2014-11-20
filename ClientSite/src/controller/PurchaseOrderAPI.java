@@ -47,7 +47,8 @@ public class PurchaseOrderAPI extends HttpServlet {
                         	fileList = po.getPurchaseOrders();
                     	}
                     	for (File file : fileList) {
-                    		out += file.getName() + "\n";
+                    		String url = "<a href=\">" + file.getAbsoluteFile() + "\">" + file.getName() + "</a>";
+                    		out += url;
                     	}
                     	req.setAttribute("data", out);
                         break;
