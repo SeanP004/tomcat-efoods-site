@@ -10,6 +10,6 @@ class PurchaseOrderFilter implements FilenameFilter {
     }
 
     public boolean accept(File dir, String name) {
-        return name.matches(regex);
+        return name.toLowerCase().contains(regex.toLowerCase());
     }
 }

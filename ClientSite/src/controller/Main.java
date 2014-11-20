@@ -41,6 +41,7 @@ public class Main extends HttpServlet {
                     case "/catalog": target = "CatalogAPI"; break;
                     case "/cart":    target = "CartAPI";    break;
                     case "/checkout": target = "CheckoutAPI"; break;
+                    case "/po": target = "PurchaseOrderAPI"; break;
                 }                
             }
         } else { // starts with /jsp

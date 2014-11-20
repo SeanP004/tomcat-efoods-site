@@ -31,7 +31,11 @@
   <servlet>
     <servlet-name>CheckoutAPI</servlet-name>
     <servlet-class>controller.CheckoutAPI</servlet-class>
-  </servlet>  
+  </servlet>
+  <servlet>
+    <servlet-name>PurchaseOrderAPI</servlet-name>
+    <servlet-class>controller.PurchaseOrderAPI</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>StoreFront</servlet-name>
     <servlet-class>controller.StoreFront</servlet-class>

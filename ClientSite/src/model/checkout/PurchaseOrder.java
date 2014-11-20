@@ -11,7 +11,7 @@ public class PurchaseOrder {
         CheckoutClerk.getClerk(userHistoryDir).maintainDirectory();
     }
     
-    public int totalPurchaseOrder() {
+    public int getPurchaseOrderTotal() {
         return this.userHistoryDir.listFiles().length;
     }
     
