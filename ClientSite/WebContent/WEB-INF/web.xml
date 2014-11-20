@@ -16,6 +16,10 @@
     <param-name>taxRate</param-name>
     <param-value>0.13</param-value>
   </context-param>
+  <context-param>
+    <param-name>userHistory_Dir</param-name>
+    <param-value>/WEB-INF/userHistroy</param-value>
+  </context-param>
   <servlet>
     <servlet-name>CatalogAPI</servlet-name>
     <servlet-class>controller.CatalogAPI</servlet-class>

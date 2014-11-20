@@ -34,9 +34,11 @@ public class CheckoutAPI extends HttpServlet {
         Cart           cart     = (Cart)sess.getAttribute("cart");  
         StringWriter   sw       = new StringWriter();
         File           xslt     = new File(sc.getRealPath(XSL_FILE));
-        String 		   xsdRealPath = sc.getRealPath(XSD_FILE);
+        File		   xsd		= new File(sc.getRealPath(XSD_FILE));
         Receipt		   receipt;
         Account		   account = (Account)sess.getAttribute("account");
+        
+        File userHistory = new File(sc.getRealPath(sc.getAttribute("userHistory").toString()));
         
         if (cart == null) {
             sess.setAttribute("cart", cart = new Cart());
@@ -47,17 +49,7 @@ public class CheckoutAPI extends HttpServlet {
         }
 
         try {
-            receipt = CheckoutClerk.getClerk().checkout(account, cart);
-            String  receiptData = XMLUtil.generate(sw, receipt, null, xslt).toString();
-            req.setAttribute( "data", receiptData);
-            StringReader receiptXML = new StringReader(receiptData);
-            if (XMLUtil.validateXMLSchema(xsdRealPath, receiptXML)) {
-            	System.out.println("write to file"); // and clear cart
-            	cart.clear();
-            }
-            else {
-            	System.out.println("template needs to be fixed");
-            }
+        	req.setAttribute( "data", CheckoutClerk.getClerk(userHistory).checkout(account, cart, xsd, xslt));
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }

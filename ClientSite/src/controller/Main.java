@@ -23,6 +23,7 @@ public class Main extends HttpServlet {
                         .getInitParameter("shippingCost"), sc
                         .getInitParameter("shippingWaverCost"), sc
                         .getInitParameter("taxRate"))));
+        sc.setAttribute("userHistory", sc.getInitParameter("userHistory_Dir"));
     }
 
     private void doRequest(HttpServletRequest req, HttpServletResponse res)
