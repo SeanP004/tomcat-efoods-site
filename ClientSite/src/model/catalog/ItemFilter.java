@@ -114,23 +114,23 @@ public class ItemFilter {
       , ERR_PRICERANGE = "minPrice cannot be equal or greater than maxPrice."
       ;
 
-    private static final List<String> sorts;
+    public static final Map<String, String> sorts;
     static {
-        sorts = new ArrayList<String>();
-        sorts.add("number");
-        sorts.add("name");
-        sorts.add("price");
-        sorts.add("qty");
-        sorts.add("onorder");
-        sorts.add("reorder");
-        sorts.add("catid");
-        sorts.add("supid");
-        sorts.add("costprice");
-        sorts.add("unit");
+        sorts = new HashMap<String, String>();
+        sorts.put("number", "Item Number");
+        sorts.put("name", "Name");
+        sorts.put("price", "Price");
+        sorts.put("catid", "Category");
+        //sorts.put("qty");
+        //sorts.put("onorder");
+        //sorts.put("reorder");
+        //sorts.put("supid");
+        //sorts.put("costprice");
+        //sorts.put("unit");
     }
 
     private static boolean hasOrder(String order) {
-        return sorts.contains(order);
+        return sorts.containsKey(order);
     }
 
 } // ItemFilter

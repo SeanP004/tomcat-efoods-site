@@ -8,13 +8,13 @@ import model.cart.*;
 import model.catalog.*;
 
 /**
- * Servlet implementation class StoreFront page.
+ * Servlet implementation class CatalogView page.
  */
-// @WebServlet("/jsp")
-public class StoreFront extends HttpServlet {
+// @WebServlet("/jsp/browse")
+public class CatalogView extends HttpServlet {
 
     private static final String
-        JSP_FILE = "/WEB-INF/pages/StoreFront.jspx";
+        JSP_FILE = "/WEB-INF/pages/CatalogView.jspx";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -26,6 +26,12 @@ public class StoreFront extends HttpServlet {
         Cart           cart     = (Cart)sess.getAttribute("cart");
         Account        account  = (Account)sess.getAttribute("account");
 
+        req.setAttribute("orderBy", req.getParameter("orderBy"));
+        req.setAttribute("searchTerm", req.getParameter("searchTerm"));
+        req.setAttribute("category", req.getParameter("category"));
+        req.setAttribute("minPrice", req.getParameter("minPrice"));
+        req.setAttribute("maxPrice", req.getParameter("maxPrice"));
+
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
         if (cart == null) {
@@ -35,6 +41,7 @@ public class StoreFront extends HttpServlet {
 
         try {
             req.setAttribute("orders", ItemFilter.sorts);
+            req.setAttribute("maxPriceRange", catalog.getItemMaxPrice());
             req.setAttribute("items", catalog.getItems(null, null, null, null, null, null, null));
             req.setAttribute("categories", catalog.getCategories(null, null, null, null));
         } catch (Exception e) {

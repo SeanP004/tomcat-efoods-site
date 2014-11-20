@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
-  - Title: StoreFront
-  - Page URI: /, /jsp/
+  - Title: CatalogView
+  - Page URI: /jsp/browse
   - Description:
-  -     THe home page of the web site.
+  -     THe catalog page to view and search the
+  -     items in the store.
   - Parameters:
   -     See dependencies.
   - Dependencies:
   -     ../includes/Header.jspx
   -     ../includes/SiteHeader.jspx
-  -     ../includes/Splash.jspx
   -     ../includes/Search.jspx
   -     ../includes/ErrorMessage.jspx
+  -     ../includes/CatalogList.jspx
   -     ../includes/Footer.jspx
   -->
 
@@ -29,18 +30,21 @@
     <![CDATA[<!DOCTYPE html>]]>
     <html xmlns="http://www.w3.org/1999/xhtml">
         <jsp:include page="../includes/Header.jspx">
-            <jsp:param name="title"  value="Foods R Us!" />
+            <jsp:param name="title"  value="Browse | Foods R Us!" />
         </jsp:include>
-        <body class="storefront">
+        <body>
             <jsp:include page="../includes/SiteHeader.jspx"></jsp:include>
             <div class="page">
-                <jsp:include page="../includes/Splash.jspx"></jsp:include>
                 <div class="container main">
                     <jsp:include page="../includes/Search.jspx">
-                        <jsp:param name="formPath" value="${pageContext.request.contextPath}/jsp/browse"/>
+                        <jsp:param name="filter"   value="true" />
+                        <jsp:param name="formPath" value="" />
                         <jsp:param name="method"   value="GET" />
                     </jsp:include>
                     <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
+                    <jsp:include page="../includes/CatalogList.jspx">
+                        <jsp:param name="wrap" value="true" />
+                    </jsp:include>
                 </div>
                 <jsp:include page="../includes/Footer.jspx"></jsp:include>
             </div>

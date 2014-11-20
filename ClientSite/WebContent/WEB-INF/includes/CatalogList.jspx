@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: CatalogList
+  -
+  - Description:
+  -     Fragment for displaying a list or grid of catalog items.
+  -
+  - Parameters:
+  -     param.wrap      boolean for whether or not to wrap
+  -                     the list with a wrapper div.
+  -     items           List of catalog items
+  -->
+
 <jsp:root
-        xmlns:jsp="http://java.sun.com/JSP/Page"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-        xmlns:f="http://java.sun.com/jsp/jstl/fmt"
-        version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
     >
 
-    <div class='row catalog'>
+    <c:if test="${param.wrap}">
+        <![CDATA[<div class='row catalog'>]]>
+    </c:if>
     <c:forEach var="item" items="${items}">
         <div class="col-sm-6 col-md-3">
             <div class="catalog-item panel panel-default">
@@ -24,6 +39,8 @@
             </div>
         </div>
     </c:forEach>
-    </div>
+    <c:if test="${param.wrap}">
+        <![CDATA[</div>]]>
+    </c:if>
 
 </jsp:root>

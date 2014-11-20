@@ -25,9 +25,14 @@
         <servlet-name>CheckoutAPI</servlet-name>
         <servlet-class>controller.CheckoutAPI</servlet-class>
     </servlet>  
+
     <servlet>
         <servlet-name>StoreFront</servlet-name>
         <servlet-class>controller.StoreFront</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogView</servlet-name>
+        <servlet-class>controller.CatalogView</servlet-class>
     </servlet>
   
     <context-param>

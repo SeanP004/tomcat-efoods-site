@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: Header
+  -
+  - Description:
+  -     Fragment for the page head boilerplate.
+  -
+  - Parameters:
+  -     param.title     the page title
+  -->
+
 <jsp:root
-        xmlns:jsp="http://java.sun.com/JSP/Page"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-        xmlns:f="http://java.sun.com/jsp/jstl/fmt"
-        version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
     >
+
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,4 +27,5 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css" />
         <script type="text/javascript" href="${pageContext.request.contextPath}/assets/js/main.js" async="async"><!-- --></script>
     </head>
+
 </jsp:root>

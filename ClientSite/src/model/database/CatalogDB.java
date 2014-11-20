@@ -57,4 +57,13 @@ public interface CatalogDB {
     Item getItem(String number) throws DataAccessException,
             ItemNotFoundException;
 
+    /**
+     * Returns the maximum price of all items
+     * in the Item relation in the Catalog database.
+     *
+     * @return      the maximum price of the items
+     * @throws      DataAccessException
+     */
+    double getItemMaxPrice() throws DataAccessException;
+
 } // CatalogDB

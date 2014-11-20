@@ -29,18 +29,17 @@
         <xsd:attribute name="account">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="\w+"/>
+                    <xsd:pattern value="[a-zA-Z]\w+"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
     </xsd:complexType>
-    
+
     <xsd:complexType name="itemsType">
         <xsd:sequence>
             <xsd:element name="item" type="itemType" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
-    
     
     <xsd:complexType name="itemType">
         <xsd:sequence>

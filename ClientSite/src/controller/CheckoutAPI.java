@@ -14,9 +14,11 @@ import model.common.*;
 // @WebServlet("/api/checkout")
 public class CheckoutAPI extends HttpServlet {
 
-    private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
-    private static final String XSL_FILE = "/WEB-INF/xmlres/PO.xslt";
-    private static final String XSD_FILE = "/WEB-INF/xmlres/PO.xsd";
+    private static final String
+        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx"
+      , XSL_FILE = "/WEB-INF/xmlres/PO.xslt"
+      , XSD_FILE = "/WEB-INF/xmlres/PO.xsd"
+      ;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -29,15 +31,18 @@ public class CheckoutAPI extends HttpServlet {
         File           xslt     = new File(sc.getRealPath(XSL_FILE));
         String 		   xsdRealPath = sc.getRealPath(XSD_FILE);
         Receipt		   receipt;
-        Account		   account = (Account)sess.getAttribute("account");
-        
+        Account		   account  = (Account)sess.getAttribute("account");
+        CheckoutClerk  clerk    = (CheckoutClerk)sc.getAttribute("clerk");
+
+        if (clerk == null) {
+            sc.setAttribute("clerk", clerk = CheckoutClerk.getClerk());}
         if (cart == null) {
             sess.setAttribute("cart", cart = new Cart());}
         if (account == null) {
         	sess.setAttribute("account", account = new Account());}
 
         try {
-            receipt = CheckoutClerk.getClerk().checkout(account, cart);
+            receipt = clerk.checkout(account, cart);
             String receiptData = XMLUtil.generate(sw, receipt, null, xslt).toString();
             req.setAttribute( "data", receiptData);
             StringReader receiptXML = new StringReader(receiptData);

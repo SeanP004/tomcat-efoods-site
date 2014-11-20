@@ -5796,6 +5796,7 @@ input[type="submit"] {
 .navbar-nav > li .badge {
   margin-left: 5px;
   vertical-align: text-top;
+  padding-top: 5px;
 }
 .dropdown-toggle:hover + .dropdown-menu,
 .dropdown-menu:hover,
@@ -5958,14 +5959,14 @@ body:not(.storefront) .jumbotron {
   margin-bottom: 70px;
   z-index: 1;
 }
-form[role=search] {
+.search-box-form {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-form[role=search] .form-group {
+.search-box-form .form-group {
   margin-top: 5px;
 }
-form[role=search] input[type="text"] {
+.search-box-form input[type="text"] {
   height: 46px;
   border: 3px solid;
   border-color: #cccccc;
@@ -5978,14 +5979,14 @@ form[role=search] input[type="text"] {
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
-form[role=search] input[type="text"]:focus,
-form[role=search] input[type="text"]:focus + .input-group-btn .btn.btn-primary {
+.search-box-form input[type="text"]:focus,
+.search-box-form input[type="text"]:focus + .input-group-btn .btn.btn-primary {
   border-color: #e67e22;
 }
-form[role=search] input[type="text"]:focus + .input-group-btn .btn.btn-primary {
+.search-box-form input[type="text"]:focus + .input-group-btn .btn.btn-primary {
   color: #e67e22;
 }
-form[role=search] .input-group-btn .btn.btn-primary {
+.search-box-form .input-group-btn .btn.btn-primary {
   background-color: #ffffff;
   color: #555555;
   height: 46px;

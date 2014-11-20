@@ -224,4 +224,24 @@ public class CatalogDBAO implements CatalogDB {
         }
     }
 
+    /**
+     * Returns the maximum price of all items
+     * in the Item relation in the Catalog database.
+     *
+     * @return      the maximum price of the items
+     * @throws      DataAccessException
+     */
+    public double getItemMaxPrice() throws DataAccessException {
+        try {
+            Connection conn = getConnection();
+            PreparedStatement ps = CatalogDBQuery.getItemMaxPrice(conn);
+            ResultSet rs = ps.executeQuery();
+            double maxPrice = rs.next() ? rs.getDouble("price") : null;
+            close(rs, ps, conn);
+            return maxPrice;
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+    
 } // CatalogDBAO

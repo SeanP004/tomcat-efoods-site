@@ -1,11 +1,12 @@
 package controller;
 
-import java.io.*;
+import java.io.*;	
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import model.pricing.*;
 import model.catalog.*;
+import model.checkout.*;
 
 /**
  * Servlet implementation class Main
@@ -17,8 +18,9 @@ public class Main extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         ServletContext sc = getServletContext();
-        sc.setAttribute("Catalog", Catalog.getCatalog());
-        sc.setAttribute("PriceManager", PriceManager
+        sc.setAttribute("catalog", Catalog.getCatalog());
+        sc.setAttribute("clerk", CheckoutClerk.getClerk());
+        sc.setAttribute("pm", PriceManager
                 .getPriceManager(new PricingRules(sc
                         .getInitParameter("shippingCost"), sc
                         .getInitParameter("shippingWaverCost"), sc
@@ -27,7 +29,7 @@ public class Main extends HttpServlet {
 
     private void doRequest(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        
+
         ServletContext sc = getServletContext();
         String pathInfo   = req.getPathInfo();
         String context    = req.getContextPath();
@@ -37,15 +39,16 @@ public class Main extends HttpServlet {
         if (relative.startsWith("/api")) {
             if (pathInfo != null) {
                 switch (pathInfo) {
-                    case "/catalog": target = "CatalogAPI"; break;
-                    case "/cart":    target = "CartAPI";    break;
+                    case "/catalog":  target = "CatalogAPI";  break;
+                    case "/cart":     target = "CartAPI";     break;
                     case "/checkout": target = "CheckoutAPI"; break;
-                }                
+                }
             }
         } else { // starts with /jsp
             if (pathInfo != null) {
                 switch (pathInfo) {
-                    case "/": target = "StoreFront"; break;
+                    case "/":       target = "StoreFront"; break;
+                    case "/browse": target = "CatalogView"; break;
                 }
             } else {
                 target = "StoreFront";

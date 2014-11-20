@@ -229,6 +229,17 @@ public class Catalog {
         return dao.getItem(number);
     }
 
+    /**
+     * Returns the maximum price of all items
+     * in the Item relation in the Catalog database.
+     *
+     * @return      the maximum price of the items
+     * @throws      DataAccessException
+     */
+    public double getItemMaxPrice() {
+        return dao.getItemMaxPrice();
+    }
+
     // Static
 
     /**

@@ -24,6 +24,7 @@ class CatalogDBQuery {
       , CATALOG_CAT_ORDER_BY           = "ORDER BY C.${orderBy}"
       , CATALOG_PAGINATION_OFFSET      = "OFFSET ? ROWS"
       , CATALOG_PAGINATION_FETCH_LIMIT = "FETCH FIRST ? ROWS ONLY"
+      , CATALOG_ITEM_MAX_PRICE         = "SELECT MAX(I.price) AS price FROM Item I"
       ;
 
     /**
@@ -233,6 +234,19 @@ class CatalogDBQuery {
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, number);
         return ps;
+    }
+
+    /**
+     * Generates and prepares a query for retrieving the maximum price
+     * of all items in the Item relation in the Catalog database.
+     * Returns the Prepared Statement.
+     *
+     * @return          the Prepared Statement
+     * @throws          SQLException
+     */
+    public static PreparedStatement getItemMaxPrice(Connection conn)
+            throws SQLException {
+        return conn.prepareStatement(CATALOG_ITEM_MAX_PRICE);
     }
 
 } // CatalogDBQuery

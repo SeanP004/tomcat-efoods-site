@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: Splash
+  -
+  - Description:
+  -     Fragment for the jumbotron (promotion
+  -     section) of the home (storefront) page.
+  -->
+
 <jsp:root
-        xmlns:jsp="http://java.sun.com/JSP/Page"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-        xmlns:f="http://java.sun.com/jsp/jstl/fmt"
-        version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
     >
 
     <div class="jumbotron">
         <div class="jumbotron-screen"><!--  --></div>
         <div class="jumbotron-content-wrap container">
-            <div class="jumbotron-content">
+            <div class="jumbotron-content promotions">
                 <h1>Foods R Us!</h1>
                 <h2>Gourmet culinary delights everywhere.</h2>
             </div>
