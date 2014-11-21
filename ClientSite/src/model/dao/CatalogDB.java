@@ -1,4 +1,4 @@
-package model.database;
+package model.dao;
 
 import model.exception.*;
 import model.catalog.*;

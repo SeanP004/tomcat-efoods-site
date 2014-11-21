@@ -2,7 +2,6 @@ package model.common;
 
 import java.io.*;
 import java.util.*;
-import javax.xml.*;
 import javax.xml.bind.*;
 import javax.xml.bind.util.*;
 import javax.xml.transform.*;
@@ -10,13 +9,6 @@ import javax.xml.transform.stream.*;
 import javax.xml.validation.*;
 import model.exception.*;
 import static javax.xml.XMLConstants.*;
-
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
- 
-import org.xml.sax.SAXException;
-
 
 public class XMLUtil {
 

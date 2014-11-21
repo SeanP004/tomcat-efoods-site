@@ -9,7 +9,7 @@
     <xsl:template match="cart-element">
         <xsl:copy>
             <xsl:attribute name="item">
-                <xsl:value-of select="./item/number" /> 
+                <xsl:value-of select="./item/@number" /> 
             </xsl:attribute>
             <xsl:copy-of select="@*"></xsl:copy-of>
         </xsl:copy>

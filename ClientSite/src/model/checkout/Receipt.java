@@ -24,7 +24,6 @@ public class Receipt {
     private Date    submitDate;
     private Account customer;
     private Cart    cart;
-    private String  orderUri;
 
     public Receipt() { } // To make JAXB happy
 
@@ -40,12 +39,11 @@ public class Receipt {
      * @param  orderUri the URI to the PO XML output
      * @return          this new object
      */
-    Receipt(int orderId, Account customer, Cart cart, String orderUri) {
+    Receipt(int orderId, Account customer, Cart cart) {
         this.orderId    = orderId;
         this.submitDate = Calendar.getInstance().getTime(); // Date now
         this.customer   = customer;
         this.cart       = cart;
-        this.orderUri   = orderUri;
     }
 
     // Getters
@@ -68,17 +66,6 @@ public class Receipt {
     @XmlElement(name="cart")
     public Cart getCart() {
         return cart;
-    }
-
-    @XmlAttribute(name="uri")
-    public String getOrderUri() {
-        return orderUri;
-    }
-    
-    //Setters
-    
-    public void setOrderUri(String orderUri ) {
-    	this.orderUri = orderUri;
     }
 
 } // Receipt

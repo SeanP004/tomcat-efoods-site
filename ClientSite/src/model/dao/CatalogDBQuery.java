@@ -1,4 +1,4 @@
-package model.database;
+package model.dao;
 
 import java.sql.*;
 import model.catalog.*;

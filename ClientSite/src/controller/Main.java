@@ -11,7 +11,7 @@ import model.checkout.*;
 /**
  * Servlet implementation class Main
  */
-@WebServlet(urlPatterns = {"/jsp/*", "/api/*"})
+@WebServlet(urlPatterns = {"/jsp/*", "/api/*", "/po/*"})
 public class Main extends HttpServlet {
 
     @Override
@@ -19,8 +19,14 @@ public class Main extends HttpServlet {
         super.init();
         ServletContext sc = getServletContext();
         sc.setAttribute("catalog", Catalog.getCatalog());
-        sc.setAttribute("clerk", CheckoutClerk.getClerk(
-            new File(sc.getRealPath(sc.getInitParameter("userdata")))));
+        sc.setAttribute("clerk", OrdersClerk.getClerk(
+            new File(sc.getRealPath(sc.getInitParameter("userdata"))),
+            new File(sc.getRealPath(sc.getInitParameter("ordersXsd"))),
+            new File(sc.getRealPath(sc.getInitParameter("ordersXslt"))),
+            sc.getContextPath() + sc.getInitParameter("ordersXsltView"),
+            sc.getInitParameter("ordersPrefix"),
+            sc.getInitParameter("userdata")
+        ));
         sc.setAttribute("pm", PriceManager
                 .getPriceManager(new PricingRules(sc
                         .getInitParameter("shippingCost"), sc
@@ -43,10 +49,9 @@ public class Main extends HttpServlet {
                     case "/catalog":  target = "CatalogAPI";       break;
                     case "/cart":     target = "CartAPI";          break;
                     case "/checkout": target = "CheckoutAPI";      break;
-                    case "/po":       target = "PurchaseOrderAPI"; break;
                 }
             }
-        } else { // starts with /jsp
+        } else if (relative.startsWith("/jsp")) {
             if (pathInfo != null) {
                 switch (pathInfo) {
                     case "/":       target = "StoreFront"; break;
@@ -55,13 +60,19 @@ public class Main extends HttpServlet {
             } else {
                 target = "StoreFront";
             }
+        } else if (relative.startsWith("/po")) {
+            target = "OrdersAPI";
+        } else {
+            if (pathInfo == null) {
+                target = "StoreFront";
+            }
         }
 
         if ("Error404".equals(target)) {
             res.sendError(404);
+        } else {
+            sc.getNamedDispatcher(target).forward(req, res);
         }
-
-        sc.getNamedDispatcher(target).forward(req, res);
     }
 
     @Override

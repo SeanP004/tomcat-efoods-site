@@ -33,8 +33,8 @@
         <servlet-class>controller.CheckoutAPI</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PurchaseOrderAPI</servlet-name>
-        <servlet-class>controller.PurchaseOrderAPI</servlet-class>
+        <servlet-name>OrdersAPI</servlet-name>
+        <servlet-class>controller.OrdersAPI</servlet-class>
     </servlet>
 
     <servlet>
@@ -60,7 +60,23 @@
     </context-param>
     <context-param>
         <param-name>userdata</param-name>
-        <param-value>/WEB-INF/userdata</param-value>
+        <param-value>/WEB-INF/userdata/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXsd</param-name>
+        <param-value>/WEB-INF/xmlres/PO.xsd</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXslt</param-name>
+        <param-value>/WEB-INF/xmlres/PO.xslt</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXsltView</param-name>
+        <param-value>/assets/xmlres/POViews.xslt</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersPrefix</param-name>
+        <param-value>/po/</param-value>
     </context-param>
 
 </web-app>

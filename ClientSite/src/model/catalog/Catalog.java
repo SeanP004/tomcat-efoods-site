@@ -2,7 +2,7 @@ package model.catalog;
 
 import java.util.*;
 import javax.naming.*;
-import model.database.*;
+import model.dao.*;
 import model.exception.*;
 
 public class Catalog {

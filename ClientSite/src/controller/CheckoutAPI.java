@@ -5,9 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import model.account.*;
 import model.cart.*;
-import model.catalog.*;
 import model.checkout.*;
-import model.common.*;
 
 /**
  * Servlet implementation class CartAPI Cart API Endpoint.
@@ -15,40 +13,34 @@ import model.common.*;
 // @WebServlet("/api/checkout")
 public class CheckoutAPI extends HttpServlet {
 
-    private static final String
-        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx"
-      , XSL_FILE = "/WEB-INF/xmlres/PO.xslt"
-      , XSD_FILE = "/WEB-INF/xmlres/PO.xsd"
-      ;
+    private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
+        String         jspFile  = JSP_FILE;
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
-        String         quantity = req.getParameter("quantity");
-        Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
-        File           xslt     = new File(sc.getRealPath(XSL_FILE));
-        File		   xsd		= new File(sc.getRealPath(XSD_FILE));
         Account		   account  = (Account)sess.getAttribute("account");
-        CheckoutClerk  clerk    = (CheckoutClerk)sc.getAttribute("clerk");
+        OrdersClerk    clerk    = (OrdersClerk)sc.getAttribute("clerk");
 
         if (clerk == null) {
-            sc.setAttribute("clerk", clerk = CheckoutClerk.getClerk());}
+            sc.setAttribute("clerk", clerk = OrdersClerk.getClerk());}
         if (cart == null) {
             sess.setAttribute("cart", cart = new Cart());}
         if (account == null) {
         	sess.setAttribute("account", account = new Account());}
 
         try {
-        	req.setAttribute("data", clerk.checkout(account, cart, xsd, xslt));
+            req.setAttribute("data", clerk.checkout(account, cart));
+            req.setAttribute("status", "Successfully checked out.");            
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }
 
-        req.getRequestDispatcher(JSP_FILE).forward(req, res);
+        req.getRequestDispatcher(jspFile).forward(req, res);
     } // doGet
 
 } // CartAPI
