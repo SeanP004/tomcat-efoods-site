@@ -20,6 +20,7 @@ public class CheckoutClerk {
     }
 
     //return true when a file was created
+
     synchronized void maintainDirectory() {
         if (!userData.exists()) {
             userData.mkdir();
@@ -27,6 +28,7 @@ public class CheckoutClerk {
     }
 
     // Public
+
     public synchronized String checkout(Account customer, Cart cart, File xsd, File xslt) throws ItemNotFoundException{
         if (cart.getNumberOfItems() > 0) {
             //make sure directory folder exist to write to

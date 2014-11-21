@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 
 <web-app
     id="WebApp_ID"
@@ -31,6 +32,10 @@
     <servlet>
         <servlet-name>CheckoutAPI</servlet-name>
         <servlet-class>controller.CheckoutAPI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PurchaseOrderAPI</servlet-name>
+        <servlet-class>controller.PurchaseOrderAPI</servlet-class>
     </servlet>
 
     <servlet>

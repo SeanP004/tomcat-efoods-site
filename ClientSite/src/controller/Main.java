@@ -40,9 +40,10 @@ public class Main extends HttpServlet {
         if (relative.startsWith("/api")) {
             if (pathInfo != null) {
                 switch (pathInfo) {
-                    case "/catalog":  target = "CatalogAPI";  break;
-                    case "/cart":     target = "CartAPI";     break;
-                    case "/checkout": target = "CheckoutAPI"; break;
+                    case "/catalog":  target = "CatalogAPI";       break;
+                    case "/cart":     target = "CartAPI";          break;
+                    case "/checkout": target = "CheckoutAPI";      break;
+                    case "/po":       target = "PurchaseOrderAPI"; break;
                 }
             }
         } else { // starts with /jsp
