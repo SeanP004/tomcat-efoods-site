@@ -141,10 +141,10 @@
                             <div class="col-sm-8 col-md-4">
                                 <c:choose>
                                     <c:when test="${not empty minPrice}">
-                                        <input type="range" name="minPrice" min="0" max="${maxPriceRange}" value="${minPrice}" />
+                                        <input type="range" name="minPrice" min="0" max="${maxPriceRange}" value="${minPrice}" /><span>${minPrice}</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <input type="range" name="minPrice" min="0" max="${maxPriceRange}" value="0" />
+                                        <input type="range" name="minPrice" min="0" max="${maxPriceRange}" value="0" /><span>0</span>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -154,10 +154,10 @@
                             <div class="col-sm-8 col-md-4">
                                 <c:choose>
                                     <c:when test="${not empty maxPrice}">
-                                        <input type="range" name="maxPrice" min="0" max="${maxPriceRange}" value="${maxPrice}" />
+                                        <input type="range" name="maxPrice" min="0" max="${maxPriceRange}" value="${maxPrice}" /><span>${maxPrice}</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <input type="range" name="maxPrice" min="0" max="${maxPriceRange}" value="${maxPriceRange}" />
+                                        <input type="range" name="maxPrice" min="0" max="${maxPriceRange}" value="${maxPriceRange}" /><span>${maxPriceRange}</span>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

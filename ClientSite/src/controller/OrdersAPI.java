@@ -9,7 +9,7 @@ import model.common.*;
 /**
  * Servlet implementation class CartAPI Cart API Endpoint.
  */
-// @WebServlet(urlPatterns = {"/api/po", "/po/*"})
+// @WebServlet(urlPatterns = {"/po/*"})
 public class OrdersAPI extends HttpServlet {
 
     private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
@@ -46,7 +46,6 @@ public class OrdersAPI extends HttpServlet {
             }
             req.getRequestDispatcher(target).forward(req, res);
         } catch (Exception e) {
-            e.printStackTrace();
             res.sendError(404);
         }
     } // doGet

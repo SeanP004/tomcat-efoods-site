@@ -6023,6 +6023,12 @@ body:not(.storefront) .search-box {
 .search-filters .panel .close-btn {
   text-align: right;
 }
+.search-filters input[type=range] {
+  display: inline-block;
+  width: 85%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
 .page .container {
   margin-top: 70px;
 }
