@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import model.account.*;
 import model.cart.*;
+import model.catalog.*;
 import model.checkout.*;
 import model.common.*;
 
@@ -26,11 +27,11 @@ public class CheckoutAPI extends HttpServlet {
 
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
-        Cart           cart     = (Cart)sess.getAttribute("cart");  
-        StringWriter   sw       = new StringWriter();
+        String         quantity = req.getParameter("quantity");
+        Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
+        Cart           cart     = (Cart)sess.getAttribute("cart");
         File           xslt     = new File(sc.getRealPath(XSL_FILE));
-        String 		   xsdRealPath = sc.getRealPath(XSD_FILE);
-        Receipt		   receipt;
+        File		   xsd		= new File(sc.getRealPath(XSD_FILE));
         Account		   account  = (Account)sess.getAttribute("account");
         CheckoutClerk  clerk    = (CheckoutClerk)sc.getAttribute("clerk");
 
@@ -42,17 +43,7 @@ public class CheckoutAPI extends HttpServlet {
         	sess.setAttribute("account", account = new Account());}
 
         try {
-            receipt = clerk.checkout(account, cart);
-            String receiptData = XMLUtil.generate(sw, receipt, null, xslt).toString();
-            req.setAttribute( "data", receiptData);
-            StringReader receiptXML = new StringReader(receiptData);
-            if (XMLUtil.validateXMLSchema(xsdRealPath, receiptXML)) {
-            	System.out.println("write to file"); // TODO
-            	cart.clear();
-            }
-            else {
-            	System.out.println("template needs to be fixed"); // TODO
-            }
+        	req.setAttribute("data", clerk.checkout(account, cart, xsd, xslt));
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }

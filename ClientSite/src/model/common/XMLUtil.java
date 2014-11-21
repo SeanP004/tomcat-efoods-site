@@ -97,24 +97,5 @@ public class XMLUtil {
     public static Writer generate(Writer out, Object o) throws XMLGenerationException {
         return XMLUtil.generate(out, o, null);
     }
-    
-    /**
-     * check an xml string in Reader format to a xsd file and valaidate it.
-     * @param xsdPath file path location
-     * @param xml converted into Reader object
-     * @return boolean if xml is a valide xsd format
-     */
-    public static boolean validateXMLSchema(String xsdPath, Reader xml) {
-        try {
-            Schema schema = sf.newSchema(new File(xsdPath));
-            Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(xml));
-        } catch (IOException | SAXException e) {
-            System.out.println("Exception: "+e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
 
 } // CartXML

@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.*;	
+import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -19,7 +19,8 @@ public class Main extends HttpServlet {
         super.init();
         ServletContext sc = getServletContext();
         sc.setAttribute("catalog", Catalog.getCatalog());
-        sc.setAttribute("clerk", CheckoutClerk.getClerk());
+        sc.setAttribute("clerk", CheckoutClerk.getClerk(
+            new File(sc.getRealPath(sc.getInitParameter("userdata")))));
         sc.setAttribute("pm", PriceManager
                 .getPriceManager(new PricingRules(sc
                         .getInitParameter("shippingCost"), sc
