@@ -24,7 +24,7 @@ public class Main extends HttpServlet {
             new File(sc.getRealPath(sc.getInitParameter("ordersXsd"))),
             new File(sc.getRealPath(sc.getInitParameter("ordersXslt"))),
             sc.getContextPath() + sc.getInitParameter("ordersXsltView"),
-            sc.getInitParameter("ordersPrefix"),
+            sc.getContextPath() + sc.getInitParameter("ordersPrefix"),
             sc.getInitParameter("userdata")
         ));
         sc.setAttribute("pm", PriceManager
