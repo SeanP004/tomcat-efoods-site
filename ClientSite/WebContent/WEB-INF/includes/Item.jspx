@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  - Title: Item
+  -
+  - Description:
+  -     Fragment for the Item view 
+  -
+  - Parameters:
+  -     param.Item     The item
+  -->
+  
+  
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <c:if test="${param.item ne 'invalid'}">
+        
+        
+        <div class="page-header">
+        <h1> ${item.name} <br/>
+        <small>${item.number}</small></h1>
+        </div> 
+
+        <p> 
+        Item Number is : ${item.number} <br/> 
+        Item Name is : ${item.name} <br/> 
+        Item Price is : ${item.price} <br/> 
+  
+        </p>
+           
+    </c:if>
+   
+
+
+</jsp:root>
