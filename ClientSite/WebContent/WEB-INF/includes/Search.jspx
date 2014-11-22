@@ -125,7 +125,7 @@
                                     </c:choose>
                                     <c:forEach var="sort" items="${orders}">
                                         <c:choose>
-                                            <c:when test="${orderBy eq sort}">
+                                            <c:when test="${orderBy eq sort.key}">
                                                 <option value="${sort.key}" selected="selected">${sort.value}</option>
                                             </c:when>
                                             <c:otherwise>
