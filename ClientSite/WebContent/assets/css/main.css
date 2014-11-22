@@ -1,3 +1,4 @@
+@import url(../fonts/flaticon/flaticon.css);
 @import url(http://fonts.googleapis.com/css?family=Lato);
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
@@ -5778,6 +5779,17 @@ input[type="submit"] {
   height: 100%;
   width: 100%;
 }
+.page .container {
+  margin-top: 70px;
+  padding-bottom: 20px;
+  min-height: 50%;
+}
+.storefront .page .container {
+  margin-top: 0;
+}
+body:not(.storefront) .page .container.main {
+  margin-top: 160px;
+}
 .navbar-nav > li {
   display: inline-block;
 }
@@ -5890,6 +5902,9 @@ body:not(.storefront) .navbar .navbar-collapse {
 .storefront .navbar .navbar-nav > li a:focus .badge {
   background-color: #ffffff;
   color: #e67e22;
+}
+body:not(.storefront) .navbar {
+  background-color: white;
 }
 .navbar-nav > li .badge {
   background-color: #e67e22;
@@ -6031,16 +6046,6 @@ body:not(.storefront) .search-box {
   margin-right: 5px;
   vertical-align: middle;
 }
-.page .container {
-  margin-top: 70px;
-  padding-bottom: 20px;
-}
-.storefront .page .container {
-  margin-top: 0;
-}
-body:not(.storefront) .page .container.main {
-  margin-top: 160px;
-}
 .catalog .catalog-item {
   height: 200px;
   -webkit-transition: all 0.5s ease;
@@ -6067,4 +6072,13 @@ body:not(.storefront) .page .container.main {
 .storefront .page-header .catalog-btn {
   margin-top: -10px;
   margin-left: 10px;
+}
+.item-pic {
+  width: 200px;
+  height: 200px;
+  background-color: #f6ceab;
+  color: #eb9950;
+  border: 1px solid #e67e22;
+  font-size: 180px;
+  text-align: center;
 }

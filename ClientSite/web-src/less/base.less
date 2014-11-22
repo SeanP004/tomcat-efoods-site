@@ -30,3 +30,16 @@
         height: 100%;
         width: 100%;
     }
+
+    .page .container {
+        margin-top: 70px;
+        padding-bottom: 20px;
+        min-height: 50%;
+
+        .storefront & {
+            margin-top: 0;
+        }
+        body:not(.storefront) &.main {
+            margin-top: 160px;
+        }
+    }

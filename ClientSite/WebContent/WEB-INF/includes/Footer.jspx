@@ -32,6 +32,13 @@
                     <p>License under the <a href="http://opensource.org/licenses/MIT"
                         target="_blank">MIT License</a>.</p>
                 </div>
+                <div class="col-sm-6 cod-md-4">
+                    <h4>Attributions:</h4>
+                    <small>Some icons made by Freepik, Coucou, Linh Pham, Google from
+                        <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>
+                        is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+                        title="Creative Commons BY 3.0">CC BY 3.0</a></small>
+                </div>
             </div>
         </div>
     </footer>
