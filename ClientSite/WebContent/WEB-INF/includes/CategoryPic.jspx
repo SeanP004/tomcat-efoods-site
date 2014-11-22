@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: CategoryPic
+  -
+  - Description:
+  -     Fragment for the category picture
+  -
+  - Parameters:
+  -     param.catId   the category Id
+  -->
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <c:choose>
+        <c:when test="${param.catId eq 3}">
+            <i class="flaticon-steak"><!--  --></i>
+        </c:when>
+        <c:when test="${param.catId eq 4}">
+            <i class="flaticon-cheese5"><!--  --></i>
+        </c:when>
+        <c:when test="${param.catId eq 5}">
+            <i class="flaticon-ice53"><!--  --></i>
+        </c:when>
+        <c:when test="${param.catId eq 6}">
+            <i class="flaticon-wheat13"><!--  --></i>
+        </c:when>
+        <c:otherwise>
+            <i class="flaticon-plate7"><!--  --></i>
+        </c:otherwise>
+    </c:choose>
+
+</jsp:root>

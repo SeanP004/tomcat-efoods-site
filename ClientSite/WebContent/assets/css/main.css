@@ -1,4 +1,4 @@
-@import url(../fonts/flaticon/flaticon.css);
+@import url(../fonts/_flaticon.css);
 @import url(http://fonts.googleapis.com/css?family=Lato);
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
@@ -6023,7 +6023,7 @@ body:not(.storefront) .search-box {
   width: 100%;
   background-color: white;
   border-bottom: 1px solid #eeeeee;
-  z-index: 10;
+  z-index: 100;
 }
 .search-filters {
   margin-bottom: 20px;
@@ -6047,10 +6047,16 @@ body:not(.storefront) .search-box {
   vertical-align: middle;
 }
 .catalog .catalog-item {
-  height: 200px;
+  position: relative;
+  height: 220px;
+  overflow: hidden;
   -webkit-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+}
+.catalog .catalog-item .panel-body {
+  position: absolute;
+  z-index: 10;
 }
 .catalog .catalog-item:hover,
 .catalog .catalog-item:focus {
@@ -6074,11 +6080,22 @@ body:not(.storefront) .search-box {
   margin-left: 10px;
 }
 .item-pic {
-  width: 200px;
-  height: 200px;
-  background-color: #f6ceab;
   color: #eb9950;
-  border: 1px solid #e67e22;
   font-size: 180px;
-  text-align: center;
+  text-align: right;
+}
+.catalog-item .item-pic-bg {
+  position: absolute;
+  display: inline-block;
+  bottom: 10px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+  color: #eb9950;
+  font-size: 80px;
+  text-align: right;
+}
+.catalog-item:hover .item-pic-bg,
+.catalog-item:focus .item-pic-bg {
+  color: #fbe9d9;
 }

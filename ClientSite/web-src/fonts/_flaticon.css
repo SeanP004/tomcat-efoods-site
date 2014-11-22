@@ -1,0 +1,113 @@
+@font-face {
+    font-family: "Flaticon";
+    src: url("flaticon.eot");
+    src: url("flaticon.eot#iefix") format("embedded-opentype"),
+         url("flaticon.woff") format("woff"),
+         url("flaticon.ttf") format("truetype"),
+         url("flaticon.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="flaticon-"]:before,
+[class*=" flaticon-"]:before,
+[class^="flaticon-"]:after,
+[class*=" flaticon-"]:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Flaticon';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-apple55:before {
+    content: "\e000";
+}
+.flaticon-bananas1:before {
+    content: "\e001";
+}
+.flaticon-birthday20:before {
+    content: "\e002";
+}
+.flaticon-bread4:before {
+    content: "\e003";
+}
+.flaticon-broccoli:before {
+    content: "\e004";
+}
+.flaticon-candle13:before {
+    content: "\e005";
+}
+.flaticon-cheese5:before {
+    content: "\e006";
+}
+.flaticon-chilis:before {
+    content: "\e007";
+}
+.flaticon-christmas161:before {
+    content: "\e008";
+}
+.flaticon-coffee50:before {
+    content: "\e009";
+}
+.flaticon-cupcake17:before {
+    content: "\e00a";
+}
+.flaticon-cupcake3:before {
+    content: "\e00b";
+}
+.flaticon-fish52:before {
+    content: "\e00c";
+}
+.flaticon-food20:before {
+    content: "\e00d";
+}
+.flaticon-grapes1:before {
+    content: "\e00e";
+}
+.flaticon-hamburger8:before {
+    content: "\e00f";
+}
+.flaticon-hot:before {
+    content: "\e010";
+}
+.flaticon-hot51:before {
+    content: "\e011";
+}
+.flaticon-ice53:before {
+    content: "\e012";
+}
+.flaticon-lollipop6:before {
+    content: "\e013";
+}
+.flaticon-pizza13:before {
+    content: "\e014";
+}
+.flaticon-plate7:before {
+    content: "\e015";
+}
+.flaticon-pumpkin5:before {
+    content: "\e016";
+}
+.flaticon-sandwich:before {
+    content: "\e017";
+}
+.flaticon-steak:before {
+    content: "\e018";
+}
+.flaticon-sweet9:before {
+    content: "\e019";
+}
+.flaticon-turkey7:before {
+    content: "\e01a";
+}
+.flaticon-wheat13:before {
+    content: "\e01b";
+}
+.flaticon-wheat5:before {
+    content: "\e01c";
+}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
-  - Title: CatalogList
+  - Title: CatalogItem
   -
   - Description:
   -     Fragment for displaying a catalog items.
@@ -11,6 +11,7 @@
   -     param.name      the item name
   -     param.price     the item price
   -     param.unit      the item unit
+  -     param.catId     the item's category
   -->
 
 <jsp:root
@@ -23,6 +24,11 @@
 
     <div class="col-sm-6 col-md-3">
         <div class="catalog-item panel panel-default">
+            <div class="item-pic-bg">
+                <jsp:include page="CategoryPic.jspx">
+                    <jsp:param name="catId" value="${param.catId}" />
+                </jsp:include>
+            </div>
             <div class="panel-body"><a href="${pageContext.request.contextPath}/jsp/item/${param.number}">
                 <p class="small">${param.number}</p>
                 <h3>${param.name}</h3>

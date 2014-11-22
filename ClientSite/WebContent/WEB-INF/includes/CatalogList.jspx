@@ -34,6 +34,7 @@
                     <jsp:param name="name" value="${item.name}"/>
                     <jsp:param name="price" value="${item.price}"/>
                     <jsp:param name="unit" value="${item.unit}"/>
+                    <jsp:param name="catId" value="${item.catId}"/>
                 </jsp:include>
             </c:forEach>
         </c:when>
@@ -44,6 +45,7 @@
                     <jsp:param name="name" value="${item.name}"/>
                     <jsp:param name="price" value="${item.price}"/>
                     <jsp:param name="unit" value="${item.unit}"/>
+                    <jsp:param name="catId" value="${item.catId}"/>
                 </jsp:include>
             </c:forEach>
         </c:otherwise>

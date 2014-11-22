@@ -32,12 +32,22 @@
                     <p>License under the <a href="http://opensource.org/licenses/MIT"
                         target="_blank">MIT License</a>.</p>
                 </div>
-                <div class="col-sm-6 cod-md-4">
+                <div class="col-sm-6 cod-md-8">
                     <h4>Attributions:</h4>
-                    <small>Some icons made by Freepik, Coucou, Linh Pham, Google from
-                        <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>
-                        is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
-                        title="Creative Commons BY 3.0">CC BY 3.0</a></small>
+                    <ol class="small">
+                        <li>Styling based on Bootstrap 3 from <a href="http://www.getbootstrap.com"
+                            title="Bootstrap">www.getbootstrap.com</a>. Code and
+                            documentation copyright 2011-2014 Twitter, Inc. Code licensed\
+                            under <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE"
+                            title="Bootstrap License">MIT</a>, documentation under
+                            <a href="http://creativecommons.org/licenses/by/3.0/"
+                            title="Creative Commons BY 3.0">CC BY 3.0.</a></li>
+                        <li>Some icons made by Freepik, OCHA, Linh Pham, Google
+                            from <a href="http://www.flaticon.com" title="Flaticon"
+                            >www.flaticon.com</a> is licensed by <a
+                            href="http://creativecommons.org/licenses/by/3.0/"
+                            title="Creative Commons BY 3.0">CC BY 3.0</a></li>
+                    </ol>
                 </div>
             </div>
         </div>

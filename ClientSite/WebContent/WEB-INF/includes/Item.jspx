@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
 <!--
   - Title: Item
   -
@@ -6,9 +7,10 @@
   -     Fragment for the Item view
   -
   - Parameters:
-  -     param.Item     The item
+  -     item      the item
+  - Dependencies:
+  -     CategoryPic.jspx
   -->
-
 
 <jsp:root
     xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -32,10 +34,10 @@
                     >${item.price}</f:formatNumber> ${item.unit}</span>
             </p>
         </div>
-        <div class="col-md-4 col-md-pull-8">
-            <div class="item-pic">
-                <i class="glyphicon glyphicon-cutlery"><!--  --></i>
-            </div>
+        <div class="col-md-4 col-md-pull-8 item-pic">
+            <jsp:include page="CategoryPic.jspx">
+                <jsp:param name="catId" value="${item.catId}" />
+            </jsp:include>
         </div>
     </div>
 
