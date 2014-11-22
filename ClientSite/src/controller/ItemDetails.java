@@ -2,13 +2,9 @@ package controller;
 
 import java.io.*;
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import model.account.*;
-import model.cart.*;
 import model.catalog.*;
-import model.checkout.*;
-import model.common.*;
+import model.exception.*;
 
 /**
  * Servlet implementation class ItemDetails
