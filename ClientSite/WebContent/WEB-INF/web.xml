@@ -36,6 +36,10 @@
         <servlet-name>OrdersAPI</servlet-name>
         <servlet-class>controller.OrdersAPI</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ItemDetails</servlet-name>
+        <servlet-class>controller.ItemDetails</servlet-class>
+    </servlet>
 
     <servlet>
         <servlet-name>StoreFront</servlet-name>
