@@ -6061,6 +6061,9 @@ body:not(.storefront) .page .container.main {
   text-decoration: none;
   color: inherit;
 }
+.storefront .page-header small {
+  margin-left: 10px;
+}
 .storefront .page-header .catalog-btn {
   margin-top: -10px;
   margin-left: 10px;

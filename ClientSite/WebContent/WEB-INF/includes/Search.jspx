@@ -117,10 +117,10 @@
                                 <select name="orderBy" class="form-control">
                                     <c:choose>
                                         <c:when test="${empty orderBy}">
-                                            <option value="" selected="selected">None</option>
+                                            <option value="null" selected="selected">None</option>
                                         </c:when>
                                         <c:otherwise>
-                                            <option value="">None</option>
+                                            <option value="null">None</option>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:forEach var="sort" items="${orders}">
