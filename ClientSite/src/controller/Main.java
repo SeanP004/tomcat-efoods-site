@@ -53,10 +53,18 @@ public class Main extends HttpServlet {
             }
         } else if (relative.startsWith("/jsp")) {
             if (pathInfo != null) {
+                
+                
                 switch (pathInfo) {
                     case "/":       target = "StoreFront"; break;
                     case "/browse": target = "CatalogView"; break;
                 }
+               
+                if(pathInfo.startsWith("/item")){
+                    target = "ItemDetails"; 
+                   // System.out.print("CAME" +pathInfo);
+                }
+                
             } else {
                 target = "StoreFront";
             }
