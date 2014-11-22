@@ -69,6 +69,7 @@ public class Main extends HttpServlet {
                 switch (pathInfo) {
                     case "/":       target = "StoreFront"; break;
                     case "/browse": target = "CatalogView"; break;
+                    case "/cart": target = "CartView"; break;
                 }
                
                 if(pathInfo.startsWith("/item")){

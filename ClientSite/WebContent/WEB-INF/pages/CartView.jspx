@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: ItemDetails
+  - Page URI: /jsp/item
+  - Description:
+  -     The page to display the details of one item
+  - Parameters:
+  -     See dependencies.
+  - Dependencies:
+  -     ../includes/Header.jspx
+  -     ../includes/SiteHeader.jspx
+  -     ../includes/ErrorMessage.jspx
+  -     ../includes/Footer.jspx
+  -->
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"/>
+
+    <![CDATA[<!DOCTYPE html>]]>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <jsp:include page="../includes/Header.jspx">
+            <jsp:param name="title"  value="Item #${item.number} | Foods R Us!" />
+        </jsp:include>
+        <body>
+            <jsp:include page="../includes/SiteHeader.jspx"></jsp:include>
+            <div class="page">
+                <div class="container">
+                    <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
+                    <jsp:include page="../includes/Cart.jspx"></jsp:include>
+                </div>
+                <jsp:include page="../includes/Footer.jspx"></jsp:include>
+            </div>
+        </body>
+    </html>
+
+</jsp:root>

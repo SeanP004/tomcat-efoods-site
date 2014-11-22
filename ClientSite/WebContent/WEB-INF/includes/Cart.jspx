@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  - Title: Cart
+  -
+  - Description:
+  -     Fragment for the Item view
+  -
+  - Parameters:
+  -     param.Item     The item
+  -->
+
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="page-header">
+                <h1>Shopping Cart</h1>
+            </div>
+            
+                <div class="col-md-8 pull-left">
+                    <table class="table">
+                        <tr>
+                            <th class="col-md-1"><!--  --></th>
+                            <th class="col-md-2">Item Name</th>
+                            <th class="col-md-2">Id Number</th>
+                            <th class="col-md-2">Price</th>
+                            <th class="col-md-2">Quantity</th>
+                            <th class="col-md-2">Extended</th>
+                            <th class="col-md-1"><!--  --></th>   
+                        </tr>             
+                        <c:forEach var="element" items="${cartElement}">
+                            <tr>
+                                <td class="col-md-1">
+                                    <jsp:include page="CategoryPic.jspx">
+                                        <jsp:param name="catId" value="${element.item.catId}" />
+                                    </jsp:include>
+                                </td>
+                                <td class="col-md-2">${element.item.name}</td>
+                                <td class="col-md-2">${element.item.number}</td>
+                                <td class="col-md-2">$ ${element.item.price} ${element.item.unit}</td>
+                                <td class="col-md-2">${element.quantity}</td>
+                                <td class="col-md-2">$ ${element.item.price * element.quantity}</td>  
+                                <td class="col-md-1"><span class="glyphicon glyphicon-remove-circle"></span></td>  
+                            </tr>
+                        </c:forEach>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <th>Sub Total</th>
+                            <th>$ ${cart.cost.total}</th>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <div class="col-md-6 ">
+                        <span class="oull-left">
+                            <button class="btn btn-primary checkout-btn">
+                                <i class="glyphicon glyphicon-chevron-left"><!--  --></i>
+                                <span class="cart-label">Continue Shopping</span>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="col-md-6 ">
+                        <span class="oull-right">
+                            <button class="btn btn-primary checkout-btn">
+                                <span class="cart-label">Update</span>
+                                <i class="glyphicon glyphicon-refresh"><!--  --></i>
+                            </button>
+                            <button class="btn btn-primary checkout-btn">
+                                <span class="cart-label">Checkout</span>
+                                <i class="glyphicon glyphicon-chevron-right"><!--  --></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 pull-right">
+                    <h1>OrderSummary</h1>
+                    <p>Shipping and additional costs are calculated based on the values you have in the cart before tax.</p>
+                    <table class="table">
+                        <tr>
+                            <td>Order subtotal</td>
+                            <td>$ ${cart.cost.total}</td>
+                        </tr>
+                        <tr>
+                            <td>Shipping and handling</td>
+                            <td>$ ${cart.cost.shipping}</td>
+                        </tr>
+                        <tr>
+                            <td>Tax</td>
+                            <td>$ ${cart.cost.tax}</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <th>$ ${cart.cost.grandTotal}</th>
+                        </tr>
+                    </table>
+                </div>
+
+
+        </div>
+        
+    </div>
+
+</jsp:root>
