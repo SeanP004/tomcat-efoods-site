@@ -10,6 +10,7 @@
   - Parameters:
   -     param.items     catalog items list names
   -     param.catid     category id
+  -     param.desc      category description
   -
   - Dependencies:
   -     ../includes/CatalogList.jspx
@@ -28,9 +29,12 @@
             <c:if test="${param.items eq 'Popular'}">
                 <i class="glyphicon glyphicon-heart"><!-- --></i>
             </c:if>
+            <c:if test="${not empty param.desc}">
+                <small>${param.desc}</small>
+            </c:if>
             <c:if test="${not empty param.catid}">
                 <a href="${pageContext.request.contextPath}/jsp/browse?catid=${param.catid}"
-                   class="btn btn-default catalog-btn">View All</a>
+                   class="btn btn-default catalog-btn pull-right">View All</a>
             </c:if>
         </h2>
     </div>

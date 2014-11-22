@@ -48,7 +48,7 @@ public class CatalogView extends HttpServlet {
         try {
             req.setAttribute("orders", ItemFilter.sorts);
             req.setAttribute("maxPriceRange", catalog.getItemMaxPrice());
-            req.setAttribute("items", catalog.getItems(orderBy, searchTerm, category,
+            req.setAttribute("items", catalog.getItems("null".equals(orderBy) ? null : orderBy, searchTerm, category,
                     null, null, minPrice, maxPrice));
             req.setAttribute("categories", catalog.getCategories(null, null, null, null));
         } catch (Exception e) {
