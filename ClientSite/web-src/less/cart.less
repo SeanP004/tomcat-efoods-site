@@ -1,0 +1,41 @@
+//
+// Cart View
+//
+
+    .cart-header {
+        .glyphicon-shopping-cart {
+            .rotateY(180deg);
+        }
+    }
+    .cart-table {
+        @media screen and (max-width: @screen-sm) {
+            .item-pic-col {
+                .hidden();
+            }
+            h3 {
+                font-size: @font-size-h4;
+            }
+        }
+        h3 {
+            margin-top: 0;
+        }
+        input[type="text"].quantity-field {
+            width: 50px;
+        }
+    }
+    .button-row {
+        @media screen and (max-width: @screen-sm) {
+            .text-right {
+                .text-left();
+            }
+            .text-right .btn {
+                display: block;
+                margin-top: 10px;
+                margin-left: 0;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }

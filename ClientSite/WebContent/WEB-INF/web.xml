@@ -1,78 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>eFoods</display-name>
-  <welcome-file-list>
-    <welcome-file>jsp</welcome-file>
-  </welcome-file-list>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/WEB-INF/pages/Error-404.jspx</location>
-  </error-page>
-  <servlet>
-    <servlet-name>CatalogAPI</servlet-name>
-    <servlet-class>controller.CatalogAPI</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>CartAPI</servlet-name>
-    <servlet-class>controller.CartAPI</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>CheckoutAPI</servlet-name>
-    <servlet-class>controller.CheckoutAPI</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>OrdersAPI</servlet-name>
-    <servlet-class>controller.OrdersAPI</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>ItemDetails</servlet-name>
-    <servlet-class>controller.ItemDetails</servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>CartView</servlet-name>
-    <servlet-class>controller.CartView</servlet-class>
-  </servlet>
-  
-  
-  <servlet>
-    <servlet-name>StoreFront</servlet-name>
-    <servlet-class>controller.StoreFront</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>CatalogView</servlet-name>
-    <servlet-class>controller.CatalogView</servlet-class>
-  </servlet>
-  <context-param>
-    <param-name>shippingCost</param-name>
-    <param-value>5</param-value>
-  </context-param>
-  <context-param>
-    <param-name>shippingWaverCost</param-name>
-    <param-value>100</param-value>
-  </context-param>
-  <context-param>
-    <param-name>taxRate</param-name>
-    <param-value>0.13</param-value>
-  </context-param>
-  <context-param>
-    <param-name>userdata</param-name>
-    <param-value>/WEB-INF/userdata/</param-value>
-  </context-param>
-  <context-param>
-    <param-name>ordersXsd</param-name>
-    <param-value>/WEB-INF/xmlres/PO.xsd</param-value>
-  </context-param>
-  <context-param>
-    <param-name>ordersXslt</param-name>
-    <param-value>/WEB-INF/xmlres/PO.xslt</param-value>
-  </context-param>
-  <context-param>
-    <param-name>ordersXsltView</param-name>
-    <param-value>/assets/xmlres/POView.xslt</param-value>
-  </context-param>
-  <context-param>
-    <param-name>ordersPrefix</param-name>
-    <param-value>/po/</param-value>
-  </context-param>
+
+<web-app
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                        http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+    id="WebApp_ID"
+    version="3.1">
+
+    <display-name>eFoods</display-name>
+
+    <welcome-file-list>
+        <welcome-file>jsp</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/pages/Error-404.jspx</location>
+    </error-page>
+
+    <!-- APIs -->
+
+    <servlet>
+        <servlet-name>CatalogAPI</servlet-name>
+        <servlet-class>controller.CatalogAPI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartAPI</servlet-name>
+        <servlet-class>controller.CartAPI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutAPI</servlet-name>
+        <servlet-class>controller.CheckoutAPI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrdersAPI</servlet-name>
+        <servlet-class>controller.OrdersAPI</servlet-class>
+    </servlet>
+
+    <!-- Views -->
+
+    <servlet>
+        <servlet-name>StoreFront</servlet-name>
+        <servlet-class>controller.StoreFront</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogView</servlet-name>
+        <servlet-class>controller.CatalogView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ItemDetails</servlet-name>
+        <servlet-class>controller.ItemDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartView</servlet-name>
+        <servlet-class>controller.CartView</servlet-class>
+    </servlet>
+
+    <!-- Context Parameters -->
+
+    <context-param>
+        <param-name>shippingCost</param-name>
+        <param-value>5</param-value>
+    </context-param>
+    <context-param>
+        <param-name>shippingWaverCost</param-name>
+        <param-value>100</param-value>
+    </context-param>
+    <context-param>
+        <param-name>taxRate</param-name>
+        <param-value>0.13</param-value>
+    </context-param>
+    <context-param>
+        <param-name>userdata</param-name>
+        <param-value>/WEB-INF/userdata/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXsd</param-name>
+        <param-value>/WEB-INF/xmlres/PO.xsd</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXslt</param-name>
+        <param-value>/WEB-INF/xmlres/PO.xslt</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXsltView</param-name>
+        <param-value>/assets/xmlres/POView.xslt</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersPrefix</param-name>
+        <param-value>/po/</param-value>
+    </context-param>
+
 </web-app>

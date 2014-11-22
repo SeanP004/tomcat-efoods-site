@@ -3,6 +3,9 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import model.cart.Cart;
 import model.cart.CartElement;
 import model.catalog.Catalog;
+import model.catalog.Item;
 import model.common.XMLUtil;
 import model.pricing.Cost;
 
@@ -32,12 +36,8 @@ public class CartView extends HttpServlet {
         String         jspFile  = JSP_FILE;
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
-        String         action   = req.getParameter("action");
-        String         number   = req.getParameter("number");
-        String         quantity = req.getParameter("quantity");
         Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
-        StringWriter   sw       = new StringWriter();
 
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
@@ -53,10 +53,19 @@ public class CartView extends HttpServlet {
             // Provide a mechanism by which these two averages can be viewed
             // in real time.
 
-            //req.setAttribute("cart", cart.getElements());
-            req.setAttribute("cartElement", cart.getElements());
-            
-                    
+            Map<String, List<Item>> itemsets = new HashMap<String, List<Item>>();
+
+            // FIXME: Remove this code
+            {
+                List<Item> items = catalog.getItems(null, null, null, null, null, null, null);
+                List<Item> popular = new ArrayList<Item>();
+                for (int i = 0; i < 4; i += 1) {
+                    popular.add(items.get((int)(Math.random() * items.size() - 1)));
+                }
+                itemsets.put("Popular", popular);
+                req.setAttribute("items",  itemsets);
+            }
+
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }

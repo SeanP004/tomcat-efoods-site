@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
 <!--
   - Title: Cart
   -
   - Description:
-  -     Fragment for the Item view
+  -     Fragment for the Cart view
   -
   - Parameters:
-  -     param.Item     The item
+  -     cart    the shopping cart
   -->
-
 
 <jsp:root
     xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -19,94 +19,116 @@
     >
 
     <div class="row">
-        <div class="col-md-12 ">
-            <div class="page-header">
-                <h1>Shopping Cart</h1>
+        <div class="col-md-8">
+            <div class="page-header cart-header">
+                <h1>Shopping Cart
+                    <i class="glyphicon glyphicon-shopping-cart"><!-- --></i></h1>
             </div>
-            
-                <div class="col-md-8 pull-left">
-                    <table class="table">
-                        <tr>
-                            <th class="col-md-1"><!--  --></th>
-                            <th class="col-md-2">Item Name</th>
-                            <th class="col-md-2">Id Number</th>
-                            <th class="col-md-2">Price</th>
-                            <th class="col-md-2">Quantity</th>
-                            <th class="col-md-2">Extended</th>
-                            <th class="col-md-1"><!--  --></th>   
-                        </tr>             
-                        <c:forEach var="element" items="${cartElement}">
-                            <tr>
-                                <td class="col-md-1">
-                                    <jsp:include page="CategoryPic.jspx">
-                                        <jsp:param name="catId" value="${element.item.catId}" />
-                                    </jsp:include>
-                                </td>
-                                <td class="col-md-2">${element.item.name}</td>
-                                <td class="col-md-2">${element.item.number}</td>
-                                <td class="col-md-2">$ ${element.item.price} ${element.item.unit}</td>
-                                <td class="col-md-2">${element.quantity}</td>
-                                <td class="col-md-2">$ ${element.item.price * element.quantity}</td>  
-                                <td class="col-md-1"><span class="glyphicon glyphicon-remove-circle"></span></td>  
-                            </tr>
-                        </c:forEach>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <th>Sub Total</th>
-                            <th>$ ${cart.cost.total}</th>
-                            <td></td>
-                        </tr>
-                    </table>
-                    <div class="col-md-6 ">
-                        <span class="oull-left">
-                            <button class="btn btn-primary checkout-btn">
-                                <i class="glyphicon glyphicon-chevron-left"><!--  --></i>
-                                <span class="cart-label">Continue Shopping</span>
-                            </button>
-                        </span>
-                    </div>
-                    <div class="col-md-6 ">
-                        <span class="oull-right">
-                            <button class="btn btn-primary checkout-btn">
-                                <span class="cart-label">Update</span>
-                                <i class="glyphicon glyphicon-refresh"><!--  --></i>
-                            </button>
-                            <button class="btn btn-primary checkout-btn">
-                                <span class="cart-label">Checkout</span>
-                                <i class="glyphicon glyphicon-chevron-right"><!--  --></i>
-                            </button>
-                        </span>
-                    </div>
+            <table class="table cart-table">
+                <tr>
+                    <th class="item-pic-col"><!--  --></th>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Extended</th>
+                    <th><!--  --></th>
+                </tr>
+                <c:forEach var="element" items="${cart.elements}">
+                    <tr>
+                        <td class="item-pic-col item-pic">
+                            <jsp:include page="CategoryPic.jspx">
+                                <jsp:param name="catId" value="${element.item.catId}" />
+                            </jsp:include>
+                        </td>
+                        <td><h3>${element.item.name}</h3>
+                            <span>ID: ${element.item.number}</span></td>
+                        <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${element.item.price}</f:formatNumber>
+                            ${element.item.unit}</td>
+                        <td><input type="text" class="quantity-field" value="${element.quantity}" /></td>
+                        <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${element.extendedCost}</f:formatNumber></td>
+                        <td><i class="glyphicon glyphicon-remove"><!-- --></i></td>
+                    </tr>
+                </c:forEach>
+                <tr>
+                    <td class="item-pic-col"><!-- --></td>
+                    <td><!-- --></td>
+                    <td><!-- --></td>
+                    <th>Sub Total</th>
+                    <th>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.total}</f:formatNumber></th>
+                    <td><!-- --></td>
+                </tr>
+            </table>
+            <div class="row button-row">
+                <div class="col-sm-6 text-left">
+                    <a href="${pageContext.request.contextPath}/jsp/browse" class="btn btn-default btn-icon-left">
+                        <i class="glyphicon glyphicon-chevron-left"><!--  --></i>
+                        <span class="cart-label">Continue Shopping</span>
+                    </a>
                 </div>
-                <div class="col-md-4 pull-right">
-                    <h1>OrderSummary</h1>
-                    <p>Shipping and additional costs are calculated based on the values you have in the cart before tax.</p>
-                    <table class="table">
-                        <tr>
-                            <td>Order subtotal</td>
-                            <td>$ ${cart.cost.total}</td>
-                        </tr>
-                        <tr>
-                            <td>Shipping and handling</td>
-                            <td>$ ${cart.cost.shipping}</td>
-                        </tr>
-                        <tr>
-                            <td>Tax</td>
-                            <td>$ ${cart.cost.tax}</td>
-                        </tr>
-                        <tr>
-                            <th>Total</th>
-                            <th>$ ${cart.cost.grandTotal}</th>
-                        </tr>
-                    </table>
+                <div class="col-sm-6 text-right">
+                    <button class="btn btn-default btn-icon-right">
+                        <span class="cart-label">Update</span>
+                        <i class="glyphicon glyphicon-refresh"><!--  --></i>
+                    </button>
+                    <button class="btn btn-primary btn-icon-right">
+                        <span class="cart-label">Checkout</span>
+                        <i class="glyphicon glyphicon-ok"><!--  --></i>
+                    </button>
                 </div>
-
-
+            </div>
         </div>
-        
+        <div class="col-md-4">
+            <div class="page-header">
+                <h1>Order Summary</h1>
+            </div>
+            <p>Shipping and additional costs are calculated based
+                on the values you have in the cart before tax.</p>
+            <table class="table">
+                <tr><td>Order subtotal</td>
+                    <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.total}</f:formatNumber></td></tr>
+                <tr><td>Shipping and handling</td>
+                    <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.shipping}</f:formatNumber></td></tr>
+                <tr><td>Tax</td>
+                    <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.tax}</f:formatNumber></td></tr>
+                <tr><th>Total</th>
+                    <th>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.grandTotal}</f:formatNumber></th></tr>
+            </table>
+        </div>
     </div>
 
 </jsp:root>

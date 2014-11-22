@@ -38,10 +38,11 @@
             <jsp:include page="AddToCartButton.jspx">
                 <jsp:param name="number" value="${item.number}"/>
             </jsp:include>
-            <button class="btn btn-primary checkout-btn">
+            <a href="${pageContext.request.contextPath}/jsp/cart"
+               class="btn btn-primary btn-icon-right">
                 <span class="cart-label">Checkout</span>
                 <i class="glyphicon glyphicon-ok"><!--  --></i>
-            </button>
+            </a>
         </div>
         <div class="col-md-4 col-md-pull-8 item-pic">
             <jsp:include page="CategoryPic.jspx">

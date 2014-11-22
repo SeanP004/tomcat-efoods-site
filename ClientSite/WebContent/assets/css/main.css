@@ -6090,6 +6090,9 @@ body:not(.storefront) .search-box {
   font-size: 180px;
   text-align: right;
 }
+.cart-table .item-pic {
+  font-size: 30px;
+}
 .catalog-item .item-pic-bg {
   position: absolute;
   display: inline-block;
@@ -6123,6 +6126,44 @@ body:not(.storefront) .search-box {
 .cart-btn .badge {
   margin-left: 5px;
 }
-.checkout-btn .glyphicon {
+.btn-icon-left .glyphicon {
+  margin-right: 5px;
+}
+.btn-icon-right .glyphicon {
   margin-left: 5px;
+}
+.cart-header .glyphicon-shopping-cart {
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+@media screen and (max-width: 768px) {
+  .cart-table .item-pic-col {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  .cart-table h3 {
+    font-size: 18px;
+  }
+}
+.cart-table h3 {
+  margin-top: 0;
+}
+.cart-table input[type="text"].quantity-field {
+  width: 50px;
+}
+@media screen and (max-width: 768px) {
+  .button-row .text-right {
+    text-align: left;
+  }
+  .button-row .text-right .btn {
+    display: block;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+  .button-row .btn {
+    width: 100%;
+    text-align: center;
+  }
 }
