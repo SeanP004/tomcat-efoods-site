@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
 <!--
   - Title: ItemDetails
   - Page URI: /jsp/item
@@ -8,9 +10,7 @@
   - Dependencies:
   -     ../includes/Header.jspx
   -     ../includes/SiteHeader.jspx
-  -     ../includes/Search.jspx
   -     ../includes/ErrorMessage.jspx
-  -     ../includes/CatalogList.jspx
   -     ../includes/Footer.jspx
   -->
 
@@ -27,20 +27,14 @@
     <![CDATA[<!DOCTYPE html>]]>
     <html xmlns="http://www.w3.org/1999/xhtml">
         <jsp:include page="../includes/Header.jspx">
-            <jsp:param name="title"  value="Browse | Foods R Us!" />
+            <jsp:param name="title"  value="Item #${item.number} | Foods R Us!" />
         </jsp:include>
         <body>
             <jsp:include page="../includes/SiteHeader.jspx"></jsp:include>
             <div class="page">
-                <div class="container main">
+                <div class="container">
                     <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
-       
-                         <jsp:include page="../includes/Item.jspx">
-                            <jsp:param name="wrap" value="true" />
-                         </jsp:include>
-                    
-                  
-                     
+                    <jsp:include page="../includes/Item.jspx"></jsp:include>
                 </div>
                 <jsp:include page="../includes/Footer.jspx"></jsp:include>
             </div>
@@ -48,6 +42,3 @@
     </html>
 
 </jsp:root>
-
-
-

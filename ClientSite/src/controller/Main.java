@@ -1,10 +1,12 @@
 package controller;
 
-import java.io.*;
+import java.io.*;	
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import model.pricing.*;
+import model.account.*;
+import model.cart.*;
 import model.catalog.*;
 import model.checkout.*;
 
@@ -42,6 +44,15 @@ public class Main extends HttpServlet {
         String context    = req.getContextPath();
         String relative   = req.getRequestURI().substring(context.length());
         String target     = "Error404";
+
+        HttpSession    sess     = req.getSession();
+        Cart           cart     = (Cart)sess.getAttribute("cart");
+        Account        account  = (Account)sess.getAttribute("account");
+
+        if (cart == null) {
+            sess.setAttribute("cart", cart = new Cart());}        
+        if (account == null) {
+            sess.setAttribute("account", account = new Account());}
 
         if (relative.startsWith("/api")) {
             if (pathInfo != null) {
