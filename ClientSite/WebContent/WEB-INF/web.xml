@@ -49,8 +49,8 @@
         <servlet-class>controller.CatalogView</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ItemDetails</servlet-name>
-        <servlet-class>controller.ItemDetails</servlet-class>
+        <servlet-name>ItemView</servlet-name>
+        <servlet-class>controller.ItemView</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartView</servlet-name>

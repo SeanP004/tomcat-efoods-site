@@ -10,9 +10,9 @@ import model.exception.*;
  * Servlet implementation class ItemDetails
  */
 //@WebServlet("/jsp/item/*")
-public class ItemDetails extends HttpServlet {
+public class ItemView extends HttpServlet {
 
-    private static final String JSP_FILE = "/WEB-INF/pages/ItemDetails.jspx";
+    private static final String JSP_FILE = "/WEB-INF/pages/ItemView.jspx";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {

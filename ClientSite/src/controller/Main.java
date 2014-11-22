@@ -73,7 +73,7 @@ public class Main extends HttpServlet {
                 }
                
                 if(pathInfo.startsWith("/item")){
-                    target = "ItemDetails"; 
+                    target = "ItemView"; 
                 }
                 
             } else {

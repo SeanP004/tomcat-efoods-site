@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
-  - Title: CatalogView
-  - Page URI: 
+  - Title: ItemView
+  - Page URI: /jsp/item
+  -
   - Description:
-  -     The receipt after order has been placed 
+  -     The page to display the details of one item
+  -
   - Parameters:
+  -     item        the catalog item.
+  -
   -     See dependencies.
+  -
   - Dependencies:
   -     ../includes/Header.jspx
   -     ../includes/SiteHeader.jspx
-  -     ../includes/Search.jspx
   -     ../includes/ErrorMessage.jspx
-  -     ../includes/CatalogList.jspx
   -     ../includes/Footer.jspx
   -->
 
@@ -36,14 +39,10 @@
             <div class="page">
                 <div class="container">
                     <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
-                    <jsp:include page="../includes/ReceiptDetail.jspx"></jsp:include>
+                    <jsp:include page="../includes/Item.jspx"></jsp:include>
                 </div>
                 <jsp:include page="../includes/Footer.jspx"></jsp:include>
             </div>
-            
-            
-            
-            
         </body>
     </html>
 

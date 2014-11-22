@@ -32,7 +32,7 @@
     <![CDATA[<!DOCTYPE html>]]>
     <html xmlns="http://www.w3.org/1999/xhtml">
         <jsp:include page="../includes/Header.jspx">
-            <jsp:param name="title"  value="Item #${item.number} | Foods R Us!" />
+            <jsp:param name="title"  value="Cart | Foods R Us!" />
         </jsp:include>
         <body>
             <jsp:include page="../includes/SiteHeader.jspx"></jsp:include>
