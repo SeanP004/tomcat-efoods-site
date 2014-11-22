@@ -13,6 +13,8 @@
   -     ../includes/Splash.jspx
   -     ../includes/Search.jspx
   -     ../includes/ErrorMessage.jspx
+  -     ../includes/CategoryQuickLinks.jspx
+  -     ../includes/ItemsShowcase.jspx
   -     ../includes/Footer.jspx
   -->
 
@@ -41,6 +43,16 @@
                         <jsp:param name="method"   value="GET" />
                     </jsp:include>
                     <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
+                    <jsp:include page="../includes/CategoryQuickLinks.jspx"></jsp:include>
+                    <jsp:include page="../includes/ItemsShowcase.jspx">
+                        <jsp:param name="items" value="Popular" />
+                    </jsp:include>
+                    <c:forEach var="category" items="${categories}">
+                        <jsp:include page="../includes/ItemsShowcase.jspx">
+                            <jsp:param name="items" value="${category.name}" />
+                            <jsp:param name="catid" value="${category.id}" />
+                        </jsp:include>
+                    </c:forEach>
                 </div>
                 <jsp:include page="../includes/Footer.jspx"></jsp:include>
             </div>

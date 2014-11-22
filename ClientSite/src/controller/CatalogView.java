@@ -26,11 +26,17 @@ public class CatalogView extends HttpServlet {
         Cart           cart     = (Cart)sess.getAttribute("cart");
         Account        account  = (Account)sess.getAttribute("account");
 
-        req.setAttribute("orderBy", req.getParameter("orderBy"));
-        req.setAttribute("searchTerm", req.getParameter("searchTerm"));
-        req.setAttribute("category", req.getParameter("category"));
-        req.setAttribute("minPrice", req.getParameter("minPrice"));
-        req.setAttribute("maxPrice", req.getParameter("maxPrice"));
+        String orderBy,
+               searchTerm,
+               category,
+               minPrice,
+               maxPrice;
+
+        req.setAttribute("orderBy",    orderBy = req.getParameter("orderBy"));
+        req.setAttribute("searchTerm", searchTerm = req.getParameter("searchTerm"));
+        req.setAttribute("catid",      category = req.getParameter("catid"));
+        req.setAttribute("minPrice",   minPrice = req.getParameter("minPrice"));
+        req.setAttribute("maxPrice",   maxPrice = req.getParameter("maxPrice"));
 
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
@@ -42,7 +48,8 @@ public class CatalogView extends HttpServlet {
         try {
             req.setAttribute("orders", ItemFilter.sorts);
             req.setAttribute("maxPriceRange", catalog.getItemMaxPrice());
-            req.setAttribute("items", catalog.getItems(null, null, null, null, null, null, null));
+            req.setAttribute("items", catalog.getItems(orderBy, searchTerm, category,
+                    null, null, minPrice, maxPrice));
             req.setAttribute("categories", catalog.getCategories(null, null, null, null));
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

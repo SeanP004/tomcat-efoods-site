@@ -4,6 +4,7 @@
 
     .page .container {
         margin-top: 70px;
+        padding-bottom: 20px;
 
         .storefront & {
             margin-top: 0;
@@ -16,5 +17,26 @@
     .catalog {
         .catalog-item {
             height: 200px;
+            .transition(all 0.5s ease);
+
+            &:hover,
+            &:focus {
+                background-color: lighten(@brand-primary, 20%);
+                border-color: @brand-primary;
+                color: white;
+            }
+            a {
+                color: inherit;
+            }
+            a:hover,
+            a:focus {
+                text-decoration: none;
+                color: inherit;
+            }
         }
+    }
+
+    .storefront .page-header .catalog-btn {
+        margin-top: -10px;
+        margin-left: 10px;
     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: CategoryQuickLinks
+  -
+  - Description:
+  -     Fragment for displaying a list of categories.
+  -
+  - Parameters:
+  -     None.
+  -->
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <div class="category-quicklists">
+        <ul class="nav nav-pills">
+            <li><a href="${pageContext.request.contextPath}/jsp/browse">All</a></li>
+            <c:forEach var="category" items="${categories}">
+                <li><a href="${pageContext.request.contextPath}/jsp/browse?catid=${category.id}">${category.name}</a></li>
+            </c:forEach>
+        </ul>
+    </div>
+
+</jsp:root>

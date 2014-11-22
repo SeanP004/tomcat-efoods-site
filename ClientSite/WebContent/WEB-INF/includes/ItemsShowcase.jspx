@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: ItemsShowcase
+  -
+  - Description:
+  -     Fragment for displaying (showcasing) top items
+  -     on the storefront.
+  -
+  - Parameters:
+  -     param.items     catalog items list names
+  -     param.catid     category id
+  -
+  - Dependencies:
+  -     ../includes/CatalogList.jspx
+  -->
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <div class="page-header">
+        <h2>${param.items}
+            <c:if test="${param.items eq 'Popular'}">
+                <i class="glyphicon glyphicon-heart"><!-- --></i>
+            </c:if>
+            <c:if test="${not empty param.catid}">
+                <a href="${pageContext.request.contextPath}/jsp/browse?catid=${param.catid}"
+                   class="btn btn-default catalog-btn">View All</a>
+            </c:if>
+        </h2>
+    </div>
+    <jsp:include page="CatalogList.jspx">
+        <jsp:param name="wrap" value="true" />
+        <jsp:param name="items" value="${param.items}" />
+    </jsp:include>
+
+</jsp:root>

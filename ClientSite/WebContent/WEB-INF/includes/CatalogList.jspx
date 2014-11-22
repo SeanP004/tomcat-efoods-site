@@ -9,7 +9,10 @@
   - Parameters:
   -     param.wrap      boolean for whether or not to wrap
   -                     the list with a wrapper div.
-  -     items           List of catalog items
+  -     items           list of catalog items
+  -     param.items     catalog items list names
+  - Dependencies:
+  -     CatalogItem.jspx
   -->
 
 <jsp:root
@@ -23,22 +26,28 @@
     <c:if test="${param.wrap}">
         <![CDATA[<div class='row catalog'>]]>
     </c:if>
-    <c:forEach var="item" items="${items}">
-        <div class="col-sm-6 col-md-3">
-            <div class="catalog-item panel panel-default">
-                <div class="panel-body">
-                    <p class="small">${item.number}</p>
-                    <h3>${item.name}</h3>
-                    <p>$<f:formatNumber
-                            groupingUsed="true"
-                            maxFractionDigits="2"
-                            minFractionDigits="2"
-                            minIntegerDigits="1"
-                        >${item.price}</f:formatNumber> ${item.unit}</p>
-                </div>
-            </div>
-        </div>
-    </c:forEach>
+    <c:choose>
+        <c:when test="${not empty param.items}">
+            <c:forEach var="item" items="${items[param.items]}">
+                <jsp:include page="CatalogItem.jspx">
+                    <jsp:param name="number" value="${item.number}"/>
+                    <jsp:param name="name" value="${item.name}"/>
+                    <jsp:param name="price" value="${item.price}"/>
+                    <jsp:param name="unit" value="${item.unit}"/>
+                </jsp:include>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="item" items="${items}">
+                <jsp:include page="CatalogItem.jspx">
+                    <jsp:param name="number" value="${item.number}"/>
+                    <jsp:param name="name" value="${item.name}"/>
+                    <jsp:param name="price" value="${item.price}"/>
+                    <jsp:param name="unit" value="${item.unit}"/>
+                </jsp:include>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
     <c:if test="${param.wrap}">
         <![CDATA[</div>]]>
     </c:if>

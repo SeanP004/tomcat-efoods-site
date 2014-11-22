@@ -6033,6 +6033,7 @@ body:not(.storefront) .search-box {
 }
 .page .container {
   margin-top: 70px;
+  padding-bottom: 20px;
 }
 .storefront .page .container {
   margin-top: 0;
@@ -6042,4 +6043,25 @@ body:not(.storefront) .page .container.main {
 }
 .catalog .catalog-item {
   height: 200px;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.catalog .catalog-item:hover,
+.catalog .catalog-item:focus {
+  background-color: #f0b37e;
+  border-color: #e67e22;
+  color: white;
+}
+.catalog .catalog-item a {
+  color: inherit;
+}
+.catalog .catalog-item a:hover,
+.catalog .catalog-item a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+.storefront .page-header .catalog-btn {
+  margin-top: -10px;
+  margin-left: 10px;
 }

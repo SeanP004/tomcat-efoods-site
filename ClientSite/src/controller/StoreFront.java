@@ -1,9 +1,10 @@
 package controller;
 
 import java.io.*;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import model.account.Account;
+import model.account.*;
 import model.cart.*;
 import model.catalog.*;
 
@@ -34,9 +35,15 @@ public class StoreFront extends HttpServlet {
             sess.setAttribute("account", account = new Account());}
 
         try {
+            List<Category> categories = catalog.getCategories(null, null, null, null);
+            Map<String, List<Item>> itemsets = new HashMap<String, List<Item>>();
+            itemsets.put("Popular", catalog.getItems(null, null, null, null, "4", null, null));
+            for (Category category : categories) {
+                itemsets.put(category.getName(), catalog.getItems(null, null, "" + category.getId(), null, "4", null, null));
+            }
             req.setAttribute("orders", ItemFilter.sorts);
-            req.setAttribute("items", catalog.getItems(null, null, null, null, null, null, null));
-            req.setAttribute("categories", catalog.getCategories(null, null, null, null));
+            req.setAttribute("items",  itemsets);
+            req.setAttribute("categories", categories);
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }
