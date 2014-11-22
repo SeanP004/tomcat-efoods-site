@@ -12,6 +12,8 @@
   -     param.price     the item price
   -     param.unit      the item unit
   -     param.catId     the item's category
+  - Dependencies:
+  -     AddToCartButton.jspx
   -->
 
 <jsp:root
@@ -29,16 +31,21 @@
                     <jsp:param name="catId" value="${param.catId}" />
                 </jsp:include>
             </div>
-            <div class="panel-body"><a href="${pageContext.request.contextPath}/jsp/item/${param.number}">
-                <p class="small">${param.number}</p>
-                <h3>${param.name}</h3>
-                <p>$<f:formatNumber
-                        groupingUsed="true"
-                        maxFractionDigits="2"
-                        minFractionDigits="2"
-                        minIntegerDigits="1"
-                    >${param.price}</f:formatNumber> ${param.unit}</p>
-            </a></div>
+            <div class="panel-body">
+                <a href="${pageContext.request.contextPath}/jsp/item/${param.number}">
+                    <p class="small">${param.number}</p>
+                    <h3>${param.name}</h3>
+                    <h4>$<f:formatNumber
+                            groupingUsed="true"
+                            maxFractionDigits="2"
+                            minFractionDigits="2"
+                            minIntegerDigits="1"
+                        >${param.price}</f:formatNumber> ${param.unit}</h4>
+                </a>
+            </div>
+            <jsp:include page="AddToCartButton.jspx">
+                <jsp:param name="number" value="${param.number}"/>
+            </jsp:include>
         </div>
     </div>
 

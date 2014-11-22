@@ -10,6 +10,7 @@
   -     item      the item
   - Dependencies:
   -     CategoryPic.jspx
+  -     AddToCartButton.jspx
   -->
 
 <jsp:root
@@ -25,14 +26,22 @@
             <div class="page-header">
                 <h1>${item.name}<br/><small>${item.number}</small></h1>
             </div>
-            <p><span class="h5 text-uppercase">Item Price:</span><br/>
-               <span class="h3">$<f:formatNumber
+            <p class="padded-bottom">
+                <span class="h5 text-uppercase">Item Price:</span><br/>
+                <span class="h3">$<f:formatNumber
                         groupingUsed="true"
                         maxFractionDigits="2"
                         minFractionDigits="2"
                         minIntegerDigits="1"
                     >${item.price}</f:formatNumber> ${item.unit}</span>
             </p>
+            <jsp:include page="AddToCartButton.jspx">
+                <jsp:param name="number" value="${item.number}"/>
+            </jsp:include>
+            <button class="btn btn-primary checkout-btn">
+                <span class="cart-label">Checkout</span>
+                <i class="glyphicon glyphicon-ok"><!--  --></i>
+            </button>
         </div>
         <div class="col-md-4 col-md-pull-8 item-pic">
             <jsp:include page="CategoryPic.jspx">
