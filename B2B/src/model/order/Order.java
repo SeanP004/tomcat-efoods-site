@@ -2,10 +2,9 @@ package model.order;
 
 public class Order {
 
-    
     private String itemNo;
-    private int Qty;
-    
+    private int    Qty;
+
     public Order(String itemNo, int qty) {
         this.itemNo = itemNo;
         Qty = qty;
@@ -25,7 +24,6 @@ public class Order {
 
     public void setQty(int qty) {
         Qty = qty;
-    } 
-   
+    }
 
 }
