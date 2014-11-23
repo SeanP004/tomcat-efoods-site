@@ -10,7 +10,7 @@
                 <meta charset="UTF-8" />
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <title>POReport</title>
+                <title>Purchase Order Receipt #<xsl:value-of select="/order/@id" /> | Foods R Us!</title>
                 <link rel="stylesheet" type="text/css" href="/eFoods/assets/css/main.css" />
             </head>
             <body>
@@ -81,28 +81,50 @@
     <xsl:template match="order">
         <div class="row">
             <div class="col-sm-12">
-                <div class="page-header text-center">
-                    <h1>Order Number: <xsl:value-of select="./@id" /></h1>
+                <div class="page-header">
+                    <h1>Purchase Order Receipt</h1>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-push-8 text-right">
+                        <img alt="QR-code" id="qrcode" />
+                        <script><![CDATA[
+                            (function (win, doc) {
+                                var el  = doc.getElementById('qrcode');
+                                var src = '//api.qrserver.com/v1/create-qr-code/?size=180x180&data=';
+                                el.src = src + location.href;
+                            }(window, document));
+                        ]]></script>
+                    </div>
+                    <div class="col-sm-8 col-sm-pull-4">
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Order Number:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static"><xsl:value-of select="./@id" /></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Date Submitted:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static"><xsl:value-of select="./@submitted" /></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Account Name:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static"><xsl:value-of select="./customer/name" /></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Account ID:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static"><xsl:value-of select="./customer/@account" /></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Date Submitted:</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static"><xsl:value-of select="./@submitted" /></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Account Name:</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static"><xsl:value-of select="./customer/name" /></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Account ID:</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static"><xsl:value-of select="./customer/@account" /></p>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Items:</label>
                         <div class="col-sm-8">

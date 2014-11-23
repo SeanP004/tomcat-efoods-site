@@ -32,11 +32,10 @@
             <div class="page">
                 <div class="container">
                     <div class="page-header">
-                        <h1>Oops!</h1>
-                        <h2>Page Not Found! <small>404 Error</small></h2>
+                        <h1>Oops! Page Not Found! <small>404 Error</small></h1>
+                        <h3>Sorry, an error has occured, Requested page not found!</h3>
                     </div>
                     <div class="error-details">
-                        <p>Sorry, an error has occured, Requested page not found!</p>
                         <a href="${pageContext.request.contextPath}"
                            class="btn btn-primary btn-icon-left">
                             <i class="glyphicon glyphicon-home"><!--  --></i> Home</a>
