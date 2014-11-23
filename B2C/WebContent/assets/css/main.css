@@ -6124,6 +6124,20 @@ body:not(.storefront) .search-box {
 .catalog-item:focus .item-pic-bg {
   color: #fbe9d9;
 }
+.error-details .big-picture {
+  color: #eb9950;
+  font-size: 400px;
+  line-height: 0.6;
+  height: 0.8em;
+}
+.error-details .big-picture .flaticon-plate7::before {
+  margin-top: -0.2em;
+}
+@media screen and (max-width: 768px) {
+  .error-details .big-picture {
+    font-size: 200px;
+  }
+}
 .btn + .btn {
   margin-left: 10px;
 }

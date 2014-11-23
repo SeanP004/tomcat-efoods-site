@@ -10,10 +10,10 @@ import model.cart.*;
 import model.catalog.*;
 
 /**
- * Servlet implementation class StoreFront page.
+ * Servlet implementation class HomeView page.
  */
 // @WebServlet("/view")
-public class StoreFront extends EndPointServlet {
+public class HomeView extends EndPointServlet {
 
     @Override
     protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
@@ -46,7 +46,7 @@ public class StoreFront extends EndPointServlet {
                     popular.add(items.get((int)(Math.random() * items.size() - 1)));
                 }
                 itemsets.put("Popular", popular);
-            }            
+            }
 
             for (Category category : categories) {
                 itemsets.put(category.getName(), catalog.getItems(null, null, "" + category.getId(), null, "4", null, null));
@@ -66,5 +66,5 @@ public class StoreFront extends EndPointServlet {
             throws ServletException, IOException {
         doRequest("GET", req, res);
     }
-        
+
 } // CartAPI

@@ -20,15 +20,6 @@
         <location>/WEB-INF/pages/Error404.jspx</location>
     </error-page>
 
-    <!-- Configurations -->
-    
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.jspx</url-pattern>
-            <trim-directive-whitespaces>false</trim-directive-whitespaces>
-        </jsp-property-group>
-    </jsp-config>
-
     <!-- Mappings -->
 
     <filter-mapping>
@@ -157,20 +148,20 @@
         <init-param>
             <param-name>routes</param-name>
             <param-value>
-                StoreFront=/home
+                HomeView=/home
                 CatalogView=/browse
                 ItemView=/item/*
                 CartView=/cart
-                StoreFront=/
+                HomeView=/
             </param-value>
         </init-param>
     </servlet>
     <servlet>
-        <servlet-name>StoreFront</servlet-name>
-        <servlet-class>controller.view.StoreFront</servlet-class>
+        <servlet-name>HomeView</servlet-name>
+        <servlet-class>controller.view.HomeView</servlet-class>
         <init-param>
             <param-name>target</param-name>
-            <param-value>/WEB-INF/pages/StoreFront.jspx</param-value>
+            <param-value>/WEB-INF/pages/HomeView.jspx</param-value>
         </init-param>
     </servlet>
     <servlet>
