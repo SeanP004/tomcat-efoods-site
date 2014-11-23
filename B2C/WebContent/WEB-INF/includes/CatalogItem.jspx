@@ -32,7 +32,7 @@
                 </jsp:include>
             </div>
             <div class="panel-body">
-                <a href="${pageContext.request.contextPath}/jsp/item/${param.number}">
+                <a href="${pageContext.request.contextPath}/item/${param.number}">
                     <p class="small">${param.number}</p>
                     <h3>${param.name}</h3>
                     <h4>$<f:formatNumber

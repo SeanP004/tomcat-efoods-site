@@ -85,8 +85,8 @@
                     <h1>Purchase Order Receipt</h1>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-sm-push-8 text-right">
-                        <img alt="QR-code" id="qrcode" />
+                    <div class="col-sm-4 col-sm-push-8 text-right qrcode-wrap">
+                        <img alt="QR-code" id="qrcode" class="qrcode" />
                         <script><![CDATA[
                             (function (win, doc) {
                                 var el  = doc.getElementById('qrcode');
@@ -100,25 +100,25 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Order Number:</label>
                                 <div class="col-sm-9">
-                                    <p class="form-control-static"><xsl:value-of select="./@id" /></p>
+                                    <p class="form-control-static text-large"><xsl:value-of select="./@id" /></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Date Submitted:</label>
                                 <div class="col-sm-9">
-                                    <p class="form-control-static"><xsl:value-of select="./@submitted" /></p>
+                                    <p class="form-control-static text-large"><xsl:value-of select="./@submitted" /></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Account Name:</label>
                                 <div class="col-sm-9">
-                                    <p class="form-control-static"><xsl:value-of select="./customer/name" /></p>
+                                    <p class="form-control-static text-large"><xsl:value-of select="./customer/name" /></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Account ID:</label>
                                 <div class="col-sm-9">
-                                    <p class="form-control-static"><xsl:value-of select="./customer/@account" /></p>
+                                    <p class="form-control-static text-large"><xsl:value-of select="./customer/@account" /></p>
                                 </div>
                             </div>
                         </div>
@@ -143,25 +143,25 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Sub Total:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static"><xsl:value-of select="./total" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./total, '###,###.00')" /></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Shipping Cost:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static"><xsl:value-of select="./shipping" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./shipping, '###,###.00')" /></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tax:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static"><xsl:value-of select="./HST" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./HST, '###,###.00')" /></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Total:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static"><xsl:value-of select="./grandTotal" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./grandTotal, '###,###.00')" /></p>
                         </div>
                     </div>
                 </div>
@@ -171,11 +171,11 @@
 
     <xsl:template match="item">
         <tr>
-            <td><xsl:value-of select="./@number" /></td>
-            <td><xsl:value-of select="./name" /></td>
-            <td><xsl:value-of select="./price" /></td>
-            <td><xsl:value-of select="./quantity" /></td>
-            <td><xsl:value-of select="./extended" /></td>
+            <td><xsl:value-of  select="./@number" /></td>
+            <td><xsl:value-of  select="./name" /></td>
+            <td>$<xsl:value-of select="format-number(./price, '###,###.00')" /></td>
+            <td><xsl:value-of  select="./quantity" /></td>
+            <td>$<xsl:value-of select="format-number(./extended, '###,###.00')" /></td>
         </tr>
     </xsl:template>
 

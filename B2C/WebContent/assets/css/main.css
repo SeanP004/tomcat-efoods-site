@@ -5793,6 +5793,17 @@ input[type="submit"] {
 body:not(.storefront) .page .container.main {
   margin-top: 160px;
 }
+@media screen and (max-width: 768px) {
+  .qrcode-wrap {
+    text-align: left;
+  }
+  .qrcode {
+    margin-bottom: 20px;
+  }
+}
+.text-large {
+  font-size: x-large;
+}
 .navbar-nav > li {
   display: inline-block;
 }
@@ -5810,10 +5821,7 @@ body:not(.storefront) .page .container.main {
 }
 .navbar-nav > li .badge {
   margin-left: 5px;
-  vertical-align: text-top;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-top: -2px;
+  vertical-align: top;
 }
 .dropdown-toggle:hover + .dropdown-menu,
 .dropdown-menu:hover,
@@ -5932,6 +5940,11 @@ body:not(.storefront) .navbar {
 }
 .footer .container {
   margin-top: 0;
+}
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 0;
+  }
 }
 body:not(.storefront) .jumbotron {
   display: none !important;

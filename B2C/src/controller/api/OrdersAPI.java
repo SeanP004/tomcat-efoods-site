@@ -22,6 +22,7 @@ public class OrdersAPI extends EndPointServlet {
         String         target   = (String)req.getAttribute("target");
         String         pathInfo = (String)req.getAttribute("pathInfo");
         OrdersClerk    clerk    = (OrdersClerk)sc.getAttribute("clerk");
+        String         host     = (String)req.getAttribute("host");
         StringWriter   sw       = new StringWriter();
 
         if (clerk == null) {
@@ -34,13 +35,13 @@ public class OrdersAPI extends EndPointServlet {
                 pathInfo = pathInfo.substring(1);
             }
             if (pathInfo.isEmpty()) {
-                OrdersList orders = clerk.getPurchaseOrders();
+                OrdersList orders = clerk.getPurchaseOrders(host);
                 req.setAttribute("data", XMLUtil.generate(sw, orders).toString());
             } else {
                 if (pathInfo.endsWith(".xml")) {
                     target = clerk.getPurchaseOrder(pathInfo).getPath();
                 } else {
-                    OrdersList orders = clerk.getPurchaseOrders(pathInfo);
+                    OrdersList orders = clerk.getPurchaseOrders(host, pathInfo);
                     req.setAttribute("data", XMLUtil.generate(sw, orders).toString());
                 }
             }

@@ -24,6 +24,7 @@ public class Receipt {
     private Date    submitDate;
     private Account customer;
     private Cart    cart;
+    private String  url;
 
     public Receipt() { } // To make JAXB happy
 
@@ -66,6 +67,15 @@ public class Receipt {
     @XmlElement(name="cart")
     public Cart getCart() {
         return cart;
+    }
+
+    @XmlAttribute
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 } // Receipt

@@ -25,6 +25,7 @@ public class CheckoutAPI extends EndPointServlet {
         Cart           cart     = (Cart)sess.getAttribute("cart");
         Account		   account  = (Account)sess.getAttribute("account");
         OrdersClerk    clerk    = (OrdersClerk)sc.getAttribute("clerk");
+        String         host     = (String)req.getAttribute("host");
 
         if (clerk == null) {
             sc.setAttribute("clerk", clerk = OrdersClerk.getClerk());}
@@ -34,7 +35,7 @@ public class CheckoutAPI extends EndPointServlet {
         	sess.setAttribute("account", account = new Account());}
 
         try {
-            req.setAttribute("data", clerk.checkout(account, cart));
+            req.setAttribute("data", clerk.checkout(host, account, cart));
             req.setAttribute("status", "Successfully checked out.");            
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

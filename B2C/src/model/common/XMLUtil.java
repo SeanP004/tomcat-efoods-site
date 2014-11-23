@@ -70,10 +70,10 @@ public class XMLUtil {
             }
             if (xslt != null) {
                 JAXBSource source = new JAXBSource(getJAXBCtx(o), o);
+                tf.setAttribute("indent-number", new Integer(4));
                 Transformer trans = tf.newTransformer(new StreamSource(xslt));
-                trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-                trans.setOutputProperty(OutputKeys.INDENT, "yes");
-                trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");                
+                trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+                trans.setOutputProperty(OutputKeys.INDENT, "yes");               
                 trans.transform(source, result);
             } else {
                 marsh.marshal(o, result);

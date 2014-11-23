@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-xs-6">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="cart"><a href="${pageContext.request.contextPath}/jsp/cart">
+                            <li class="cart"><a href="${pageContext.request.contextPath}/cart">
                                 <i class="glyphicon glyphicon-shopping-cart"><!--  --></i>
                                 <span class="cart-label">Cart</span>
                                 <span class="badge">${cart.numberOfItems}</span>

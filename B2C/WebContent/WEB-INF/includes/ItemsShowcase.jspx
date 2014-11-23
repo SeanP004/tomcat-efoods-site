@@ -33,7 +33,7 @@
                 <small>${param.desc}</small>
             </c:if>
             <c:if test="${not empty param.catid}">
-                <a href="${pageContext.request.contextPath}/jsp/browse?catid=${param.catid}"
+                <a href="${pageContext.request.contextPath}/browse?catid=${param.catid}"
                    class="btn btn-default catalog-btn pull-right">View All</a>
             </c:if>
         </h2>

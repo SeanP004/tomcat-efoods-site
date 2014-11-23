@@ -20,9 +20,9 @@
 
     <div class="category-quicklists">
         <ul class="nav nav-pills">
-            <li><a href="${pageContext.request.contextPath}/jsp/browse">All</a></li>
+            <li><a href="${pageContext.request.contextPath}/browse">All</a></li>
             <c:forEach var="category" items="${categories}">
-                <li><a href="${pageContext.request.contextPath}/jsp/browse?catid=${category.id}">${category.name}</a></li>
+                <li><a href="${pageContext.request.contextPath}/browse?catid=${category.id}">${category.name}</a></li>
             </c:forEach>
         </ul>
     </div>

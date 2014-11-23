@@ -75,7 +75,7 @@
             </table>
             <div class="row button-row">
                 <div class="col-sm-6 text-left">
-                    <a href="${pageContext.request.contextPath}/jsp/browse" class="btn btn-default btn-icon-left">
+                    <a href="${pageContext.request.contextPath}/browse" class="btn btn-default btn-icon-left">
                         <i class="glyphicon glyphicon-chevron-left"><!--  --></i>
                         <span class="cart-label">Continue Shopping</span>
                     </a>

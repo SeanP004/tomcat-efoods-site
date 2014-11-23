@@ -39,7 +39,7 @@
                 <jsp:include page="../includes/Splash.jspx"></jsp:include>
                 <div class="container main">
                     <jsp:include page="../includes/Search.jspx">
-                        <jsp:param name="formPath" value="${pageContext.request.contextPath}/jsp/browse"/>
+                        <jsp:param name="formPath" value="${pageContext.request.contextPath}/browse"/>
                         <jsp:param name="method"   value="GET" />
                     </jsp:include>
                     <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
