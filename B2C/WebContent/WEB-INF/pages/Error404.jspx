@@ -36,14 +36,14 @@
                         <h3>Sorry, Nothing to serve here!</h3>
                     </div>
                     <div class="error-details">
-                        <div class="big-picture row">
-                            <i class="flaticon-plate7"><!--  --></i>
-                        </div>
-                        <div class="error-details row">
+                        <div class="row">
                             <a href="${pageContext.request.contextPath}" class="btn btn-primary btn-icon-left">
                                 <i class="glyphicon glyphicon-home"><!--  --></i>
                                 Return to Homepage
                             </a>
+                        </div>
+                        <div class="big-picture row">
+                            <i class="flaticon-plate7"><!--  --></i>
                         </div>
                     </div>
                 </div>
