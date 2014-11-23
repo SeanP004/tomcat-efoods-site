@@ -13,7 +13,7 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
-import model.order.Order;
+import model.order.OrderList;
 
 
 public class PlaceOrder {
