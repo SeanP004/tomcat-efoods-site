@@ -27,8 +27,6 @@ public class OrderList {
         return numberOfOrders;
     }
 
-    
-
     public void setNumberOfOrders(int numberOfOrders) {
         this.numberOfOrders = numberOfOrders;
     }
@@ -58,12 +56,9 @@ public class OrderList {
             }
             else {
                
-                this.list.put(o.getItemNo(), o.getQty());
-                
-            }
-             
-        }
-        
+                this.list.put(o.getItemNo(), o.getQty());              
+            }    
+        }       
         increaseNoOfOrders();
     }
        
