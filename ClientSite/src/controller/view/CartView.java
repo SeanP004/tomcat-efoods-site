@@ -1,41 +1,44 @@
-package controller;
+package controller.view;
 
+import controller.*;
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import model.account.*;
 import model.cart.*;
 import model.catalog.*;
 
 /**
- * Servlet implementation class StoreFront page.
+ * Servlet implementation class CartView
  */
-// @WebServlet("/jsp")
-public class StoreFront extends HttpServlet {
-
-    private static final String
-        JSP_FILE = "/WEB-INF/pages/StoreFront.jspx";
+//@WebServlet("/view/cart")
+public class CartView extends EndPointServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        super.doRequest(method, req, res);
 
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
+        String         target   = (String)req.getAttribute("target");
         Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
-        Account        account  = (Account)sess.getAttribute("account");
 
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
         if (cart == null) {
             sess.setAttribute("cart", cart = new Cart());}
-        if (account == null) {
-            sess.setAttribute("account", account = new Account());}
 
         try {
-            List<Category> categories = catalog.getCategories(null, null, null, null);
+
+            // TODO: add variable for listener as analytics
+            // Management wants to be able to determine the average time it
+            // takes a client to add an item to the cart and the average time
+            // between a fresh visit and checkout (in the same session).
+            // Provide a mechanism by which these two averages can be viewed
+            // in real time.
+
             Map<String, List<Item>> itemsets = new HashMap<String, List<Item>>();
 
             // FIXME: Remove this code
@@ -46,19 +49,20 @@ public class StoreFront extends HttpServlet {
                     popular.add(items.get((int)(Math.random() * items.size() - 1)));
                 }
                 itemsets.put("Popular", popular);
-            }            
-
-            for (Category category : categories) {
-                itemsets.put(category.getName(), catalog.getItems(null, null, "" + category.getId(), null, "4", null, null));
+                req.setAttribute("items",  itemsets);
             }
-            req.setAttribute("orders", ItemFilter.sorts);
-            req.setAttribute("items",  itemsets);
-            req.setAttribute("categories", categories);
+
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }
 
-        req.getRequestDispatcher(JSP_FILE).forward(req, res);
-    } // doGet
+        req.getRequestDispatcher(target).forward(req, res);
+    } // doRequest
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("GET", req, res);
+    }
 
 } // CartAPI

@@ -1,8 +1,7 @@
 package controller;
 
-import java.io.*;	
+import java.io.*;
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import model.pricing.*;
 import model.account.*;
@@ -13,82 +12,45 @@ import model.checkout.*;
 /**
  * Servlet implementation class Main
  */
-@WebServlet(urlPatterns = {"/jsp/*", "/api/*", "/po/*"})
-public class Main extends HttpServlet {
+public class Main extends RoutingServlet implements Filter {
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        ServletContext sc = getServletContext();
-        sc.setAttribute("catalog", Catalog.getCatalog());
-        sc.setAttribute("clerk", OrdersClerk.getClerk(
-            new File(sc.getRealPath(sc.getInitParameter("userdata"))),
-            new File(sc.getRealPath(sc.getInitParameter("ordersXsd"))),
-            new File(sc.getRealPath(sc.getInitParameter("ordersXslt"))),
-            sc.getContextPath() + sc.getInitParameter("ordersXsltView"),
-            sc.getContextPath() + sc.getInitParameter("ordersPrefix"),
-            sc.getInitParameter("userdata")
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ServletContext context = getServletContext();
+        context.setAttribute("catalog", Catalog.getCatalog());
+        context.setAttribute("clerk", OrdersClerk.getClerk(
+            new File(context.getRealPath(config.getInitParameter("userData"))),
+            new File(context.getRealPath(config.getInitParameter("ordersXsd"))),
+            new File(context.getRealPath(config.getInitParameter("ordersXslt"))),
+            context.getContextPath() + config.getInitParameter("ordersXsltView"),
+            context.getContextPath() + config.getInitParameter("ordersPrefix"),
+            config.getInitParameter("userData")
         ));
-        sc.setAttribute("pm", PriceManager
-                .getPriceManager(new PricingRules(sc
-                        .getInitParameter("shippingCost"), sc
-                        .getInitParameter("shippingWaverCost"), sc
-                        .getInitParameter("taxRate"))));
+        context.setAttribute("pm", PriceManager
+                .getPriceManager(new PricingRules(
+                        config.getInitParameter("shippingCost"),
+                        config.getInitParameter("shippingWaverCost"),
+                        config.getInitParameter("taxRate"))));
     }
 
-    private void doRequest(HttpServletRequest req, HttpServletResponse res)
+    @Override
+    protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        super.doRequest(method, req, res);
 
-        ServletContext sc = getServletContext();
-        String pathInfo   = req.getPathInfo();
-        String context    = req.getContextPath();
-        String relative   = req.getRequestURI().substring(context.length());
-        String target     = "Error404";
-
-        HttpSession    sess     = req.getSession();
-        Cart           cart     = (Cart)sess.getAttribute("cart");
-        Account        account  = (Account)sess.getAttribute("account");
+        ServletContext sc    = getServletContext();
+        HttpSession sess     = req.getSession();
+        Cart        cart     = (Cart)sess.getAttribute("cart");
+        Account     account  = (Account)sess.getAttribute("account");
+        String      target   = (String)req.getAttribute("target");
 
         if (cart == null) {
             sess.setAttribute("cart", cart = new Cart());}        
         if (account == null) {
             sess.setAttribute("account", account = new Account());}
-
-        if (relative.startsWith("/api")) {
-            if (pathInfo != null) {
-                switch (pathInfo) {
-                    case "/catalog":  target = "CatalogAPI";       break;
-                    case "/cart":     target = "CartAPI";          break;
-                    case "/checkout": target = "CheckoutAPI";      break;
-                }
-            }
-        } else if (relative.startsWith("/jsp")) {
-            if (pathInfo != null) {
-                
-                
-                switch (pathInfo) {
-                    case "/":       target = "StoreFront"; break;
-                    case "/browse": target = "CatalogView"; break;
-                    case "/cart": target = "CartView"; break;
-                }
-               
-                if(pathInfo.startsWith("/item")){
-                    target = "ItemView"; 
-                }
-                
-            } else {
-                target = "StoreFront";
-            }
-        } else if (relative.startsWith("/po")) {
-            target = "OrdersAPI";
-        } else {
-            if (pathInfo == null) {
-                target = "StoreFront";
-            }
-        }
-
-        if ("Error404".equals(target)) {
-            res.sendError(404);
+        if (target == null) {
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
             sc.getNamedDispatcher(target).forward(req, res);
         }
@@ -97,13 +59,41 @@ public class Main extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        doRequest(req, res);
+        doRequest("GET", req, res);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        doRequest(req, res);
+        doRequest("POST", req, res);
+    }
+
+    // Filter Methods: URL Rewrite
+
+    public void init(FilterConfig fConfig) throws ServletException {
+        String[] ignores = fConfig.getInitParameter("ignores").split("[ \n]+");
+        fConfig.getServletContext().setAttribute("ignores", ignores);
+        //for (String ignore : ignores) {
+        //    System.out.println("ignore: " + ignore);
+        //}
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response, 
+                FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = ((HttpServletRequest)request);
+        String uri = req.getRequestURI().substring(req.getContextPath().length());
+        ServletContext sc = request.getServletContext();
+        //System.out.println("======================================");
+        for (String ignore : (String[])sc.getAttribute("ignores")) {
+            if (uri.startsWith(ignore)) {
+                //System.out.println("Filtering: " + uri);
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+        //System.out.println("Dispatch: " + uri);
+        req.setAttribute("pathInfo", uri);
+        sc.getNamedDispatcher("Main").forward(request, response);
     }
 
 } // Main

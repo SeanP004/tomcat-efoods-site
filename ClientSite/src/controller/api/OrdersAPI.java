@@ -1,36 +1,36 @@
-package controller;
+package controller.api;
 
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import controller.*;
 import model.checkout.*;
 import model.common.*;
 
 /**
  * Servlet implementation class CartAPI Cart API Endpoint.
  */
-// @WebServlet(urlPatterns = {"/po/*"})
-public class OrdersAPI extends HttpServlet {
-
-    private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
+// @WebServlet(urlPatterns = {"/api/po/*", "/api/order"})
+public class OrdersAPI extends EndPointServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        super.doRequest(method, req, res);
 
-        String         target   = JSP_FILE;
         ServletContext sc       = getServletContext();
+        String         target   = (String)req.getAttribute("target");
+        String         pathInfo = (String)req.getAttribute("pathInfo");
         OrdersClerk    clerk    = (OrdersClerk)sc.getAttribute("clerk");
-        String         pathInfo = req.getPathInfo();
         StringWriter   sw       = new StringWriter();
 
         if (clerk == null) {
-            sc.setAttribute("clerk", clerk = OrdersClerk.getClerk());}        
+            sc.setAttribute("clerk", clerk = OrdersClerk.getClerk());}
 
         try {
             if (pathInfo == null) {
                 pathInfo = "";
-            } else if (pathInfo.charAt(0) == '/') {
+            } else if (!pathInfo.isEmpty() && pathInfo.charAt(0) == '/') {
                 pathInfo = pathInfo.substring(1);
             }
             if (pathInfo.isEmpty()) {
@@ -46,7 +46,8 @@ public class OrdersAPI extends HttpServlet {
             }
             req.getRequestDispatcher(target).forward(req, res);
         } catch (Exception e) {
-            res.sendError(404);
+            e.printStackTrace();
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     } // doGet
 

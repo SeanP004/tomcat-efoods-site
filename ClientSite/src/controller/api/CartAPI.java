@@ -1,8 +1,9 @@
-package controller;
+package controller.api;
 
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import controller.*;
 import model.cart.*;
 import model.catalog.*;
 import model.common.*;
@@ -11,27 +12,22 @@ import model.common.*;
  * Servlet implementation class CartAPI Cart API Endpoint.
  */
 // @WebServlet("/api/cart")
-public class CartAPI extends HttpServlet {
-
-    private static final String
-        JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx"
-      , XSL_FILE = "/WEB-INF/xmlres/CartElementDigest.xslt"
-      ;
+public class CartAPI extends EndPointServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        super.doRequest(method, req, res);
 
-        String         jspFile  = JSP_FILE;
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
+        String         target   = (String)req.getAttribute("target");
+        Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
+        Cart           cart     = (Cart)sess.getAttribute("cart");
         String         action   = req.getParameter("action");
         String         number   = req.getParameter("number");
         String         quantity = req.getParameter("quantity");
-        Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
-        Cart           cart     = (Cart)sess.getAttribute("cart");
         StringWriter   sw       = new StringWriter();
-        File           xslt     = new File(sc.getRealPath(XSL_FILE));
 
         if (catalog == null) {
             sc.setAttribute("catalog", catalog = Catalog.getCatalog());}
@@ -54,13 +50,13 @@ public class CartAPI extends HttpServlet {
                 case "add":
                     cart.add(number);
                     req.setAttribute("status", "Successfully Added");
-                    req.setAttribute("data", XMLUtil.generate(sw, cart, null, xslt).toString());
+                    req.setAttribute("data", XMLUtil.generate(sw, cart).toString());
                     break;
                 case "remove":
                     if (cart.hasElement(number)) {
                         cart.remove(number);
                         req.setAttribute("status", "Successfully Removed");
-                        req.setAttribute( "data", XMLUtil.generate(sw, cart, null, xslt).toString());
+                        req.setAttribute( "data", XMLUtil.generate(sw, cart).toString());
                     } else {
                         req.setAttribute("status", "Nothing to remove");
                     }
@@ -68,7 +64,7 @@ public class CartAPI extends HttpServlet {
                 case "bulk":
                     cart.bulkUpdate(number, quantity);
                     req.setAttribute("status", "Successfully Performed Bulk Update");
-                    req.setAttribute( "data", XMLUtil.generate(sw, cart, null, xslt).toString());
+                    req.setAttribute( "data", XMLUtil.generate(sw, cart).toString());
                     break;
                 case "list":
                     req.setAttribute("data", XMLUtil.generate(sw, cart).toString());
@@ -81,7 +77,13 @@ public class CartAPI extends HttpServlet {
             req.setAttribute("error", e.getMessage());
         }
 
-        req.getRequestDispatcher(jspFile).forward(req, res);
-    } // doGet
+        req.getRequestDispatcher(target).forward(req, res);
+    } // doRequest
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("GET", req, res);
+    }
+    
 } // CartAPI

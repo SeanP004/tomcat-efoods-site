@@ -1,6 +1,7 @@
-package controller;
+package controller.api;
 
 import java.io.*;
+import controller.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import model.account.*;
@@ -11,17 +12,16 @@ import model.checkout.*;
  * Servlet implementation class CartAPI Cart API Endpoint.
  */
 // @WebServlet("/api/checkout")
-public class CheckoutAPI extends HttpServlet {
-
-    private static final String JSP_FILE = "/WEB-INF/xmlres/APIResponse.jspx";
+public class CheckoutAPI extends EndPointServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        super.doRequest(method, req, res);
 
-        String         jspFile  = JSP_FILE;
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
+        String         target   = (String)req.getAttribute("target");
         Cart           cart     = (Cart)sess.getAttribute("cart");
         Account		   account  = (Account)sess.getAttribute("account");
         OrdersClerk    clerk    = (OrdersClerk)sc.getAttribute("clerk");
@@ -40,7 +40,13 @@ public class CheckoutAPI extends HttpServlet {
             req.setAttribute("error", e.getMessage());
         }
 
-        req.getRequestDispatcher(jspFile).forward(req, res);
-    } // doGet
+        req.getRequestDispatcher(target).forward(req, res);
+    } // doRequest
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("GET", req, res);
+    }
 
 } // CartAPI

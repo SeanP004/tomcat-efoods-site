@@ -1,5 +1,6 @@
-package controller;
+package controller.view;
 
+import controller.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -10,18 +11,17 @@ import model.catalog.*;
 /**
  * Servlet implementation class CatalogView page.
  */
-// @WebServlet("/jsp/browse")
-public class CatalogView extends HttpServlet {
-
-    private static final String
-        JSP_FILE = "/WEB-INF/pages/CatalogView.jspx";
+// @WebServlet("/view/browse")
+public class CatalogView extends EndPointServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        super.doRequest(method, req, res);
 
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
+        String         target   = (String)req.getAttribute("target");
         Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
         Account        account  = (Account)sess.getAttribute("account");
@@ -47,15 +47,21 @@ public class CatalogView extends HttpServlet {
 
         try {
             req.setAttribute("orders", ItemFilter.sorts);
+            req.setAttribute("categories", catalog.getCategories(null, null, null, null));
             req.setAttribute("maxPriceRange", Math.ceil(catalog.getItemMaxPrice()));
             req.setAttribute("items", catalog.getItems("null".equals(orderBy) ? null : orderBy, searchTerm, category,
-                    null, null, minPrice, maxPrice));
-            req.setAttribute("categories", catalog.getCategories(null, null, null, null));
+                    null, null, minPrice, maxPrice));            
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }
 
-        req.getRequestDispatcher(JSP_FILE).forward(req, res);
-    } // doGet
+        req.getRequestDispatcher(target).forward(req, res);
+    } // doRequest
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("GET", req, res);
+    }
 
 } // CartAPI

@@ -1,6 +1,7 @@
-package controller;
+package controller.api;
 
 import java.io.*;
+import controller.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import model.catalog.*;
@@ -11,19 +12,17 @@ import model.common.*;
  * Cart API Endpoint.
  */
 //@WebServlet("/api/catalog")
-public class CatalogAPI extends HttpServlet {
-
-    private static final String
-        JSP_FILE    = "/WEB-INF/xmlres/APIResponse.jspx";
+public class CatalogAPI extends EndPointServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        super.doRequest(method, req, res);
 
-        String         jspFile = JSP_FILE;
         ServletContext sc      = getServletContext();
-        String         type    = req.getParameter("type");
+        String         target  = (String)req.getAttribute("target");
         Catalog        catalog = (Catalog)sc.getAttribute("catalog");
+        String         type    = req.getParameter("type");
         StringWriter   sw      = new StringWriter();
 
         if (catalog == null) {
@@ -72,7 +71,13 @@ public class CatalogAPI extends HttpServlet {
             req.setAttribute("error", e.getMessage());
         }
 
-        req.getRequestDispatcher(jspFile).forward(req, res);
-    } // doGet
+        req.getRequestDispatcher(target).forward(req, res);
+    } // doRequest
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("GET", req, res);
+    }
 
 } // CartAPI

@@ -11,7 +11,7 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <title>POReport</title>
-                <link rel="stylesheet" type="text/css" href="../assets/css/main.css" />
+                <link rel="stylesheet" type="text/css" href="/eFoods/assets/css/main.css" />
             </head>
             <body>
                 <header>
@@ -36,26 +36,22 @@
                                     <h2>Foods R Us!</h2>
                                 </div>
                             </div>
-            
                             <div class="row">
                                 <div class="col-sm-6 col-md-4">
                                     <p>Copyright <xsl:text disable-output-escaping='yes'>&#169;</xsl:text> 2014.</p>
-                                   <p>Designed and developed by Vincent Chu, Michael
-                                    Leung, Manusha Patabendi for Building E-Commerce
-                                    Systems (EECS 4413 Section A, Fall 2014) with Professor
-                                    H. Roumani.</p>
-            
+                                    <p>Designed and developed by Vincent Chu, Michael
+                                        Leung, Manusha Patabendi for Building E-Commerce
+                                        Systems (EECS 4413 Section A, Fall 2014) with Professor
+                                        H. Roumani.</p>
                                     <p>License under the <a href=
-                                    "http://opensource.org/licenses/MIT" target=
-                                    "_blank">MIT License</a>.</p>
+                                        "http://opensource.org/licenses/MIT" target=
+                                        "_blank">MIT License</a>.</p>
                                 </div>
-            
                                 <div class="col-sm-6 cod-md-8">
                                     <h4>Attributions:</h4>
-            
                                     <ol class="small">
                                         <li>Styling based on Bootstrap 3 from <a href=
-                                        "http://www.getbootstrap.com" title="Bootstrap">
+                                            "http://www.getbootstrap.com" title="Bootstrap">
                                             www.getbootstrap.com</a>. Code and
                                             documentation copyright 2011-2014 Twitter, Inc.
                                             Code licensed\ under <a href=
@@ -65,9 +61,8 @@
                                             "http://creativecommons.org/licenses/by/3.0/"
                                             title="Creative Commons BY 3.0">CC BY 3.0.</a>
                                         </li>
-            
                                         <li>Some icons made by Freepik, OCHA, Linh Pham,
-                                        Google from <a href="http://www.flaticon.com"
+                                            Google from <a href="http://www.flaticon.com"
                                             title="Flaticon">www.flaticon.com</a> is
                                             licensed by <a href=
                                             "http://creativecommons.org/licenses/by/3.0/"
@@ -77,8 +72,8 @@
                                 </div>
                             </div>
                         </div>
-                    </footer>  
-                </div>                
+                    </footer>
+                </div>
             </body>
         </html>
     </xsl:template>
@@ -95,7 +90,7 @@
                         <div class="col-sm-8">
                             <p class="form-control-static"><xsl:value-of select="./@submitted" /></p>
                         </div>
-                    </div>      
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Account Name:</label>
                         <div class="col-sm-8">
