@@ -13,6 +13,7 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
+import model.order.Order;
 import model.order.OrderList;
 
 
@@ -24,10 +25,11 @@ public class PlaceOrder {
     
     private SOAPMessage msg;
     private SOAPBody body ;
-  
+    private Order orderDetails; 
     
-    public PlaceOrder() throws Exception {
-            
+    
+    public PlaceOrder(Order o) throws Exception {
+        
         msg = MessageFactory.newInstance().createMessage();
         
         javax.xml.soap.MimeHeaders header = msg.getMimeHeaders();
@@ -36,9 +38,13 @@ public class PlaceOrder {
         SOAPPart soap = msg.getSOAPPart();
         SOAPEnvelope envelope = soap.getEnvelope();
         body = envelope.getBody();
-
+        
+        this.orderDetails = o ;
+       
     }
-    
+
+
+
     public String doOrder(int i) throws Exception{
         
         
@@ -47,11 +53,11 @@ public class PlaceOrder {
 
         childName = new QName("itemNumber");
         SOAPElement product = order.addChildElement(childName);
-        product.addTextNode("0905A771");
+        product.addTextNode(orderDetails.getItemNo());
 
         childName = new QName("quantity");
         SOAPElement price = order.addChildElement(childName);
-        price.addTextNode("2");
+        price.addTextNode(String.valueOf(orderDetails.getQty()));
         
         childName = new QName("key");
         SOAPElement key = order.addChildElement(childName);

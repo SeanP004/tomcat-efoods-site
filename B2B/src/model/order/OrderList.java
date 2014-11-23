@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name="Order")
 public class OrderList {
 
-    private  Map<String, Integer> orderlist ;
+    private  Map<String, Integer> list ;
     private int numberOfOrders;
 
     /**
@@ -19,7 +19,7 @@ public class OrderList {
      */
     
     public OrderList() {
-        this.orderlist = new  HashMap<String, Integer> () ;
+        this.list = new  HashMap<String, Integer> () ;
         this.numberOfOrders = 0;
     }
 
@@ -35,7 +35,10 @@ public class OrderList {
     
     private void increaseNoOfOrders() {
         this.numberOfOrders= this.numberOfOrders++;
-        
+      
+    }
+    public Map<String, Integer> getList() {
+        return list;
     }
 
     /**
@@ -45,17 +48,17 @@ public class OrderList {
     public void addOrder (Order o)
     {
         if (this.numberOfOrders == 0){
-            this.orderlist.put(o.getItemNo(),o.getQty());
+            this.list.put(o.getItemNo(),o.getQty());
         }
         else {
-            if(this.orderlist.containsKey(o.getItemNo())){
+            if(this.list.containsKey(o.getItemNo())){
                 
-                int temp = this.orderlist.get(o.getItemNo());
-                this.orderlist.put(o.getItemNo(), o.getQty()+temp);
+                int temp = this.list.get(o.getItemNo());
+                this.list.put(o.getItemNo(), o.getQty()+temp);
             }
             else {
                
-                this.orderlist.put(o.getItemNo(), o.getQty());
+                this.list.put(o.getItemNo(), o.getQty());
                 
             }
              

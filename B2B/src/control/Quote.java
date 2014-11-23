@@ -11,6 +11,7 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
+import model.order.Order;
 import model.order.OrderList;
 
 
@@ -25,10 +26,12 @@ public class Quote {
     private SOAPMessage msg;
     private SOAPBody body ;
     
-    private OrderList order; 
     
-    public Quote() throws Exception {
-            
+    private Order order; 
+ 
+ 
+    public Quote(Order o) throws Exception {
+        
         msg = MessageFactory.newInstance().createMessage();
         
         javax.xml.soap.MimeHeaders header = msg.getMimeHeaders();
@@ -37,13 +40,15 @@ public class Quote {
         SOAPPart soap = msg.getSOAPPart();
         SOAPEnvelope envelope = soap.getEnvelope();
         body = envelope.getBody();
-
+        
+        this.order = o ;
+        
     }
-    
-   
+
+
     public double[] getQuoteArray() throws Exception{
         
-        body.addChildElement("quote").addChildElement("itemNumber").addTextNode("0905A771");
+        body.addChildElement("quote").addChildElement("itemNumber").addTextNode(order.getItemNo());
         
         SOAPConnection sc = SOAPConnectionFactory.newInstance().createConnection();
         
