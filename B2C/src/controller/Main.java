@@ -44,7 +44,8 @@ public class Main extends RoutingServlet implements Filter {
         Cart        cart     = (Cart)sess.getAttribute("cart");
         Account     account  = (Account)sess.getAttribute("account");
         String      target   = (String)req.getAttribute("target");
-        String      host     = "//" + req.getServerName() + ":" + req.getServerPort();
+        String      host     = (req.isSecure() ? "https://" : "http://") 
+                             + req.getServerName() + ":" + req.getServerPort();
 
         req.setAttribute("host", host);
 

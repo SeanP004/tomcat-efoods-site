@@ -14,12 +14,12 @@ public class OrdersClerk {
     private int orders;
     private File xsd;
     private File xslt;
-    private String xsltView;    
+    private String xsltView;
     private String prefix;
     private String udPrefix;
     private OrdersDAO dao;
 
-    private OrdersClerk(File userData, File xsd, File xslt, 
+    private OrdersClerk(File userData, File xsd, File xslt,
                         String xsltView, String prefix, String udPrefix) {
         this.dao = new OrdersDAO(userData);
         this.xsd = xsd;
@@ -33,12 +33,11 @@ public class OrdersClerk {
 
     // Public
 
-    public synchronized String checkout(String host, Account customer, Cart cart) 
+    public synchronized Receipt checkout(String host, Account customer, Cart cart)
                 throws OrderCheckoutException {
         try {
             if (cart.getNumberOfItems() > 0) {
                 this.orders += 1;
-                StringWriter sw = new StringWriter();
                 Receipt receipt = new Receipt(orders, customer, cart);
                 String fileName = dao.getNextOrderFileName(customer);
                 receipt.setUrl(host + prefix + fileName);
@@ -46,9 +45,8 @@ public class OrdersClerk {
                 writer.write("<?xml version='1.0' encoding='UTF-8'?>\n");
                 writer.write("<?xml-stylesheet type='text/xsl' href='" + xsltView + "'?>\n");
                 XMLUtil.generate(writer, receipt, xsd, xslt);
-                XMLUtil.generate(sw, receipt);
                 cart.clear();
-                return sw.toString();
+                return receipt;
             } else {
                 throw new OrderCheckoutException("Requires at least one item in the cart");
             }
@@ -57,7 +55,7 @@ public class OrdersClerk {
         }
     }
 
-    public synchronized OrdersList getPurchaseOrders(String host) 
+    public synchronized OrdersList getPurchaseOrders(String host)
                 throws OrderNotFoundException {
         File[] files = dao.getPurchaseOrders();
         if (files.length == 0) {
@@ -66,16 +64,16 @@ public class OrdersClerk {
         return new OrdersList(host + prefix, files);
     }
 
-    public synchronized OrdersList getPurchaseOrders(String host, String accId) 
+    public synchronized OrdersList getPurchaseOrders(String host, String accId)
                 throws OrderNotFoundException {
         File[] files = dao.getPurchaseOrders(accId);
         if (files.length == 0) {
             throw new OrderNotFoundException();
         }
-        return new OrdersList(host + prefix, files);
+        return new OrdersList(host + prefix, files, accId);
     }
 
-    public synchronized File getPurchaseOrder(String fileName) 
+    public synchronized File getPurchaseOrder(String fileName)
                 throws OrderNotFoundException {
         File file = dao.getPurchaseOrder(fileName);
         if (!file.exists()) {
