@@ -7,7 +7,17 @@ import javax.servlet.http.*;
 
 /**
  * Servlet implementation class RoutingServlet
- * Represent a intermediate routing servlet.
+ * Represents an intermediate routing servlet.
+ *
+ * At initialization the servlet retrieves a list
+ * of url patterns and servlet name mappings from
+ * the web.xml initialization parameters that it
+ * will use to route incoming requests.
+ *
+ * It then stores the routing table (rules) in an
+ * attribute in the context scope, namespaced by the
+ * prefix 'routes://' where each servlet has its own
+ * routing rules.
  */
 public abstract class RoutingServlet extends HttpServlet {
 
@@ -24,12 +34,11 @@ public abstract class RoutingServlet extends HttpServlet {
             }
         }
         context.setAttribute("routes://" + getServletName(), routes);
-        
     }
 
     protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        
+
         // get attributes
         ServletContext context = getServletContext();
         String pathInfo = (String)req.getAttribute("pathInfo");
@@ -41,7 +50,7 @@ public abstract class RoutingServlet extends HttpServlet {
         // update attributes
         @SuppressWarnings("unchecked")
         Map<String, String> routes = ((Map<String, String>)
-                context.getAttribute("routes://" + getServletName()));        
+                context.getAttribute("routes://" + getServletName()));
         if (pathInfo == null || pathInfo.isEmpty()) {
             pathInfo = "/";
         }
@@ -79,5 +88,5 @@ public abstract class RoutingServlet extends HttpServlet {
             throws ServletException, IOException {
         doRequest("POST", req, res);
     }
-    
+
 } // RoutingServlet
