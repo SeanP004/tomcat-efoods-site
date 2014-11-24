@@ -1,0 +1,22 @@
+#
+# Basic Auth .htaccess
+# Localhost only
+#
+
+    #
+    # Authenication
+    # Require SSL (HTTPS)
+    # HTTP Basic Auth, System
+    #
+    SSLRequireSSL
+    AuthType Basic
+    AuthName "Restricted Access"
+    AuthBasicProvider pam
+    require valid-user
+
+    #
+    # Accessible only on localhost
+    #
+    Order deny,allow
+    deny from all
+    allow from localhost

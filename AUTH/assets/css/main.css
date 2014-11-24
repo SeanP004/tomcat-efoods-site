@@ -1,0 +1,101 @@
+/*
+ * Main stylesheet for
+ * EECS Login Page.
+ */
+
+    html,
+    body {
+        height: 100%;
+    }
+    @media screen and (max-width: 480px) {
+        body {
+            padding-top: 100px;
+        }
+    }
+    a {
+        color: #e31837;
+        text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+        color: #9a0100;
+        text-decoration: none;
+    }
+
+    /** Navbar **/
+
+    .navbar {
+        height: 90px;
+    }
+    img.yorklogo {
+        margin:15px 35px;
+        width:140px;
+    }
+    .navbar-brand {
+        padding: 0;
+    }
+    .navbar-text {
+        margin-top: 18px;
+        max-width: 400px;
+        font-size: 20px;
+    }
+
+    /** Login **/
+
+    .main.container {
+        height: 100%;
+        position: relative;
+    }
+    .panel-heading,
+    .panel-footer {
+        border: 0;
+        background-color: transparent !important;
+    }
+    @media screen and (max-width: 480px) {
+        .panel {
+            border: 0;
+        }
+    }
+    .login {
+        display: table;
+        height: 100%;
+    }
+    .login .login-box {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+    }
+    .login .form-wrap {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 400px;
+    }
+    .login h1 {
+        color: #e31837;
+        font-size: 18px;
+        text-align: center;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+    .form-group {
+        margin-bottom: 25px;
+    }
+    .form-control {
+        font-size: 18px;
+        padding: 20px 10px;
+        color: #212121;
+    }
+    .form-control:hover,
+    .form-control:focus {
+        border: 1px solid #e31837;
+    }
+    .btn-custom {
+        color: #fff;
+        background-color: #e31837;
+    }
+    .btn-custom:hover,
+    .btn-custom:focus {
+        color: #fff;
+        background-color: #9a0100;
+    }

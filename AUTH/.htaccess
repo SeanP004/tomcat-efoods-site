@@ -1,0 +1,12 @@
+#
+# .htaccess to Require SSL.
+#
+
+    #
+    # Force HTTPS
+    # If the request is not HTTPS,
+    # rewrite to HTTPS.
+    #
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
