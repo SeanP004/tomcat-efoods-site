@@ -16,16 +16,16 @@
 
         <header>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                 <div class="container">
-                      <div class="navbar-header">
-                           <a class="navbar-brand" href="http://yorku.ca">
-                               <img class="yorklogo" src="assets/images/yorku-logo.jpg" border="0" alt="York University" />
-                           </a>
-                      </div>
-                      <div class="navbar-collapse collapse">
-                           <p class="navbar-text text-right pull-right">Building E-Commerce Systems
-                               <br/>EECS 4413 Project C</p>
-                      </div>
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="http://yorku.ca">
+                            <img class="yorklogo" src="assets/images/yorku-logo.jpg" border="0" alt="York University" />
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <p class="navbar-text text-right pull-right">Building E-Commerce Systems
+                            <br/>EECS 4413 Project C</p>
+                    </div>
                 </div>
             </nav>
         </header>
