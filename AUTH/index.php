@@ -36,15 +36,15 @@
                     <div class="form-wrap panel panel-default">
                         <div class="panel-heading"><h1>Log in with your EECS Account</h1></div>
                         <form class="form panel-body" role="form" action="" method="post" autocomplete="off">
-                            <div class="alert alert-danger" role="alert"></div>
-                            <div class="form-group">
+                            <div class="alert alert-danger hidden" role="alert"></div>
+                            <div class="form-group has-feedback">
                                 <label for="username" class="sr-only">Username</label>
                                 <input type="text" name="username" class="form-control"
                                        placeholder="Username" aria-describedby="usernameErrorStatus" />
                                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                                 <span id="uErrorStatus" class="sr-only"></span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group has-feedback">
                                 <label for="password" class="sr-only">Password</label>
                                 <input type="password" name="password" class="form-control"
                                        placeholder="Password" aria-describedby="passwordErrorStatus" />
