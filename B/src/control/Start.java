@@ -36,7 +36,6 @@ public class Start {
 
             for (int i = 0; i < nl.getLength(); i++) {
                 files.add(i, nl.item(i).getTextContent().toString());
-                // System.out.println(files.get(i));
             }
 
             // ------ TO PRINT THE FULL XML FILE
