@@ -1,11 +1,11 @@
 package model.order;
 
-public class Order {
+public class OrderBean {
 
     private String itemNo;
     private int    Qty;
 
-    public Order(String itemNo, int qty) {
+    public OrderBean(String itemNo, int qty) {
         this.itemNo = itemNo;
         Qty = qty;
     }
