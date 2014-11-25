@@ -1,4 +1,4 @@
-package control;
+package model.order;
 
 import java.net.URL;
 import java.io.IOException;
@@ -11,8 +11,6 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
-import model.order.Order;
-import model.order.OrderList;
 
 public class Quote {
 
@@ -23,9 +21,9 @@ public class Quote {
     private SOAPMessage         msg;
     private SOAPBody            body;
 
-    private Order               order;
+    private OrderBean           order;
 
-    public Quote(Order o) throws Exception {
+    public Quote(OrderBean o) throws Exception {
 
         msg = MessageFactory.newInstance().createMessage();
 

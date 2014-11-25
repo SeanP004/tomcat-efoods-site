@@ -1,4 +1,4 @@
-package control;
+package model.order;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,8 +13,6 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
-import model.order.Order;
-import model.order.OrderList;
 
 public class PlaceOrder {
 
@@ -24,9 +22,9 @@ public class PlaceOrder {
 
     private SOAPMessage         msg;
     private SOAPBody            body;
-    private Order               orderDetails;
+    private OrderBean               orderDetails;
 
-    public PlaceOrder(Order o) throws Exception {
+    public PlaceOrder(OrderBean o) throws Exception {
 
         msg = MessageFactory.newInstance().createMessage();
 
