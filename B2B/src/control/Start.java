@@ -7,13 +7,7 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import model.order.OrderBean;
 import model.order.OrderList;
@@ -72,12 +66,14 @@ public class Start {
                 NodeList qList = doc.getElementsByTagName("quantity");
                 // System.out.println(itemList.item(0).getAttributes().getNamedItem("number").getNodeValue());
 
-                for (int x = 0; x < itemList.getLength(); x++) {
+                for (int x = 0; x < itemList.getLength() ; x++) {
 
                     OrderBean o = new OrderBean(itemList.item(x)
                             .getAttributes().getNamedItem("number")
                             .getNodeValue(), Integer.parseInt(qList.item(x)
                             .getTextContent().toString()));
+                    
+                    System.out.print(o.getItemNo()+ " "+ o.getQty());
 
                     orderlist.addOrder(o);
                 }
