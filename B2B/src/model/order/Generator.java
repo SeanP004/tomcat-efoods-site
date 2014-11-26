@@ -1,27 +1,20 @@
-package controller;
+package model.order;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.XMLReader;
 import model.order.Order;
 import model.order.OrderList;
 import model.order.OrderHandler;
 import model.order.QuoteHandler;
 import model.xml.XMLHandler;
 
-public class Start {
-
-    public static void main(String[] args) throws Exception {
-
+public class Generator {
+    
+    
+    public void generate() throws Exception{
+        
+        
         //-----Get Details from XML
         
         XMLHandler xmlh = new XMLHandler();
@@ -51,7 +44,7 @@ public class Start {
 
             OrderHandler po = new OrderHandler();
 
-           // String conf = po.doOrder(minPriceIndex,o);
+            String conf = po.doOrder(minPriceIndex,o);
 
             //System.out.println(conf);
            // System.out.println(" ------ done -------- \n \n ");
@@ -59,7 +52,7 @@ public class Start {
             
         }
         
-      
     }
+    
 
 }
