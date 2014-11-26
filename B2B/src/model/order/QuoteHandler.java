@@ -12,14 +12,14 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
-public class QuoteHandeler {
+public class QuoteHandler {
 
     final private static String WTORONTO   = "http://roumani.eecs.yorku.ca:4413/axis/YYZ.jws";
     final private static String WVANCOUVER = "http://roumani.eecs.yorku.ca:4413/axis/YVR.jws";
     final private static String WHALIFAX   = "http://roumani.eecs.yorku.ca:4413/axis/YHZ.jws";
 
 
-    public double[] getQuoteArray(OrderBean o) throws Exception {
+    public double[] getQuoteArray(Order o) throws Exception {
 
         SOAPMessage  msg = MessageFactory.newInstance().createMessage();
         javax.xml.soap.MimeHeaders header = msg.getMimeHeaders();

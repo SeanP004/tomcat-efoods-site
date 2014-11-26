@@ -43,7 +43,7 @@ public class OrderList {
      * Add elements to the Order
      */
 
-    public void addOrder(OrderBean o) {
+    public void addOrder(Order o) {
         if (this.numberOfOrders == 0) {
             this.list.put(o.getItemNo(), o.getQty());
         } else {

@@ -8,14 +8,14 @@ import java.util.Date;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import model.order.OrderBean;
+import model.order.Order;
 import model.order.OrderList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import sun.jdbc.odbc.OdbcDef;
 
-public class XMLHandeler {
+public class XMLHandler {
 
     public List<String> getFileDetails() throws Exception {
 
@@ -64,7 +64,7 @@ public class XMLHandeler {
 
                 for (int x = 0; x < itemList.getLength(); x++) {
 
-                    OrderBean o = new OrderBean(itemList.item(x)
+                    Order o = new Order(itemList.item(x)
                             .getAttributes().getNamedItem("number")
                             .getNodeValue(), Integer.parseInt(qList.item(x)
                             .getTextContent().toString()));

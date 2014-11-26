@@ -12,11 +12,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.XMLReader;
-import model.order.OrderBean;
+import model.order.Order;
 import model.order.OrderList;
-import model.order.OrderHandeler;
-import model.order.QuoteHandeler;
-import model.xml.XMLHandeler;
+import model.order.OrderHandler;
+import model.order.QuoteHandler;
+import model.xml.XMLHandler;
 
 public class Start {
 
@@ -24,7 +24,7 @@ public class Start {
 
         //-----Get Details from XML
         
-        XMLHandeler xmlh = new XMLHandeler();
+        XMLHandler xmlh = new XMLHandler();
 
         List<String> files = xmlh.getFileDetails();
         OrderList orderlist = xmlh.getOrderDetails(files);
@@ -40,16 +40,16 @@ public class Start {
 
             Map.Entry pairs = (Map.Entry) it.next();
 
-            OrderBean o = new OrderBean(pairs.getKey().toString(),
+            Order o = new Order(pairs.getKey().toString(),
                     Integer.parseInt(pairs.getValue().toString()));
 
-            QuoteHandeler q = new QuoteHandeler();
+            QuoteHandler q = new QuoteHandler();
             double quotedPrices[] = q.getQuoteArray(o);
 
             int minPriceIndex = q.getCheapPrice(quotedPrices);
            // System.out.println("min ind = "+minPriceIndex);
 
-            OrderHandeler po = new OrderHandeler();
+            OrderHandler po = new OrderHandler();
 
            // String conf = po.doOrder(minPriceIndex,o);
 
