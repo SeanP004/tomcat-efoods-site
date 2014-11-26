@@ -11,8 +11,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import model.order.OrderBean;
 import model.order.OrderList;
-import model.order.PlaceOrder;
-import model.order.Quote;
+import model.order.OrderHandeler;
+import model.order.QuoteHandeler;
 
 public class Start {
 
@@ -20,7 +20,7 @@ public class Start {
 
         // --- Get PO names
 
-        String urlPO = "http://localhost:4413/eFoods/api/order/";
+        final String urlPO = "http://localhost:4413/eFoods/api/order/";
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
@@ -37,12 +37,6 @@ public class Start {
             for (int i = 0; i < nl.getLength(); i++) {
                 files.add(i, nl.item(i).getTextContent().toString());
             }
-
-            // ------ TO PRINT THE FULL XML FILE
-            // TransformerFactory factory = TransformerFactory.newInstance();
-            // Transformer xform = factory.newTransformer();
-            // xform.transform(new DOMSource(doc), new
-            // StreamResult(System.out));
 
         } catch (Exception e) {
 
@@ -94,14 +88,14 @@ public class Start {
                 OrderBean o = new OrderBean(pairs.getKey().toString(),
                         Integer.parseInt(pairs.getValue().toString()));
 
-                Quote q = new Quote(o);
+                QuoteHandeler q = new QuoteHandeler(o);
                 double quotedPrices[] = q.getQuoteArray();
 
                 int minPriceIndex = q.getCheapPrice(quotedPrices);
 
-                PlaceOrder po = new PlaceOrder(o);
+                OrderHandeler po = new OrderHandeler(o);
 
-                 String conf = po.doOrder(minPriceIndex);
+                String conf = po.doOrder(minPriceIndex);
 
                 System.out.print(conf);
 

@@ -12,7 +12,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
-public class Quote {
+public class QuoteHandeler {
 
     final private static String WTORONTO   = "http://roumani.eecs.yorku.ca:4413/axis/YYZ.jws";
     final private static String WVANCOUVER = "http://roumani.eecs.yorku.ca:4413/axis/YVR.jws";
@@ -20,10 +20,9 @@ public class Quote {
 
     private SOAPMessage         msg;
     private SOAPBody            body;
-
     private OrderBean           order;
 
-    public Quote(OrderBean o) throws Exception {
+    public QuoteHandeler(OrderBean o) throws Exception {
 
         msg = MessageFactory.newInstance().createMessage();
 

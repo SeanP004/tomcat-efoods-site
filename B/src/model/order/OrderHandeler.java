@@ -14,7 +14,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
-public class PlaceOrder {
+public class OrderHandeler {
 
     final private static String WTORONTO   = "http://roumani.eecs.yorku.ca:4413/axis/YYZ.jws";
     final private static String WVANCOUVER = "http://roumani.eecs.yorku.ca:4413/axis/YVR.jws";
@@ -24,7 +24,7 @@ public class PlaceOrder {
     private SOAPBody            body;
     private OrderBean               orderDetails;
 
-    public PlaceOrder(OrderBean o) throws Exception {
+    public OrderHandeler(OrderBean o) throws Exception {
 
         msg = MessageFactory.newInstance().createMessage();
 
