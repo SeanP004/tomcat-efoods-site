@@ -45,14 +45,14 @@ public class Start {
             double quotedPrices[] = q.getQuoteArray(o);
 
             int minPriceIndex = q.getCheapPrice(quotedPrices);
-            System.out.println("min ind = "+minPriceIndex);
+           // System.out.println("min ind = "+minPriceIndex);
 
             OrderHandeler po = new OrderHandeler();
 
             String conf = po.doOrder(minPriceIndex,o);
 
             System.out.println(conf);
-            System.out.println(" ------ done -------- \n \n ");
+           System.out.println(" ------ done -------- \n \n ");
             it.remove(); // avoids a ConcurrentModificationException
         }
 

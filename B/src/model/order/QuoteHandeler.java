@@ -54,7 +54,7 @@ public class QuoteHandeler {
         quoteArray[1] = Double.parseDouble(node2.getTextContent().toString());
         quoteArray[2] = Double.parseDouble(node3.getTextContent().toString());
 
-        System.out.println("Q prices : "+quoteArray[0]+" "+quoteArray[1]+" "+quoteArray[2]);
+        //System.out.println("Q prices : "+quoteArray[0]+" "+quoteArray[1]+" "+quoteArray[2]);
         
         
         return quoteArray;
