@@ -1,4 +1,4 @@
-package control;
+package model.order;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,35 +13,28 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
-import model.order.Order;
-import model.order.OrderList;
 
-public class PlaceOrder {
+public class OrderHandeler {
 
     final private static String WTORONTO   = "http://roumani.eecs.yorku.ca:4413/axis/YYZ.jws";
     final private static String WVANCOUVER = "http://roumani.eecs.yorku.ca:4413/axis/YVR.jws";
     final private static String WHALIFAX   = "http://roumani.eecs.yorku.ca:4413/axis/YHZ.jws";
+    
 
-    private SOAPMessage         msg;
-    private SOAPBody            body;
-    private Order               orderDetails;
+    public OrderHandeler() throws Exception {
+    }
 
-    public PlaceOrder(Order o) throws Exception {
-
-        msg = MessageFactory.newInstance().createMessage();
-
+    public String doOrder(int index,OrderBean orderDetails) throws Exception {
+        
+        
+        SOAPMessage  msg = MessageFactory.newInstance().createMessage();
         javax.xml.soap.MimeHeaders header = msg.getMimeHeaders();
         header.addHeader("SOAPAction", "");
 
         SOAPPart soap = msg.getSOAPPart();
         SOAPEnvelope envelope = soap.getEnvelope();
-        body = envelope.getBody();
-
-        this.orderDetails = o;
-
-    }
-
-    public String doOrder(int i) throws Exception {
+        SOAPBody    body  = envelope.getBody();
+        
 
         QName childName = new QName("Order");
         SOAPElement order = body.addChildElement(childName);
@@ -61,7 +54,6 @@ public class PlaceOrder {
         SOAPConnection sc = SOAPConnectionFactory.newInstance()
                 .createConnection();
 
-        int index = 1;
         SOAPMessage orderWHcon = null;
 
         // need to add error for -1
