@@ -1,4 +1,4 @@
-package control;
+package controller;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -59,11 +59,7 @@ public class Start {
             
         }
         
-        String url = "src/view/Report.html";
-        
-        File htmlFile = new File(url);
-        Desktop.getDesktop().browse(htmlFile.toURI());
-
+      
     }
 
 }
