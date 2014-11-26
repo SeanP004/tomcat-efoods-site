@@ -11,8 +11,29 @@
         <error-code>404</error-code>
         <location>/WEB-INF/pages/Error404.jspx</location>
     </error-page>
+    
+    <listener>
+        <listener-class>listener.SessionCountListener</listener-class>
+    </listener>
   
     <!-- Main Filter -->
+    <filter-mapping>
+        <filter-name>CartURL</filter-name>
+        <url-pattern>/api/cart</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CartURL</filter-name>
+        <filter-class>controller.api.CartAPI</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>CheckoutURL</filter-name>
+        <url-pattern>/checkout</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CheckoutURL</filter-name>
+        <filter-class>controller.view.CheckoutView</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>RewriteURL</filter-name>
@@ -33,14 +54,6 @@
 
     <!-- Filters -->
 
-    <!-- <filter>
-        <filter-name>SessionFilter</filter-name>
-        <filter-class>filter.SessionFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>SessionFilter</filter-name>
-        <servlet-name>CartAPI</servlet-name>
-    </filter-mapping> -->
 
     <!-- Main -->
   

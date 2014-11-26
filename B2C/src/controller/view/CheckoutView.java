@@ -3,8 +3,10 @@ package controller.view;
 import controller.*;
 
 import java.io.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
+
 import model.account.*;
 import model.cart.*;
 import model.checkout.*;
@@ -13,7 +15,7 @@ import model.checkout.*;
  * Servlet implementation class CartView
  */
 //@WebServlet("/view/checkout")
-public class CheckoutView extends EndPointServlet {
+public class CheckoutView extends EndPointServlet implements Filter{
 
     @Override
     protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
@@ -50,5 +52,45 @@ public class CheckoutView extends EndPointServlet {
             throws ServletException, IOException {
         doRequest("GET", req, res);
     }
+    
+    // get access time
 
-} // CartAPI
+    public void init(FilterConfig fConfig) throws ServletException {
+
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response, 
+                FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = ((HttpServletRequest)request);
+        HttpSession sess = req.getSession();
+        String uri = req.getRequestURI().substring(req.getContextPath().length());
+        ServletContext sc = request.getServletContext();
+        long before, after, total;
+        double avgTime;
+        long CheckoutTime;
+        int CheckoutCounter;
+        if (sc.getAttribute("CheckoutTime") == null) {
+            CheckoutTime = 0;
+        } else {
+            CheckoutTime = (long)sc.getAttribute("CheckoutTime");
+        }
+        if (sc.getAttribute("CheckoutCounter") == null) {
+            CheckoutCounter = 0;
+        } else {
+            CheckoutCounter = (int)sc.getAttribute("CheckoutCounter");
+        }
+        
+        chain.doFilter(request, response);
+        after =  (long) System.currentTimeMillis();
+        before = (long) sess.getAttribute("startCheckoutTime");
+        CheckoutTime += (after - before);
+        CheckoutCounter += 1;
+        avgTime = (double) CheckoutTime / (double) CheckoutCounter;
+        
+        sc.setAttribute("CheckoutTime", CheckoutTime);
+        sc.setAttribute("CheckoutCounter", CheckoutCounter);
+        sc.setAttribute("avgCheckoutTime", avgTime);
+        sess.setAttribute("startCheckoutTime", System.currentTimeMillis());
+    }
+
+} // CheckoutView
