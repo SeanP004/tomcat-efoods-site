@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: Checkout
+  -
+  - Description:
+  -     Fragment for the return url of the purchase order receipt
+  -
+  - Parameters:
+  -     cart    the shopping cart
+  -->
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <div class="row">
+        <div class="col-md-12">
+            <c:choose>
+                <c:when test="${empty error}">
+                    <div class="page-header checkout-header">
+                        <h1>Receipt</h1>
+                    </div>
+                    <p>Generated <a href="${receipt}">Purchase Order</a> receipt</p>
+                    <p>will be rediected shortly in 5 seconds</p>
+                    <script type="text/javascript"><![CDATA[
+                        window.setTimeout(function () {
+                            location.href = '${receipt}';
+                        }, 5000);
+                    ]]></script>
+                </c:when>
+                <c:otherwise>
+                    <a href="/eFoods/" class="btn btn-primary btn-icon-right">
+                        <span class="home-label">Return Home</span>
+                        <i class="glyphicon glyphicon-home"><!--  --></i>
+                    </a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+
+</jsp:root>
