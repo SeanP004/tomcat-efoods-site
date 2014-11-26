@@ -76,9 +76,7 @@ public class XMLHandler {
             } 
             
         }
-        if(orderlist.getList().isEmpty()){
-            throw new Exception("Error. No PO orders for today!");
-        }
+       
         return orderlist;
     }
 
