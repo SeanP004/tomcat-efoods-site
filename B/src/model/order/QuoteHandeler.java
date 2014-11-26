@@ -18,30 +18,19 @@ public class QuoteHandeler {
     final private static String WVANCOUVER = "http://roumani.eecs.yorku.ca:4413/axis/YVR.jws";
     final private static String WHALIFAX   = "http://roumani.eecs.yorku.ca:4413/axis/YHZ.jws";
 
-    private SOAPMessage         msg;
-    private SOAPBody            body;
-    private OrderBean           order;
 
-    public QuoteHandeler(OrderBean o) throws Exception {
+    public double[] getQuoteArray(OrderBean o) throws Exception {
 
-        msg = MessageFactory.newInstance().createMessage();
-
+        SOAPMessage  msg = MessageFactory.newInstance().createMessage();
         javax.xml.soap.MimeHeaders header = msg.getMimeHeaders();
         header.addHeader("SOAPAction", "");
 
         SOAPPart soap = msg.getSOAPPart();
         SOAPEnvelope envelope = soap.getEnvelope();
-        body = envelope.getBody();
-
-        this.order = o;
-
-    }
-
-    public double[] getQuoteArray() throws Exception {
-
-        body.addChildElement("quote").addChildElement("itemNumber")
-                .addTextNode(order.getItemNo());
-
+        SOAPBody    body  = envelope.getBody();
+        
+        body.addChildElement("quote").addChildElement("Itemnumber").addTextNode(o.getItemNo());
+        
         SOAPConnection sc = SOAPConnectionFactory.newInstance()
                 .createConnection();
 
@@ -65,6 +54,9 @@ public class QuoteHandeler {
         quoteArray[1] = Double.parseDouble(node2.getTextContent().toString());
         quoteArray[2] = Double.parseDouble(node3.getTextContent().toString());
 
+        System.out.println("Q prices : "+quoteArray[0]+" "+quoteArray[1]+" "+quoteArray[2]);
+        
+        
         return quoteArray;
     }
 

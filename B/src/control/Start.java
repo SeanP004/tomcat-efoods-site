@@ -9,102 +9,51 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.XMLReader;
 import model.order.OrderBean;
 import model.order.OrderList;
 import model.order.OrderHandeler;
 import model.order.QuoteHandeler;
+import model.xml.XMLHandeler;
 
 public class Start {
 
     public static void main(String[] args) throws Exception {
 
-        // --- Get PO names
+        //-----Get Details from XML
+        
+        XMLHandeler xmlh = new XMLHandeler();
 
-        final String urlPO = "http://localhost:4413/eFoods/api/order/";
+        List<String> files = xmlh.getFileDetails();
+        OrderList orderlist = xmlh.getOrderDetails(files);
 
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db;
-        List<String> files = new ArrayList<String>();
-        OrderList orderlist = new OrderList();
+       
+        // ---- PerformOrderOperation
 
-        try {
+        Map<String, Integer> list = orderlist.getList();
 
-            db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new URL(urlPO).openStream());
+        Iterator it = list.entrySet().iterator();
 
-            NodeList nl = doc.getElementsByTagName("file");
+        while (it.hasNext()) {
 
-            for (int i = 0; i < nl.getLength(); i++) {
-                files.add(i, nl.item(i).getTextContent().toString());
-            }
+            Map.Entry pairs = (Map.Entry) it.next();
 
-        } catch (Exception e) {
+            OrderBean o = new OrderBean(pairs.getKey().toString(),
+                    Integer.parseInt(pairs.getValue().toString()));
 
-            e.printStackTrace();
-        }
-        // ---------------------------------------------------
+            QuoteHandeler q = new QuoteHandeler();
+            double quotedPrices[] = q.getQuoteArray(o);
 
-        String url = "http://localhost:4413/eFoods/api/order/";
+            int minPriceIndex = q.getCheapPrice(quotedPrices);
+            System.out.println("min ind = "+minPriceIndex);
 
-        for (int i = 0; i < files.size(); i++) {
-            url = files.get(i);
-            System.out.println(url);
+            OrderHandeler po = new OrderHandeler();
 
-            try {
+            String conf = po.doOrder(minPriceIndex,o);
 
-                db = dbf.newDocumentBuilder();
-                Document doc = db.parse(new URL(url).openStream());
-
-                NodeList itemList = doc.getElementsByTagName("item");
-                NodeList qList = doc.getElementsByTagName("quantity");
-                // System.out.println(itemList.item(0).getAttributes().getNamedItem("number").getNodeValue());
-
-                for (int x = 0; x < itemList.getLength() ; x++) {
-
-                    OrderBean o = new OrderBean(itemList.item(x)
-                            .getAttributes().getNamedItem("number")
-                            .getNodeValue(), Integer.parseInt(qList.item(x)
-                            .getTextContent().toString()));
-                    
-                    System.out.print(o.getItemNo()+ " "+ o.getQty());
-
-                    orderlist.addOrder(o);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // ------------------------------------------------------
-
-            Map<String, Integer> list = orderlist.getList();
-
-            Iterator it = list.entrySet().iterator();
-
-            while (it.hasNext()) {
-
-                Map.Entry pairs = (Map.Entry) it.next();
-
-                OrderBean o = new OrderBean(pairs.getKey().toString(),
-                        Integer.parseInt(pairs.getValue().toString()));
-
-                QuoteHandeler q = new QuoteHandeler(o);
-                double quotedPrices[] = q.getQuoteArray();
-
-                int minPriceIndex = q.getCheapPrice(quotedPrices);
-
-                OrderHandeler po = new OrderHandeler(o);
-
-                String conf = po.doOrder(minPriceIndex);
-
-                System.out.print(conf);
-
-                // System.out.println(pairs.getKey() + " = " +
-                // pairs.getValue());
-                it.remove(); // avoids a ConcurrentModificationException
-
-            }
-
+            System.out.println(conf);
+            System.out.println(" ------ done -------- \n \n ");
+            it.remove(); // avoids a ConcurrentModificationException
         }
 
     }
