@@ -1,5 +1,7 @@
 package control;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -49,12 +51,18 @@ public class Start {
 
             OrderHandeler po = new OrderHandeler();
 
-            String conf = po.doOrder(minPriceIndex,o);
+           // String conf = po.doOrder(minPriceIndex,o);
 
-            System.out.println(conf);
-           System.out.println(" ------ done -------- \n \n ");
+            //System.out.println(conf);
+           // System.out.println(" ------ done -------- \n \n ");
             it.remove(); // avoids a ConcurrentModificationException
+            
         }
+        
+        String url = "src/view/Report.html";
+        
+        File htmlFile = new File(url);
+        Desktop.getDesktop().browse(htmlFile.toURI());
 
     }
 
