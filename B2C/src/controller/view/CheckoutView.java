@@ -3,17 +3,11 @@ package controller.view;
 import controller.*;
 
 import java.io.*;
-import java.util.*;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
-
-import model.account.Account;
+import model.account.*;
 import model.cart.*;
-import model.catalog.*;
-import model.checkout.OrdersClerk;
-import model.checkout.Receipt;
-import model.common.XMLUtil;
+import model.checkout.*;
 
 /**
  * Servlet implementation class CartView
@@ -29,12 +23,10 @@ public class CheckoutView extends EndPointServlet {
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
         String         target   = (String)req.getAttribute("target");
-        Catalog        catalog  = (Catalog)sc.getAttribute("catalog");
         Cart           cart     = (Cart)sess.getAttribute("cart");
         Account		   account  = (Account)sess.getAttribute("account");
         OrdersClerk    clerk    = (OrdersClerk)sc.getAttribute("clerk");
         String         host     = (String)req.getAttribute("host");
-        StringWriter   sw       = new StringWriter();
 
         if (clerk == null) {
             sc.setAttribute("clerk", clerk = OrdersClerk.getClerk());}

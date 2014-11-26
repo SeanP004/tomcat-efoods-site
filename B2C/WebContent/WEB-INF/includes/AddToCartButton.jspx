@@ -21,14 +21,19 @@
     version="2.0"
     >
 
-    <button class="btn btn-primary cart-btn">
+    <button class="btn btn-primary cart-btn" data-item="${param.number}">
         <i class="glyphicon glyphicon-shopping-cart"><!--  --></i>
         <span class="cart-label">Add to Cart</span>
+        <c:set var="incart" value="false" />
         <c:forEach var="element" items="${cart.elements}">
             <c:if test="${element.item.number eq param.number}">
                 <span class="badge">${element.quantity}</span>
+                <c:set var="incart" value="true" />
             </c:if>
         </c:forEach>
+        <c:if test="${not incart}">
+            <span class="badge"><!--  --></span>
+        </c:if>
     </button>
 
 </jsp:root>

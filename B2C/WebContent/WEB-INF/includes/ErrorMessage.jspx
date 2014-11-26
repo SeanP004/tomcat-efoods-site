@@ -18,8 +18,13 @@
     version="2.0"
     >
 
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger" role="alert">${error}</div>
-    </c:if>
+    <c:choose>
+        <c:when test="${not empty error}">
+            <div class="alert alert-danger error" role="alert">${error}</div>
+        </c:when>
+        <c:otherwise>
+            <div class="error hidden" role="alert"><!--  --></div>
+        </c:otherwise>
+    </c:choose>
 
 </jsp:root>

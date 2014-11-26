@@ -85,5 +85,11 @@ public class CartAPI extends EndPointServlet {
             throws ServletException, IOException {
         doRequest("GET", req, res);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doRequest("POST", req, res);
+    }
     
 } // CartAPI

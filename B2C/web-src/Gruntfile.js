@@ -6,8 +6,8 @@ module.exports = function(grunt) {
 
         concat: {
             all: {
-                options: { separator: ';' },
-                src: ['js/*.js'],
+                options: { separator: '' },
+                src: ['js/functions.js', 'js/*.js'],
                 dest: '../WebContent/assets/js/main.js'
             }
         },

@@ -93,7 +93,7 @@ public class CartElement {
      * @param quantity
      */
     public void setQuantity(int quantity) {
-        if (quantity > 0) {
+        if (quantity >= 0) {
             cost.updateCost(this, quantity);
             this.quantity = quantity;
         }

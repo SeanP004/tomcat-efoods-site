@@ -34,7 +34,7 @@ public class CatalogView extends EndPointServlet {
 
         req.setAttribute("orderBy",    orderBy = req.getParameter("orderBy"));
         req.setAttribute("searchTerm", searchTerm = req.getParameter("searchTerm"));
-        req.setAttribute("catid",      category = req.getParameter("catid"));
+        req.setAttribute("catId",      category = req.getParameter("catId"));
         req.setAttribute("minPrice",   minPrice = req.getParameter("minPrice"));
         req.setAttribute("maxPrice",   maxPrice = req.getParameter("maxPrice"));
 

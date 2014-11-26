@@ -243,5 +243,5 @@ public class CatalogDBAO implements CatalogDB {
             throw new DataAccessException(e);
         }
     }
-    
+
 } // CatalogDBAO

@@ -54,7 +54,7 @@ public class ItemFilter {
 
     public void setOrderBy(String orderBy) {
         if (!hasOrder(orderBy)) { throw new InvalidQueryFilterException(ERR_ORDERBY); }
-        this.orderBy = orderBy;
+        this.orderBy = orderBy.toLowerCase();
     }
 
     public void setSearchTerm(String searchTerm) {
@@ -130,7 +130,7 @@ public class ItemFilter {
     }
 
     private static boolean hasOrder(String order) {
-        return sorts.containsKey(order);
+        return sorts.containsKey(order.toLowerCase());
     }
 
 } // ItemFilter

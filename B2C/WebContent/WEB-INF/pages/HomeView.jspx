@@ -50,7 +50,7 @@
                     <c:forEach var="category" items="${categories}">
                         <jsp:include page="../includes/ItemsShowcase.jspx">
                             <jsp:param name="items" value="${category.name}" />
-                            <jsp:param name="catid" value="${category.id}" />
+                            <jsp:param name="catId" value="${category.id}" />
                             <jsp:param name="desc" value="${category.description}" />
                         </jsp:include>
                     </c:forEach>

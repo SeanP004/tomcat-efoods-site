@@ -34,12 +34,15 @@ public class PriceManager {
     }
 
     public void updateCost(Cost cost, CartElement ce, int quantity) {
-        cost.setTotal(cost.getTotal() + getExtendedCost(ce.getItem(), quantity) - getExtendedCost(ce));
-        cost.setShipping(cost.getTotal() > pricingRules.getShippingWaverCost() ? 0 : pricingRules.getShippingCost());
+        cost.setTotal(cost.getTotal() + getExtendedCost(ce.getItem(), quantity)
+                - getExtendedCost(ce));
+        cost.setShipping(cost.getTotal() == 0 || 
+                cost.getTotal() > pricingRules.getShippingWaverCost() 
+                    ? 0 : pricingRules.getShippingCost());
         cost.setTax((cost.getTotal() + cost.getShipping()) * pricingRules.getTaxRate());
         cost.setGrandTotal(cost.getTotal() + cost.getTax() + cost.getShipping());
     }
-    
+
     public void resetCost(Cost cost){
     	cost.reset();
     }

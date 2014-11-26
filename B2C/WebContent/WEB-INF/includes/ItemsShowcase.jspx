@@ -9,7 +9,7 @@
   -
   - Parameters:
   -     param.items     catalog items list names
-  -     param.catid     category id
+  -     param.catId     category id
   -     param.desc      category description
   -
   - Dependencies:
@@ -32,8 +32,8 @@
             <c:if test="${not empty param.desc}">
                 <small>${param.desc}</small>
             </c:if>
-            <c:if test="${not empty param.catid}">
-                <a href="${pageContext.request.contextPath}/browse?catid=${param.catid}"
+            <c:if test="${not empty param.catId}">
+                <a href="${pageContext.request.contextPath}/browse?catId=${param.catId}"
                    class="btn btn-default catalog-btn pull-right">View All</a>
             </c:if>
         </h2>

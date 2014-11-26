@@ -18,7 +18,7 @@
   -     maxPriceRange   a maximum price of all items
   -
   -     searchTerm      the selected search query
-  -     catid           the selected category identifier
+  -     catId           the selected category identifier
   -     orderBy         the selected ordering
   -     minPrice        the minimum price range
   -     maxPrice        the maximum price range
@@ -61,16 +61,16 @@
         <div class="search-filters">
             <ul class="nav nav-tabs">
                 <c:choose>
-                    <c:when test="${empty catid}">
-                        <li class="active"><a href="#" data-id="all">All</a></li>
+                    <c:when test="${empty catId}">
+                        <li class="active"><a href="#" data-id="-1">All</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="#" data-id="all">All</a></li>
+                        <li><a href="#" data-id="-1">All</a></li>
                     </c:otherwise>
                 </c:choose>
                 <c:forEach var="category" items="${categories}">
                     <c:choose>
-                        <c:when test="${category.id eq catid}">
+                        <c:when test="${category.id eq catId}">
                             <li class="active"><a href="#" data-id="${category.id}">${category.name}</a></li>
                         </c:when>
                         <c:otherwise>
@@ -79,19 +79,19 @@
                     </c:choose>
                 </c:forEach>
                 <li class="pull-right">
-                    <a href="#"><i class="glyphicon glyphicon-plus"><!-- --></i>More</a>
+                    <a href="#" data-id="more"><i class="glyphicon glyphicon-plus"><!-- --></i>More</a>
                 </li>
             </ul>
-            <div class="panel panel-default">
+            <div class="panel panel-default search-options hidden">
                 <div class="panel-body">
                     <h5 class="page-header">Advanced Search:</h5>
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <label for="catid" class="col-sm-2 control-label">Category:</label>
+                            <label for="catId" class="col-sm-2 control-label">Category:</label>
                             <div class="col-sm-8 col-md-4">
-                                <select name="catid" class="form-control">
+                                <select name="catId" class="form-control">
                                     <c:choose>
-                                        <c:when test="${empty catid}">
+                                        <c:when test="${empty catId}">
                                             <option value="-1" selected="selected">All</option>
                                         </c:when>
                                         <c:otherwise>
@@ -100,7 +100,7 @@
                                     </c:choose>
                                     <c:forEach var="category" items="${categories}">
                                         <c:choose>
-                                            <c:when test="${category.id eq catid}">
+                                            <c:when test="${category.id eq catId}">
                                                 <option value="${category.id}" selected="selected">${category.name}</option>
                                             </c:when>
                                             <c:otherwise>

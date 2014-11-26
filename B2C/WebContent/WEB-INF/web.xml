@@ -1,135 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>eFoods</display-name>
-  <welcome-file-list>
-    <welcome-file>home</welcome-file>
-  </welcome-file-list>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/WEB-INF/pages/Error404.jspx</location>
-  </error-page>
-  <filter-mapping>
-    <filter-name>RewriteURL</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
-  <filter>
-    <filter-name>RewriteURL</filter-name>
-    <filter-class>controller.Main</filter-class>
-    <init-param>
-      <param-name>ignores</param-name>
-      <param-value>
+  
+    <display-name>eFoods</display-name>
+    
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
+  
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/pages/Error404.jspx</location>
+    </error-page>
+  
+    <!-- Main Filter -->
+
+    <filter-mapping>
+        <filter-name>RewriteURL</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter>
+        <filter-name>RewriteURL</filter-name>
+        <filter-class>controller.Main</filter-class>
+        <init-param>
+            <param-name>ignores</param-name>
+            <param-value>
                 /assets
                 /WEB-INF
             </param-value>
-    </init-param>
-  </filter>
-  <filter>
-    <filter-name>SessionFilter</filter-name>
-    <filter-class>filter.SessionFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>SessionFilter</filter-name>
-    <servlet-name>CartAPI</servlet-name>
-  </filter-mapping>
-  <servlet>
-    <servlet-name>Main</servlet-name>
-    <servlet-class>controller.Main</servlet-class>
-    <init-param>
-      <param-name>routes</param-name>
-      <param-value>
+        </init-param>
+    </filter>
+
+    <!-- Filters -->
+
+    <!-- <filter>
+        <filter-name>SessionFilter</filter-name>
+        <filter-class>filter.SessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <servlet-name>CartAPI</servlet-name>
+    </filter-mapping> -->
+
+    <!-- Main -->
+  
+    <servlet>
+        <servlet-name>Main</servlet-name>
+        <servlet-class>controller.Main</servlet-class>
+        <init-param>
+        <param-name>routes</param-name>
+            <param-value>
                 API=/api/*
                 View=/*
             </param-value>
-    </init-param>
-    <init-param>
-      <param-name>shippingCost</param-name>
-      <param-value>5</param-value>
-    </init-param>
-    <init-param>
-      <param-name>shippingWaverCost</param-name>
-      <param-value>100</param-value>
-    </init-param>
-    <init-param>
-      <param-name>taxRate</param-name>
-      <param-value>0.13</param-value>
-    </init-param>
-    <init-param>
-      <param-name>userData</param-name>
-      <param-value>/WEB-INF/userData/</param-value>
-    </init-param>
-    <init-param>
-      <param-name>ordersXsd</param-name>
-      <param-value>/WEB-INF/xmlres/PO.xsd</param-value>
-    </init-param>
-    <init-param>
-      <param-name>ordersXslt</param-name>
-      <param-value>/WEB-INF/xmlres/PO.xslt</param-value>
-    </init-param>
-    <init-param>
-      <param-name>ordersXsltView</param-name>
-      <param-value>/assets/xmlres/POView.xslt</param-value>
-    </init-param>
-    <init-param>
-      <param-name>ordersPrefix</param-name>
-      <param-value>/api/order/</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>API</servlet-name>
-    <servlet-class>controller.api.API</servlet-class>
-    <init-param>
-      <param-name>routes</param-name>
-      <param-value>
-                CatalogAPI=/catalog
-                CartAPI=/cart
-                CheckoutAPI=/checkout
-                OrdersAPI=/order/*,/order
-            </param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>CatalogAPI</servlet-name>
-    <servlet-class>controller.api.CatalogAPI</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>CartAPI</servlet-name>
-    <servlet-class>controller.api.CartAPI</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
-    </init-param>
-    <init-param>
-      <param-name>transform</param-name>
-      <param-value>/WEB-INF/xmlres/CartElementDigest.xslt</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>CheckoutAPI</servlet-name>
-    <servlet-class>controller.api.CheckoutAPI</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>OrdersAPI</servlet-name>
-    <servlet-class>controller.api.OrdersAPI</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>View</servlet-name>
-    <servlet-class>controller.view.View</servlet-class>
-    <init-param>
-      <param-name>routes</param-name>
-      <param-value>
+        </init-param>
+        <init-param>
+            <param-name>shippingCost</param-name>
+            <param-value>5</param-value>
+        </init-param>
+        <init-param>
+            <param-name>shippingWaverCost</param-name>
+            <param-value>100</param-value>
+        </init-param>
+        <init-param>
+            <param-name>taxRate</param-name>
+            <param-value>0.13</param-value>
+        </init-param>
+        <init-param>
+            <param-name>userData</param-name>
+            <param-value>/WEB-INF/userData/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ordersXsd</param-name>
+            <param-value>/WEB-INF/xmlres/PO.xsd</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ordersXslt</param-name>
+            <param-value>/WEB-INF/xmlres/PO.xslt</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ordersXsltView</param-name>
+            <param-value>/assets/xmlres/POView.xslt</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ordersPrefix</param-name>
+            <param-value>/api/order/</param-value>
+        </init-param>
+    </servlet>
+ 
+    <!-- APIs -->
+ 
+    <servlet>
+        <servlet-name>API</servlet-name>
+        <servlet-class>controller.api.API</servlet-class>
+        <init-param>
+          <param-name>routes</param-name>
+          <param-value>
+                    CatalogAPI=/catalog
+                    CartAPI=/cart
+                    CheckoutAPI=/checkout
+                    OrdersAPI=/order/*,/order
+                </param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogAPI</servlet-name>
+        <servlet-class>controller.api.CatalogAPI</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>CartAPI</servlet-name>
+        <servlet-class>controller.api.CartAPI</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
+        </init-param>
+        <init-param>
+            <param-name>transform</param-name>
+            <param-value>/WEB-INF/xmlres/CartElementDigest.xslt</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutAPI</servlet-name>
+        <servlet-class>controller.api.CheckoutAPI</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>OrdersAPI</servlet-name>
+        <servlet-class>controller.api.OrdersAPI</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
+        </init-param>
+    </servlet>
+
+    <!-- Views -->
+
+    <servlet>
+        <servlet-name>View</servlet-name>
+        <servlet-class>controller.view.View</servlet-class>
+        <init-param>
+            <param-name>routes</param-name>
+            <param-value>
                 HomeView=/home
                 CatalogView=/browse
                 ItemView=/item/*
@@ -138,54 +156,55 @@
                 CheckoutView=/checkout
                 HomeView=/
             </param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>HomeView</servlet-name>
-    <servlet-class>controller.view.HomeView</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/pages/HomeView.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>CatalogView</servlet-name>
-    <servlet-class>controller.view.CatalogView</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/pages/CatalogView.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>ItemView</servlet-name>
-    <servlet-class>controller.view.ItemView</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/pages/ItemView.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>CartView</servlet-name>
-    <servlet-class>controller.view.CartView</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/pages/CartView.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>ConfirmationView</servlet-name>
-    <servlet-class>controller.view.ConfirmationView</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/pages/ConfirmationView.jspx</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>CheckoutView</servlet-name>
-    <servlet-class>controller.view.CheckoutView</servlet-class>
-    <init-param>
-      <param-name>target</param-name>
-      <param-value>/WEB-INF/pages/CheckoutView.jspx</param-value>
-    </init-param>
-  </servlet>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeView</servlet-name>
+        <servlet-class>controller.view.HomeView</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/pages/HomeView.jspx</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogView</servlet-name>
+        <servlet-class>controller.view.CatalogView</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/pages/CatalogView.jspx</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>ItemView</servlet-name>
+        <servlet-class>controller.view.ItemView</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/pages/ItemView.jspx</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>CartView</servlet-name>
+        <servlet-class>controller.view.CartView</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/pages/CartView.jspx</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmationView</servlet-name>
+        <servlet-class>controller.view.ConfirmationView</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/pages/ConfirmationView.jspx</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutView</servlet-name>
+        <servlet-class>controller.view.CheckoutView</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/pages/CheckoutView.jspx</param-value>
+        </init-param>
+    </servlet>
+
 </web-app>

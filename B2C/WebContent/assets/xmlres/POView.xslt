@@ -143,31 +143,35 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Sub Total:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./total, '###,###.00')" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./total, '###,##0.00')" /></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Shipping Cost:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./shipping, '###,###.00')" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./shipping, '###,##0.00')" /></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tax:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./HST, '###,###.00')" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./HST, '###,##0.00')" /></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Total:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./grandTotal, '###,###.00')" /></p>
+                            <p class="form-control-static text-large">$<xsl:value-of select="format-number(./grandTotal, '###,##0.00')" /></p>
                         </div>
                     </div>
-                    <a href="/eFoods/" class="btn btn-primary btn-icon-right">
-                        <span class="home-label">Return Home</span>
-                        <i class="glyphicon glyphicon-home"><!--  --></i>
-                    </a>
+                    <div class="form-group">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <a href="/eFoods/" class="btn btn-primary btn-icon-left">
+                                <i class="glyphicon glyphicon-home"><!--  --></i>
+                                <span class="home-label">Return Home</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
          </div>
@@ -177,9 +181,9 @@
         <tr>
             <td><xsl:value-of  select="./@number" /></td>
             <td><xsl:value-of  select="./name" /></td>
-            <td>$<xsl:value-of select="format-number(./price, '###,###.00')" /></td>
+            <td>$<xsl:value-of select="format-number(./price, '###,##0.00')" /></td>
             <td><xsl:value-of  select="./quantity" /></td>
-            <td>$<xsl:value-of select="format-number(./extended, '###,###.00')" /></td>
+            <td>$<xsl:value-of select="format-number(./extended, '###,##0.00')" /></td>
         </tr>
     </xsl:template>
 
