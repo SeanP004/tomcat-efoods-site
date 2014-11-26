@@ -164,6 +164,10 @@
                             <p class="form-control-static text-large">$<xsl:value-of select="format-number(./grandTotal, '###,###.00')" /></p>
                         </div>
                     </div>
+                    <a href="/eFoods/" class="btn btn-primary btn-icon-right">
+                        <span class="home-label">Return Home</span>
+                        <i class="glyphicon glyphicon-home"><!--  --></i>
+                    </a>
                 </div>
             </div>
          </div>

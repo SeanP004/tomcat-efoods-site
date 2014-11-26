@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: Confirmation
+  -
+  - Description:
+  -     Fragment for the Confirmation 
+  -
+  - Parameters:
+  -     cart    the shopping cart
+  -->
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header confirmation-header">
+                <h1>Order Summary</h1>
+            </div>
+            <p>Shipping and additional costs are calculated based
+                on the values you have in the cart before tax.</p>
+            <table class="table">
+                <tr><td>Order subtotal</td>
+                    <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.total}</f:formatNumber></td></tr>
+                <tr><td>Shipping and handling</td>
+                    <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.shipping}</f:formatNumber></td></tr>
+                <tr><td>Tax</td>
+                    <td>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.tax}</f:formatNumber></td></tr>
+                <tr><th>Total</th>
+                    <th>$<f:formatNumber
+                                groupingUsed="true"
+                                maxFractionDigits="2"
+                                minFractionDigits="2"
+                                minIntegerDigits="1"
+                            >${cart.cost.grandTotal}</f:formatNumber></th></tr>
+            </table>
+            
+            <h3>Are You sure you like to checkout with the currently selected items in the cart?</h3>
+            
+            <div class="row button-row">
+                <div class="col-sm-6 text-left">
+                    <a href="${pageContext.request.contextPath}/cart" class="btn btn-default btn-icon-left">
+                        <i class="glyphicon glyphicon-chevron-left"><!--  --></i>
+                        <span class="cart-label">Back</span>
+                    </a>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="${pageContext.request.contextPath}/checkout" class="btn btn-primary btn-icon-right">
+                        <span class="cart-label">Confirm</span>
+                        <i class="glyphicon glyphicon-ok"><!--  --></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>
