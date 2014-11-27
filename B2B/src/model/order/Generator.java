@@ -1,13 +1,11 @@
 package model.order;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import model.order.Order;
-import model.order.OrderList;
-import model.order.OrderHandler;
-import model.order.QuoteHandler;
-import model.xml.XMLHandler;
+import java.io.*;
+import java.text.*;
+import java.util.*;
+import model.common.XMLUtil;
+import model.order.*;
+import model.xml.*;
 
 public class Generator {
     
@@ -21,7 +19,10 @@ public class Generator {
 
         List<String> files = xmlh.getFileDetails();
         OrderList orderlist = xmlh.getOrderDetails(files);
-
+        
+        //------------------------ Generate report 
+        CompletedOrderList col = new CompletedOrderList();
+        CompletedOrder co = null ;
        
         // ---- PerformOrderOperation
 
@@ -46,13 +47,23 @@ public class Generator {
 
             String conf = po.doOrder(minPriceIndex,o);
 
-            //System.out.println(conf);
+            System.out.println(conf+pairs.getKey().toString()+" "+ 
+                    quotedPrices[minPriceIndex] + " " + po.getWholesaler(minPriceIndex));
+            
+            co = new CompletedOrder(pairs.getKey().toString(), 
+                    quotedPrices[minPriceIndex], conf, po.getWholesaler(minPriceIndex));
            // System.out.println(" ------ done -------- \n \n ");
             it.remove(); // avoids a ConcurrentModificationException
             
+            col.getoList().add(co);
+            
         }
         
+        xmlh.createReport(col);
+          
     }
     
+    
+
 
 }

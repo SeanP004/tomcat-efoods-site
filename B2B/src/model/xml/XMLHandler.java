@@ -1,5 +1,8 @@
 package model.xml;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -8,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import model.common.XMLUtil;
+import model.order.CompletedOrderList;
 import model.order.Order;
 import model.order.OrderList;
 import org.w3c.dom.Document;
@@ -92,6 +97,24 @@ public class XMLHandler {
         else 
             return false;
 
+    }
+
+    public void createReport(CompletedOrderList col) throws IOException {
+        
+        File r = new File("reports");
+        
+        OrdersDAO dao = new OrdersDAO(r);
+       
+        String xsltView = null;
+        Writer sw = dao.getWriter(dao.getOrderFileNamePrefix());
+       
+        sw.write("<?xml version='1.0' encoding='UTF-8'?>\n");
+        sw.write("<?xml-stylesheet type='text/xsl' href='" + xsltView + "'?>\n");
+        XMLUtil.generate(sw, col);
+        
+        System.out.println(" ------ done --------  ");
+        
+        
     }
 
 }
