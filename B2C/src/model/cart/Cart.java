@@ -201,7 +201,6 @@ public class Cart {
      * @return          true if cart element exists, otherwise false.
      */
     public synchronized boolean hasElement(String number) {
-        System.out.println("element checked");
         return elements.containsKey(number);
     }
 
