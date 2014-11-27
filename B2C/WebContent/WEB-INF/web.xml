@@ -12,18 +12,22 @@
         <location>/WEB-INF/pages/Error404.jspx</location>
     </error-page>
     
+    <!-- Listener -->
+    
     <listener>
         <listener-class>listener.SessionCountListener</listener-class>
     </listener>
-  
-    <!-- Main Filter -->
+     
+     
+    <!-- Filters -->
+    
     <filter-mapping>
         <filter-name>CartURL</filter-name>
         <url-pattern>/api/cart</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>CartURL</filter-name>
-        <filter-class>controller.api.CartAPI</filter-class>
+        <filter-class>filter.CartFilter</filter-class>
     </filter>
     
     <filter-mapping>
@@ -32,8 +36,10 @@
     </filter-mapping>
     <filter>
         <filter-name>CheckoutURL</filter-name>
-        <filter-class>controller.view.CheckoutView</filter-class>
+        <filter-class>filter.CheckoutFilter</filter-class>
     </filter>
+     
+    <!-- Main Filter -->
 
     <filter-mapping>
         <filter-name>RewriteURL</filter-name>
@@ -51,9 +57,15 @@
             </param-value>
         </init-param>
     </filter>
-
-    <!-- Filters -->
-
+    
+    <filter-mapping>
+        <filter-name>PriceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>PriceFilter</filter-name>
+        <filter-class>model.pricing.PriceFilter</filter-class>
+    </filter>
 
     <!-- Main -->
   
@@ -167,6 +179,7 @@
                 CartView=/cart
                 ConfirmationView=/confirmation
                 CheckoutView=/checkout
+                AdminView=/admin
                 HomeView=/
             </param-value>
         </init-param>
@@ -219,5 +232,12 @@
             <param-value>/WEB-INF/pages/CheckoutView.jspx</param-value>
         </init-param>
     </servlet>
-
+    <servlet>
+        <servlet-name>AdminView</servlet-name>
+        <servlet-class>controller.view.AdminView</servlet-class>
+        <init-param>
+            <param-name>target</param-name>
+            <param-value>/WEB-INF/pages/AdminView.jspx</param-value>
+        </init-param>
+    </servlet>
 </web-app>
