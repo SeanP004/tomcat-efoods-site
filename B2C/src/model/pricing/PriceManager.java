@@ -1,5 +1,6 @@
 package model.pricing;
 
+import java.util.*;
 import model.cart.*;
 import model.catalog.*;
 
@@ -11,14 +12,19 @@ import model.catalog.*;
  * the sticker of the items from the database, and
  * the quantity of items being purchased.
  */
-public class PriceManager {
+public class PriceManager{
 
     private static PriceManager singleton = null;
 
     private PricingRules pricingRules;
+    private ArrayList<PriceOverride> overrides = new ArrayList<PriceOverride>();
 
     private PriceManager(PricingRules pricingRules) {
         this.pricingRules = pricingRules;
+    }
+    
+    public PricingRules getPricingRules (){
+    	return pricingRules;
     }
 
     public Cost getCostInstance(Cart cart) {
@@ -41,6 +47,18 @@ public class PriceManager {
                     ? 0 : pricingRules.getShippingCost());
         cost.setTax((cost.getTotal() + cost.getShipping()) * pricingRules.getTaxRate());
         cost.setGrandTotal(cost.getTotal() + cost.getTax() + cost.getShipping());
+    	for (PriceOverride po : overrides){
+    		if (po.override(cost, singleton)) {return;}
+    	}
+    	System.out.println(overrides.size());
+    }
+    
+    public void addPriceFilter(PriceOverride po) {
+    	overrides.add(po);
+    }
+    
+    public void removePriceFilter(PriceOverride po) {
+    	overrides.remove(po);
     }
 
     public void resetCost(Cost cost){
