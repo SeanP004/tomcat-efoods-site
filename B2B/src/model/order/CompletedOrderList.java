@@ -9,7 +9,6 @@ public class CompletedOrderList {
 
    
     private String date ; 
-    
     private List <CompletedOrder> oList = new ArrayList<CompletedOrder>();
     
     public CompletedOrderList(String date, List<CompletedOrder> oList) {
@@ -19,7 +18,6 @@ public class CompletedOrderList {
     }
     
     public  CompletedOrderList() {
-
     }
 
     @XmlAttribute(name="date")
@@ -30,6 +28,7 @@ public class CompletedOrderList {
     public void setDate(String date) {
         this.date = date;
     }
+    
     @XmlElement(name="orders")
     public List<CompletedOrder> getoList() {
         return oList;

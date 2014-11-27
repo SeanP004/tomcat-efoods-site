@@ -62,7 +62,5 @@ public class Generator {
             }
             xmlh.createReport(col);
         }
-
     }
-
 }

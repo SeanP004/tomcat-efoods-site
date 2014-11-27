@@ -105,7 +105,7 @@ public class XMLHandler {
         
         OrdersDAO dao = new OrdersDAO(r);
        
-        String xsltView = null;
+        String xsltView = "res/order.xslt";
         Writer sw = dao.getWriter(dao.getOrderFileNamePrefix());
        
         sw.write("<?xml version='1.0' encoding='UTF-8'?>\n");

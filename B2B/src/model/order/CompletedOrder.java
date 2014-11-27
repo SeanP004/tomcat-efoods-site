@@ -8,10 +8,8 @@ public class CompletedOrder {
     private String confirm ; 
     private String wholesaler ;
     
-
     public CompletedOrder(String itemNo, double price,String confirm,
             String wholesaler) {
-        super();
         this.price = price;
         this.itemNo = itemNo;
         this.confirm = confirm;

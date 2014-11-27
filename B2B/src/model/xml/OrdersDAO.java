@@ -10,7 +10,6 @@ public class OrdersDAO {
     private File reportDir;
 
     public OrdersDAO(){
-        
     }
     
     public OrdersDAO(File userData) {
