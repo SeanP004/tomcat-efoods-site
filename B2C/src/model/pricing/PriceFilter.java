@@ -37,8 +37,6 @@ public class PriceFilter implements Filter {
 			ServletContext sc = request.getServletContext();
 	        PriceManager pm = (PriceManager) sc.getAttribute("pm");
 	        
-	        System.out.println("dofilter pm is : " + pm);
-	        
 			PriceOverride po = new PriceOverride() {
 				
 				public boolean override(Cost cost, PriceManager pm) {
