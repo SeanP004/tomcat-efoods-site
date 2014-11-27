@@ -21,10 +21,15 @@ import org.w3c.dom.NodeList;
 import sun.jdbc.odbc.OdbcDef;
 
 public class XMLHandler {
+	private String dataURL;
+	
+	public XMLHandler (String sourceURL) {
+		this.dataURL = sourceURL;
+	}
 
     public List<String> getFileDetails() throws Exception {
 
-        final String urlPO = "http://localhost:4413/eFoods/api/order/";
+        final String urlPO = dataURL;
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
@@ -48,7 +53,7 @@ public class XMLHandler {
         DocumentBuilder db;
         OrderList orderlist = new OrderList();
 
-        String url = "http://localhost:4413/eFoods/api/order/";
+        String url = dataURL;
 
         for (int i = 0; i < files.size(); i++) {
             url = files.get(i);

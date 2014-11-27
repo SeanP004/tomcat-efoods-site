@@ -1,6 +1,9 @@
 package model.order;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.*;
 
@@ -18,6 +21,9 @@ public class CompletedOrderList {
     }
     
     public  CompletedOrderList() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = new Date();
+        this.date = dateFormat.format(d);
     }
 
     @XmlAttribute(name="date")
