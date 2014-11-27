@@ -23,11 +23,10 @@ public class SessionCountListener implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent event)  { 
         totalActiveSessions++;
     	HttpSession sess = event.getSession();
-    	//ServletContext sc = sess.getServletContext();
     	long time = (long)System.currentTimeMillis();
     	sess.setAttribute("startCartTime", time);
     	sess.setAttribute("startCheckoutTime", time);
-        System.out.println("sessionCreated - add one session into counter");
+        //System.out.println("sessionCreated");
     }
 
 	/**

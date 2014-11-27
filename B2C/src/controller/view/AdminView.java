@@ -34,8 +34,8 @@ public class AdminView extends EndPointServlet{
         
         req.setAttribute("cartAvg", cartAvg);
         req.setAttribute("checkoutAvg", checkoutAvg);
-        req.setAttribute("cartAvgSec", cartAvg / 100);
-        req.setAttribute("checkoutAvgSec", checkoutAvg / 100);
+        req.setAttribute("cartAvgSec", cartAvg / 1000);
+        req.setAttribute("checkoutAvgSec", checkoutAvg / 1000);
 
         req.getRequestDispatcher(target).forward(req, res);
     } // doRequest

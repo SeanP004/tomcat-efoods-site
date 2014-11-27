@@ -38,6 +38,15 @@
         <filter-name>CheckoutURL</filter-name>
         <filter-class>filter.CheckoutFilter</filter-class>
     </filter>
+    
+    <filter-mapping>
+        <filter-name>PriceFilter</filter-name>
+        <url-pattern>/api/cart</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>PriceFilter</filter-name>
+        <filter-class>model.pricing.PriceFilter</filter-class>
+    </filter>
      
     <!-- Main Filter -->
 
@@ -56,15 +65,6 @@
                 /WEB-INF
             </param-value>
         </init-param>
-    </filter>
-    
-    <filter-mapping>
-        <filter-name>PriceFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>PriceFilter</filter-name>
-        <filter-class>model.pricing.PriceFilter</filter-class>
     </filter>
 
     <!-- Main -->
