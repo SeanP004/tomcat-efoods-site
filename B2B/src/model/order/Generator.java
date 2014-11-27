@@ -2,7 +2,7 @@ package model.order;
 
 import java.util.*;
 import model.xml.*;
-import model.common.CommonUtil;;
+import model.common.CommonUtil;
 
 public class Generator {
 
