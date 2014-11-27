@@ -34,7 +34,7 @@
 
     <xsl:template match="orders">
         <tr>
-            <td><xsl:value-of select="./@itemNo" /></td>
+            <td><xsl:value-of select="./itemNo" /></td>
             <td><xsl:value-of select="./price" /></td>
             <td><xsl:value-of select="./confirm" /></td>
             <td><xsl:value-of select="./wholesaler" /></td>

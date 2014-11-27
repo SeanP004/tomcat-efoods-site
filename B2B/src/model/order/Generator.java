@@ -48,9 +48,9 @@ public class Generator {
 
                 String conf = po.doOrder(minPriceIndex, o);
 
-                System.out.println(conf + pairs.getKey().toString() + " "
-                        +  model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex]) + " "
-                        + po.getWholesalerName(minPriceIndex));
+              //  System.out.println(conf + pairs.getKey().toString() + " "
+                //        +  model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex]) + " "
+                  //      + po.getWholesalerName(minPriceIndex));
 
                 co = new CompletedOrder(pairs.getKey().toString(),
                         model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex]), conf,
