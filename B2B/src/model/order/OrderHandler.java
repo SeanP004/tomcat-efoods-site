@@ -82,5 +82,19 @@ public class OrderHandler {
             return "ERROR" ;
         
     }
+    
+    public String getWholesalerName(int index){
+        
+        if (index == 0) {
+           return "Toronto Wholesaler";
+        } else if (index == 1) {
+           return "Vancouver Wholesaler";
+        } else if (index == 2) {
+            return "Halifax Wholesaler"; 
+        }
+        else 
+            return "ERROR" ;
+        
+    }
 
 }
