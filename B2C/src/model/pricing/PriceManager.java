@@ -50,7 +50,6 @@ public class PriceManager{
     	for (PriceOverride po : overrides){
     		if (po.override(cost, singleton)) {return;}
     	}
-    	System.out.println(overrides.size());
     }
     
     public void addPriceFilter(PriceOverride po) {
