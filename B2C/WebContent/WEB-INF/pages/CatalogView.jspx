@@ -42,9 +42,21 @@
                         <jsp:param name="method"   value="GET" />
                     </jsp:include>
                     <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
-                    <jsp:include page="../includes/CatalogList.jspx">
-                        <jsp:param name="wrap" value="true" />
-                    </jsp:include>
+                    <c:choose>
+                        <c:when test="${empty items}">
+                            <div class="row catalog">
+                                <h4 class="text-center">No items found for this search.</h4>
+                                <div class="big-picture row">
+                                    <i class="flaticon-plate7"><!--  --></i>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <jsp:include page="../includes/CatalogList.jspx">
+                                <jsp:param name="wrap" value="true" />
+                            </jsp:include>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <jsp:include page="../includes/Footer.jspx"></jsp:include>
             </div>

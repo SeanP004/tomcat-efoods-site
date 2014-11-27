@@ -6124,15 +6124,18 @@ body:not(.storefront) .search-box {
 .catalog-item:focus .item-pic-bg {
   color: #fbe9d9;
 }
-.error-details .big-picture {
+.error-details .big-picture,
+.catalog .big-picture {
   color: #eb9950;
   font-size: 400px;
   line-height: 0.6;
   height: 0.8em;
   overflow: hidden;
   margin-top: 20px;
+  text-align: center;
 }
-.error-details .big-picture .flaticon-plate7::before {
+.error-details .big-picture .flaticon-plate7::before,
+.catalog .big-picture .flaticon-plate7::before {
   margin-top: -0.2em;
 }
 @media screen and (max-width: 768px) {

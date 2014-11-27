@@ -61,7 +61,7 @@
         <div class="search-filters">
             <ul class="nav nav-tabs">
                 <c:choose>
-                    <c:when test="${empty catId}">
+                    <c:when test="${empty catId or catId eq -1}">
                         <li class="active"><a href="#" data-id="-1">All</a></li>
                     </c:when>
                     <c:otherwise>
@@ -91,7 +91,7 @@
                             <div class="col-sm-8 col-md-4">
                                 <select name="catId" class="form-control">
                                     <c:choose>
-                                        <c:when test="${empty catId}">
+                                        <c:when test="${empty catId or catId eq -1}">
                                             <option value="-1" selected="selected">All</option>
                                         </c:when>
                                         <c:otherwise>
