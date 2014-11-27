@@ -2,6 +2,7 @@ package model.order;
 
 import java.util.*;
 import model.xml.*;
+import model.common.CommonUtil;;
 
 public class Generator {
 
@@ -48,11 +49,11 @@ public class Generator {
                 String conf = po.doOrder(minPriceIndex, o);
 
                 System.out.println(conf + pairs.getKey().toString() + " "
-                        + quotedPrices[minPriceIndex] + " "
+                        +  model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex]) + " "
                         + po.getWholesalerName(minPriceIndex));
 
                 co = new CompletedOrder(pairs.getKey().toString(),
-                        quotedPrices[minPriceIndex], conf,
+                        model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex]), conf,
                         po.getWholesalerName(minPriceIndex));
 
                 // System.out.println(" ------ done -------- \n \n ");
