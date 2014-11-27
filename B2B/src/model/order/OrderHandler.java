@@ -56,14 +56,8 @@ public class OrderHandler {
 
         SOAPMessage orderWHcon = null;
 
-        // need to add error for -1
-        if (index == 0) {
-            orderWHcon = sc.call(msg, new URL(WTORONTO));
-        } else if (index == 1) {
-            orderWHcon = sc.call(msg, new URL(WVANCOUVER));
-        } else if (index == 2) {
-            orderWHcon = sc.call(msg, new URL(WHALIFAX));
-        }
+        
+        orderWHcon = sc.call(msg, new URL(getWholesaler(index)));
         sc.close();
 
         // msg.writeTo(System.out);
@@ -73,6 +67,20 @@ public class OrderHandler {
                 .getBody().getElementsByTagName("OrderReturn").item(0);
 
         return (node4.getTextContent().toString());
+    }
+    
+    public String getWholesaler(int index){
+     
+        if (index == 0) {
+           return WTORONTO;
+        } else if (index == 1) {
+           return WVANCOUVER ;
+        } else if (index == 2) {
+            return WHALIFAX;
+        }
+        else 
+            return "ERROR" ;
+        
     }
 
 }
