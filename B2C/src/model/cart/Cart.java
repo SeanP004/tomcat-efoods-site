@@ -113,6 +113,29 @@ public class Cart {
             throw new InvalidCartQuantityException(e);
         }
     }
+    
+    /**
+     * Multiple update the specified CartElement with the given quantity.
+     * If the item specified is not in the cart, add to cart
+     * If the quantity is negative throw an Exception
+     * If the quantity is zero remove from cart
+     * Otherwise set quantity.
+     *
+     * @param number    the item number string
+     * @param quantity  the number of items
+     * @throws          InvalidCartQuantityException
+     */    
+    public synchronized void multiBulkUpdate(String number, String quantity) {
+        String[] numberList = number.split(";");
+        String[] quantityList = quantity.split(";");
+        if (numberList.length != quantityList.length) {
+            throw new InvalidCartQuantityException("Invalid value for bulk order.");
+        } else {
+            for (int i = 0; i < numberList.length; i++) {
+                bulkUpdate(numberList[i], quantityList[i]);
+            }
+        }
+    }
 
     /**
      * Clear the cart back to intial state
@@ -178,6 +201,7 @@ public class Cart {
      * @return          true if cart element exists, otherwise false.
      */
     public synchronized boolean hasElement(String number) {
+        System.out.println("element checked");
         return elements.containsKey(number);
     }
 

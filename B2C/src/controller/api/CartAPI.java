@@ -12,7 +12,7 @@ import model.common.*;
  * Servlet implementation class CartAPI Cart API Endpoint.
  */
 // @WebServlet("/api/cart")
-public class CartAPI extends EndPointServlet implements Filter {
+public class CartAPI extends EndPointServlet {
 
     @Override
     protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
@@ -62,7 +62,7 @@ public class CartAPI extends EndPointServlet implements Filter {
                     }
                     break;
                 case "bulk":
-                    cart.bulkUpdate(number, quantity);
+                    cart.multiBulkUpdate(number, quantity);
                     req.setAttribute("status", "Successfully Performed Bulk Update");
                     req.setAttribute( "data", XMLUtil.generate(sw, cart).toString());
                     break;
@@ -91,45 +91,4 @@ public class CartAPI extends EndPointServlet implements Filter {
             throws ServletException, IOException {
         doRequest("POST", req, res);
     }
-    
-    // get access time
-
-    public void init(FilterConfig fConfig) throws ServletException {
-
-    }
-
-    public void doFilter(ServletRequest request, ServletResponse response, 
-                FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = ((HttpServletRequest)request);
-        HttpSession sess = req.getSession();
-        String uri = req.getRequestURI().substring(req.getContextPath().length());
-        ServletContext sc = request.getServletContext();
-        long before, after, total;
-        double avgTime;
-        long cartTime;
-        int cartCounter;
-        if (sc.getAttribute("cartTime") == null) {
-            cartTime = 0;
-        } else {
-            cartTime = (long)sc.getAttribute("cartTime");
-        }
-        if (sc.getAttribute("cartCounter") == null) {
-            cartCounter = 0;
-        } else {
-            cartCounter = (int)sc.getAttribute("cartCounter");
-        }
-        
-        chain.doFilter(request, response);
-        after =  (long) System.currentTimeMillis();
-        before = (long) sess.getAttribute("startCartTime");
-        cartTime += (after - before);
-        cartCounter += 1;
-        avgTime = (double) cartTime / (double) cartCounter;
-        
-        sc.setAttribute("cartTime", cartTime);
-        sc.setAttribute("cartCounter", cartCounter);
-        sc.setAttribute("avgCartTime", avgTime);
-        sess.setAttribute("startCartTime", System.currentTimeMillis());
-    }
-    
 } // CartAPI
