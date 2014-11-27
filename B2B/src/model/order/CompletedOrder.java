@@ -38,7 +38,7 @@ public class CompletedOrder {
         return confirm;
     }
 
-    public void setConferm(String confirm) {
+    public void setConfirm(String confirm) {
         this.confirm = confirm;
     }
 
