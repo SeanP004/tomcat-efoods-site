@@ -1,16 +1,17 @@
 package model.order;
 
 import java.util.*;
+
 import model.xml.*;
 import model.common.CommonUtil;
 
 public class Generator {
 
-    public void generate() throws Exception {
+    public void generate(HashMap <String, String> config) throws Exception {
 
         // -----Get Details from XML
 
-        XMLHandler xmlh = new XMLHandler();
+        XMLHandler xmlh = new XMLHandler(config.get("dataURL"));
 
         OrderList orderlist = null;
         try {
@@ -38,13 +39,13 @@ public class Generator {
                 Order o = new Order(pairs.getKey().toString(),
                         Integer.parseInt(pairs.getValue().toString()));
 
-                QuoteHandler q = new QuoteHandler();
+                QuoteHandler q = new QuoteHandler(config);
                 double quotedPrices[] = q.getQuoteArray(o);
 
                 int minPriceIndex = q.getCheapPrice(quotedPrices);
                 // System.out.println("min ind = "+minPriceIndex);
 
-                OrderHandler po = new OrderHandler();
+                OrderHandler po = new OrderHandler(config);
 
                 String conf = po.doOrder(minPriceIndex, o);
 

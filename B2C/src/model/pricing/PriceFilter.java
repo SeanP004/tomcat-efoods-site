@@ -60,7 +60,6 @@ public class PriceFilter implements Filter {
 			
 			pm.addPriceFilter(po);
 			isActive = true;
-			System.out.println("addeded");
 		}
 	    
 		chain.doFilter(request, response);
