@@ -39,9 +39,15 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
             });
     }
 
-    $(document).onReady(function () {
+    function attachEvents() {
         $$('.cart-btn').on('click', function (ev) {
             addToCart(this.attr('data-item'));
         });
-    });
+    }
+
+    $(document).onReady(attachEvents);
+
+    return {
+        updataEventHandlers: attachEvents
+    };
 });

@@ -62,24 +62,24 @@
             <ul class="nav nav-tabs">
                 <c:choose>
                     <c:when test="${empty catId or catId eq -1}">
-                        <li class="active"><a href="#" data-id="-1">All</a></li>
+                        <li class="active"><a href="javascript:;" data-id="-1">All</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="#" data-id="-1">All</a></li>
+                        <li><a href="javascript:;" data-id="-1">All</a></li>
                     </c:otherwise>
                 </c:choose>
                 <c:forEach var="category" items="${categories}">
                     <c:choose>
                         <c:when test="${category.id eq catId}">
-                            <li class="active"><a href="#" data-id="${category.id}">${category.name}</a></li>
+                            <li class="active"><a href="javascript:;" data-id="${category.id}">${category.name}</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li><a href="#" data-id="${category.id}">${category.name}</a></li>
+                            <li><a href="javascript:;" data-id="${category.id}">${category.name}</a></li>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
                 <li class="pull-right">
-                    <a href="#" data-id="more"><i class="glyphicon glyphicon-plus"><!-- --></i>More</a>
+                    <a href="javascript:;" data-id="more"><i class="glyphicon glyphicon-plus"><!-- --></i>More</a>
                 </li>
             </ul>
             <div class="panel panel-default search-options hidden">

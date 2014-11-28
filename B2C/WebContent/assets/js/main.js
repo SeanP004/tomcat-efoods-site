@@ -208,11 +208,17 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
             });
     }
 
-    $(document).onReady(function () {
+    function attachEvents() {
         $$('.cart-btn').on('click', function (ev) {
             addToCart(this.attr('data-item'));
         });
-    });
+    }
+
+    $(document).onReady(attachEvents);
+
+    return {
+        updataEventHandlers: attachEvents
+    };
 });
 
 define('Element', [], function () {
@@ -512,8 +518,8 @@ define('FormData', ['Element', 'Elements'], function ($, $$) {
     };
 });
 
-define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template'],
-    function ($, $$, $http, $form, $tmpl) {
+define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'Cart'],
+    function ($, $$, $http, $form, $tmpl, $cart) {
         'use strict';
 
         if (!$('.search-filters').elem()) {return;}
@@ -572,6 +578,7 @@ define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template'],
 
                     if (!error) {
                         searchResults.html($('.catalog', doc).html());
+                        $cart.updataEventHandlers();
                         $('.error').html('').addClass('hidden');
                     } else {
                         showError(error);
