@@ -181,12 +181,8 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
             .removeClass('hidden');
     }
 
-    function addToCart(number) {
-        var form = $form();
-        form.append('action', 'add');
-        form.append('number', number);
-        $http
-            .post(api, form.encode())
+    function updateView(request) {
+        request
             .onError(showError)
             .onSuccess(function (data) {
                 var doc = (new DOMParser()).parseFromString(data, "application/xml");
@@ -208,16 +204,141 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
             });
     }
 
+    return {
+        updateView: function () {
+            updateView($http.get(api));
+        }
+    };
+});
+
+define('CartBtn', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart', 'CartTable'],
+    function ($, $$, $http, $form, $cart, $ct) {
+        'use strict';
+
+        var api = '/eFoods/api/cart';
+
+        function addToCart(number) {
+            var form = $form();
+            var request;
+            form.append('action', 'add');
+            form.append('number', number);
+            request = $http.post(api, form.encode());
+            request.onSuccess(function () {
+                $ct.updateView();
+            });
+            $cart.updateView(request);
+        }
+
+        function attachEvents() {
+            $$('.cart-btn').on('click', function (ev) {
+                addToCart(this.attr('data-item'));
+            });
+        }
+
+        $(document).onReady(attachEvents);
+
+        return {
+            updataEventHandlers: attachEvents
+        };
+    }
+);
+
+define('CartTable', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart'], function ($, $$, $http, $form, $cart) {
+    'use strict';
+
+    var api = '/eFoods/api/cart';
+
+    function showError(error) {
+        $('.error')
+            .html(error)
+            .addClass('alert')
+            .addClass('alert-danger')
+            .removeClass('hidden');
+    }
+
+    function bulkRequest() {
+        var bulk = {};
+        return {
+            setQuantity: function (num, qty) {
+                bulk[num] = qty;
+                return this;
+            },
+            getForm: function () {
+                var form = $form();
+                var number = [];
+                var quantity = [];
+
+                forEach(bulk, function (qty, num) {
+                    number.push(num);
+                    quantity.push(qty);
+                });
+
+                form.append('action',   'bulk');
+                form.append('number',   number.join(';'));
+                form.append('quantity', quantity.join(';'));
+                return form;
+            }
+        };
+    }
+
+    function updateView() {
+        $http
+            .get(location.href)
+            .onError(showError)
+            .onSuccess(function (data) {
+                var doc = (new DOMParser()).parseFromString(data, "text/html");
+                var error = $('.error', doc).html();
+
+                if (!error) {
+                    $('.cart-view').html($('.cart-view', doc).html());
+                    $('.error').html('').addClass('hidden');
+                    attachEvents();
+                } else {
+                    showError(error);
+                    $('.success').html('').addClass('hidden');
+                }
+            });
+    }
+
+    function doBulkUpdate(form) {
+        $http
+            .post(api, form.encode())
+            .onError(showError)
+            .onSuccess(function (data) {
+                var doc = (new DOMParser()).parseFromString(data, "application/xml");
+                var error = $('error', doc);
+
+                if (!error.elem()) {
+                    var status = $('status', doc).elem().childNodes[0].nodeValue;
+                    $('.navbar .cart .badge').html($('cart', doc).attr('size'));
+                    $('.success').html(status).removeClass('hidden');
+                    updateView();
+                    $cart.updateView();
+                } else {
+                    showError(error.elem().childNodes[0].nodeValue);
+                    $('.success').html('').addClass('hidden');
+                }
+            });
+    }
+
     function attachEvents() {
-        $$('.cart-btn').on('click', function (ev) {
-            addToCart(this.attr('data-item'));
+        $$('.cart-table .remove-btn').on('click', function () {
+            doBulkUpdate(bulkRequest().setQuantity(this.attr('data-id'), 0).getForm());
+        });
+        $(".cart-update-btn").on('click', function () {
+            doBulkUpdate((function (bulk) {
+                $$('.cart-table .quantity-field').each(function (elem) {
+                    bulk.setQuantity(elem.attr('data-id'), elem.val());
+                });
+                return bulk.getForm();
+            })(bulkRequest()));
         });
     }
 
     $(document).onReady(attachEvents);
 
     return {
-        updataEventHandlers: attachEvents
+        updateView: updateView
     };
 });
 
@@ -247,42 +368,50 @@ define('Element', [], function () {
             },
 
             parent: function () {
-                return $(target.parentNode);
+                return !!target ? $(target.parentNode) : null;
             },
 
             html: function (html) {
                 if (typeOf(html) === 'string') {
-                    target.innerHTML = html;
+                    if (!!target) {
+                        target.innerHTML = html;
+                    }
                     return this;
                 }
-                return target.innerHTML;
+                return !!target ? target.innerHTML : null;
             },
 
             append: function (o) {
-                if (typeOf(o) === 'string') {
-                    target.innerHTML = target.innerHTML + o;
-                } else if (o instanceof Node || o instanceof Element) {
-                    target.appendChild(o);
-                } else {
-                    target.innerHTML = target.innerHTML + o.html();
+                if (!!target) {
+                    if (typeOf(o) === 'string') {
+                        target.innerHTML = target.innerHTML + o;
+                    } else if (o instanceof Node || o instanceof Element) {
+                        target.appendChild(o);
+                    } else {
+                        target.innerHTML = target.innerHTML + o.html();
+                    }
                 }
                 return this;
             },
 
             attr: function (attr, value) {
                 if (value !== undefined) {
-                    target.setAttribute(attr, value);
+                    if (!!target) {
+                        target.setAttribute(attr, value);
+                    }
                     return this;
                 }
-                return target.getAttribute(attr);
+                return !!target ? target.getAttribute(attr) : null;
             },
 
             val: function (value) {
                 if (value !== undefined) {
-                    target.value = value;
+                    if (!!target) {
+                        target.value = value;
+                    }
                     return this;
                 }
-                return target.value;
+                return !!target ? target.value : null;
             },
 
             //
@@ -290,28 +419,34 @@ define('Element', [], function () {
             // --------------------
 
             on: function(event, fn) {
-                var that = this;
-                var listener = function (ev) {fn.call(that, ev);};
-                (events[event] = events[event] || []).push(listener);
-                target.addEventListener(event, listener);
+                if (target) {
+                    var that = this;
+                    var listener = function (ev) {fn.call(that, ev);};
+                    (events[event] = events[event] || []).push(listener);
+                    target.addEventListener(event, listener);
+                }
                 return that;
             },
 
             off: function(event) {
-                events[event].forEach(function (ev) {
-                    target.removeEventListener(event, ev);
-                });
-                delete events[event];
+                if (target) {
+                    events[event].forEach(function (ev) {
+                        target.removeEventListener(event, ev);
+                    });
+                    delete events[event];
+                }
                 return this;
             },
 
             onReady: function(readyFn) {
-                if (target.readyState !== "loading") {
-                    readyFn(target);
-                } else {
-                    target.addEventListener("DOMContentLoaded", function () {
+                if (target) {
+                    if (target.readyState !== "loading") {
                         readyFn(target);
-                    });
+                    } else {
+                        target.addEventListener("DOMContentLoaded", function () {
+                            readyFn(target);
+                        });
+                    }
                 }
                 return this;
             },
@@ -321,28 +456,33 @@ define('Element', [], function () {
             // --------------------
 
             hasClass: function (className) {
-                return (new RegExp('(^|\\s)' + className + '(\\s|$)')).test(target.className);
+                return !!target ? (new RegExp('(^|\\s)' + className + '(\\s|$)')).test(target.className) : false;
             },
 
             addClass: function (className) {
-                if (!target.className) {
-                    target.className = className;
-                } else if (!this.hasClass(className)) {
-                    target.className += ' ' + className;
+                if (target) {
+                    if (!target.className) {
+                        target.className = className;
+                    } else if (!this.hasClass(className)) {
+                        target.className += ' ' + className;
+                    }
                 }
                 return this;
             },
 
             removeClass: function (className) {
-                var re, m, cn = target.className;
-                if (cn) {
-                    if (cn === className) {
-                        target.className = '';
-                    } else {
-                        re = new RegExp('(^|\\s)' + className + '(\\s|$)');
-                        m = cn.match(re);
-                        if (m && m.length == 3) {
-                            target.className = cn.replace(re, (m[1] && m[2]) ? ' ' : '');
+                var re, m, cn;
+                if (target) {
+                    cn = target.className;
+                    if (cn) {
+                        if (cn === className) {
+                            target.className = '';
+                        } else {
+                            re = new RegExp('(^|\\s)' + className + '(\\s|$)');
+                            m = cn.match(re);
+                            if (m && m.length == 3) {
+                                target.className = cn.replace(re, (m[1] && m[2]) ? ' ' : '');
+                            }
                         }
                     }
                 }
@@ -518,8 +658,8 @@ define('FormData', ['Element', 'Elements'], function ($, $$) {
     };
 });
 
-define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'Cart'],
-    function ($, $$, $http, $form, $tmpl, $cart) {
+define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'CartBtn'],
+    function ($, $$, $http, $form, $tmpl, $cartbtn) {
         'use strict';
 
         if (!$('.search-filters').elem()) {return;}
@@ -578,7 +718,7 @@ define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'Cart']
 
                     if (!error) {
                         searchResults.html($('.catalog', doc).html());
-                        $cart.updataEventHandlers();
+                        $cartbtn.updataEventHandlers();
                         $('.error').html('').addClass('hidden');
                     } else {
                         showError(error);

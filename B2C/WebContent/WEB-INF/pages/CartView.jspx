@@ -39,6 +39,7 @@
             <div class="page">
                 <div class="container">
                     <jsp:include page="../includes/ErrorMessage.jspx"></jsp:include>
+                    <div class="success alert alert-success hidden" role="alert"><!--  --></div>
                     <jsp:include page="../includes/Cart.jspx"></jsp:include>
                     <jsp:include page="../includes/ItemsShowcase.jspx">
                         <jsp:param name="items" value="Popular" />

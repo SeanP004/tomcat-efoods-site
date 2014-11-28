@@ -18,7 +18,7 @@
     version="2.0"
     >
 
-    <div class="row">
+    <div class="row cart-view">
         <div class="col-md-8">
             <div class="page-header cart-header">
                 <h1>Shopping Cart
@@ -49,14 +49,19 @@
                                 minIntegerDigits="1"
                             >${element.item.price}</f:formatNumber>
                             ${element.item.unit}</td>
-                        <td><input type="text" class="quantity-field" value="${element.quantity}" /></td>
+                        <td><input type="text" class="quantity-field"
+                                   data-id="${element.item.number}"
+                                   value="${element.quantity}" /></td>
                         <td>$<f:formatNumber
                                 groupingUsed="true"
                                 maxFractionDigits="2"
                                 minFractionDigits="2"
                                 minIntegerDigits="1"
                             >${element.extendedCost}</f:formatNumber></td>
-                        <td><i class="glyphicon glyphicon-remove"><!-- --></i></td>
+                        <td><a href="javascript:;" class="remove-btn"
+                               data-id="${element.item.number}">
+                                <i class="glyphicon glyphicon-remove"><!-- --></i>
+                            </a></td>
                     </tr>
                 </c:forEach>
                 <tr>
@@ -81,7 +86,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <button class="btn btn-default btn-icon-right">
+                    <button class="btn btn-default btn-icon-right cart-update-btn">
                         <span class="cart-label">Update</span>
                         <i class="glyphicon glyphicon-refresh"><!--  --></i>
                     </button>

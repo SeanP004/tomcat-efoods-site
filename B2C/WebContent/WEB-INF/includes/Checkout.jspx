@@ -26,11 +26,21 @@
                         <h1>Receipt</h1>
                     </div>
                     <p>Generated <a href="${receipt}">Purchase Order</a> receipt</p>
-                    <p>will be rediected shortly in 5 seconds</p>
+                    <p>will be rediected shortly in <span class="seconds"><!--  --></span> seconds</p>
                     <script type="text/javascript"><![CDATA[
-                        window.setTimeout(function () {
-                            location.href = '${receipt}';
-                        }, 5000);
+                        (function (global) {
+                            var i = 5;
+                            var second = document.querySelector('.seconds');
+                            var interval = global.setInterval(function () {
+                                i -= 1;
+                                second.innerHTML = i;
+                                if (i == 0) {
+                                    global.clearInterval(interval);
+                                    location.href = '${receipt}';                                    
+                                }
+                            }, 1000);
+                            second.innerHTML = i;
+                        }(window));
                     ]]></script>
                 </c:when>
                 <c:otherwise>

@@ -18,7 +18,7 @@ public class CartAPI extends EndPointServlet {
     protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         super.doRequest(method, req, res);
-        
+
         if (res.isCommitted()) {return;}
 
         ServletContext sc       = getServletContext();
@@ -93,4 +93,5 @@ public class CartAPI extends EndPointServlet {
             throws ServletException, IOException {
         doRequest("POST", req, res);
     }
+
 } // CartAPI

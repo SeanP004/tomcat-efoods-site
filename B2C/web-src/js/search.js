@@ -1,6 +1,6 @@
 
-define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'Cart'],
-    function ($, $$, $http, $form, $tmpl, $cart) {
+define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'CartBtn'],
+    function ($, $$, $http, $form, $tmpl, $cartbtn) {
         'use strict';
 
         if (!$('.search-filters').elem()) {return;}
@@ -59,7 +59,7 @@ define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'Cart']
 
                     if (!error) {
                         searchResults.html($('.catalog', doc).html());
-                        $cart.updataEventHandlers();
+                        $cartbtn.updataEventHandlers();
                         $('.error').html('').addClass('hidden');
                     } else {
                         showError(error);

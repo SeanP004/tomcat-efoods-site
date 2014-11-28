@@ -12,12 +12,8 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
             .removeClass('hidden');
     }
 
-    function addToCart(number) {
-        var form = $form();
-        form.append('action', 'add');
-        form.append('number', number);
-        $http
-            .post(api, form.encode())
+    function updateView(request) {
+        request
             .onError(showError)
             .onSuccess(function (data) {
                 var doc = (new DOMParser()).parseFromString(data, "application/xml");
@@ -39,15 +35,9 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
             });
     }
 
-    function attachEvents() {
-        $$('.cart-btn').on('click', function (ev) {
-            addToCart(this.attr('data-item'));
-        });
-    }
-
-    $(document).onReady(attachEvents);
-
     return {
-        updataEventHandlers: attachEvents
+        updateView: function () {
+            updateView($http.get(api));
+        }
     };
 });
