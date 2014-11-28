@@ -15,8 +15,8 @@
     require valid-user
 
     #
-    # Accessible only on localhost
+    # Accessible only on York subnet
     #
     Order deny,allow
     deny from all
-    allow from localhost
+    allow from 130.63

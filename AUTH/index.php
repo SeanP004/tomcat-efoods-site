@@ -1,68 +1,57 @@
-<!DOCTYPE html>
+<?php
 
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <title>EECS Login</title>
-        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
-        <link rel="shortcut icon" href="assets/images/favicon.ico" />
-        <script src="assets/js/main.js" async="async"></script>
-    </head>
-    <body>
+    //error_reporting(E_ALL);
+    //ini_set('display_errors', 1);
 
-        <header>
-            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="http://yorku.ca">
-                            <img class="yorklogo" src="assets/images/yorku-logo.jpg" border="0" alt="York University" />
-                        </a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <p class="navbar-text text-right pull-right">Building E-Commerce Systems
-                            <br/>EECS 4413 Project C</p>
-                    </div>
-                </div>
-            </nav>
-        </header>
+    $initParams = parse_ini_file('config.ini');
+    $authUri    = 'https://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).'/zoned';
 
-        <div class="main container">
-            <div class="row login">
-                <div class="login-box">
-                    <div class="form-wrap panel panel-default">
-                        <div class="panel-heading"><h1>Log in with your EECS Account</h1></div>
-                        <form class="form panel-body" role="form" action="" method="post" autocomplete="off">
-                            <div class="alert alert-danger hidden" role="alert"></div>
-                            <div class="form-group has-feedback">
-                                <label for="username" class="sr-only">Username</label>
-                                <input type="text" name="username" class="form-control"
-                                       placeholder="Username" aria-describedby="usernameErrorStatus" />
-                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                                <span id="uErrorStatus" class="sr-only"></span>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label for="password" class="sr-only">Password</label>
-                                <input type="password" name="password" class="form-control"
-                                       placeholder="Password" aria-describedby="passwordErrorStatus" />
-                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                                <span id="pErrorStatus" class="sr-only"></span>
-                            </div>
-                            <input type="submit" class="btn btn-custom btn-lg btn-block" value="Log in">
-                        </form>
-                        <div class="panel-footer text-center">
-                            <p>Designed and developed by Vincent Chu, Michael Leung,
-                                Manusha Patabendi for Building E-Commerce Systems
-                                (EECS 4413 Section A, Fall 2014) with Professor H.
-                                Roumani.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    function curl($uri, $username, $password) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $uri);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $data = curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return array(
+            'status' => $http_status,
+            'data'   => $data
+        );
+    }
 
-    </body>
-</html>
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        $res = curl($authUri, $_POST['username'], $_POST['password']);
+        if ($res['status'] == 200) {
+            $json = json_decode($res['data']);
+            $signer = md5($json->account.':'.$json->name.':'.$initParams['secret']);
+            $params = implode('&', array(
+                'account='.urlencode($json->account),
+                'name='.urlencode($json->name),
+                'signer='.urlencode($signer)
+            ));
+            if (isset($_POST['ref'])) {
+                $params .= '&ref='.urlencode($_POST['ref']);
+            }
+            header('Location: '.$initParams['uri'].'?'.$params);
+            exit();
+        } else {
+            if (isset($_POST['ref'])) {
+                $referrer = $_POST['ref'];
+                $error = 'That username and password are incorrect.';
+                $included = true;
+                include 'view.php';
+            }
+        }
+    } else {
+        if (isset($_GET['ref'])) {
+            $referrer = $_GET['ref'];
+        }
+        $included = true;
+        include 'view.php';
+    }
