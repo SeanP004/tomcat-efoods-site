@@ -13,6 +13,9 @@ public class OrdersDAO {
     }
 
     private String getOrderFileNamePrefix(String accId) {
+        if (accId.matches("^[a-zA-Z]+[0-9]+$")) {
+            accId = accId.replaceFirst("^[a-zA-Z]+", ""); 
+        }
         return "po" + accId + "_";
     }   
 
