@@ -11,8 +11,7 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <title>Purchase Order Receipt #<xsl:value-of select="/order/@id" /> | Foods R Us!</title>
-                <link rel="stylesheet" type="text/css" href="/eFoods/assets/css/main.css" />
-                <link rel="stylesheet" type="text/css" href="reportRes/main.css"> </link>
+                <link rel="stylesheet" type="text/css" href="reportRes/css/main.css"> </link>
             </head>
             <body>
                 <header>
