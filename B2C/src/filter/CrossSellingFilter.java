@@ -1,24 +1,23 @@
-package model.pricing;
+package filter;
 
 import java.io.*;
-
 import javax.servlet.*;
 import javax.servlet.annotation.*;
-
 import model.cart.*;
+import model.pricing.*;
 
 /**
  * Servlet Filter implementation class PriceFilter
  */
 @WebFilter("/PriceFilter")
-public class PriceFilter implements Filter {
+public class CrossSellingFilter implements Filter {
 	
 	private boolean isActive = false;
 	
     /**
      * Default constructor. 
      */
-    public PriceFilter() {
+    public CrossSellingFilter() {
         // TODO Auto-generated constructor stub
     }
 

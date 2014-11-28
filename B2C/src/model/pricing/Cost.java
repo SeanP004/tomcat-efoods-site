@@ -64,7 +64,7 @@ public class Cost {
 
     // Package-Access Getters
 
-    Cart getCart() {
+    public Cart getCart() {
         return cart;
     }
 
@@ -80,21 +80,19 @@ public class Cost {
         return grandTotal;
     }
 
-    // Package-Access Setters
-
-    void setTotal(double total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    void setShipping(double shipping) {
+    public void setShipping(double shipping) {
         this.shipping = shipping;
     }
 
-    void setTax(double tax) {
+    public void setTax(double tax) {
         this.tax = tax;
     }
 
-    void setGrandTotal(double grandTotal) {
+    public void setGrandTotal(double grandTotal) {
         this.grandTotal = grandTotal;
     }
     

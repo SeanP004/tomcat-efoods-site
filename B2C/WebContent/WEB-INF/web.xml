@@ -102,6 +102,14 @@
         <filter-name>CheckoutURL</filter-name>
         <filter-class>filter.CheckoutFilter</filter-class>
     </filter>
+    <filter-mapping>
+        <filter-name>CrossSelling</filter-name>
+        <url-pattern>/api/cart</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CrossSelling</filter-name>
+        <filter-class>filter.CrossSellingFilter</filter-class>
+    </filter>
 
     <!-- Main -->
 

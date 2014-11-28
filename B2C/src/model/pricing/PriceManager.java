@@ -17,7 +17,7 @@ public class PriceManager{
     private static PriceManager singleton = null;
 
     private PricingRules pricingRules;
-    private ArrayList<PriceOverride> overrides = new ArrayList<PriceOverride>();
+    private ArrayList<PriceOverride> priceFilter = new ArrayList<PriceOverride>();
 
     private PriceManager(PricingRules pricingRules) {
         this.pricingRules = pricingRules;
@@ -47,17 +47,17 @@ public class PriceManager{
                     ? 0 : pricingRules.getShippingCost());
         cost.setTax((cost.getTotal() + cost.getShipping()) * pricingRules.getTaxRate());
         cost.setGrandTotal(cost.getTotal() + cost.getTax() + cost.getShipping());
-    	for (PriceOverride po : overrides){
+    	for (PriceOverride po : priceFilter){
     		if (po.override(cost, singleton)) {return;}
     	}
     }
     
     public void addPriceFilter(PriceOverride po) {
-    	overrides.add(po);
+    	priceFilter.add(po);
     }
     
     public void removePriceFilter(PriceOverride po) {
-    	overrides.remove(po);
+    	priceFilter.remove(po);
     }
 
     public void resetCost(Cost cost){

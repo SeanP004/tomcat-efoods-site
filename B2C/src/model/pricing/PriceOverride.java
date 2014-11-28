@@ -2,7 +2,7 @@ package model.pricing;
 
 import model.cart.*;
 
-interface PriceOverride {
+public interface PriceOverride {
 
 	boolean override(Cost cost, PriceManager singleton);
 }
