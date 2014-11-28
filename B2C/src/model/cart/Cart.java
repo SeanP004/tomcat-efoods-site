@@ -60,6 +60,7 @@ public class Cart {
             CartElement ce = getElement(number);
             ce.decrementQuantity();
             if (ce.getQuantity() <= 0) {
+                System.out.println("map size" + elements.size());
                 elements.remove(number);
             }
             shiftNumberOfItems(-1);
@@ -79,19 +80,25 @@ public class Cart {
      */
     public synchronized void bulkUpdate(String number, int quantity) {
         if (quantity < 0) { throw new InvalidCartQuantityException(); }
-        if (!hasElement(number)) {
-            Item item = catalog.getItem(number);
-            CartElement ce = new CartElement(item, getCost());
-            ce.setQuantity(quantity);
-            elements.put(number, ce);
-            shiftNumberOfItems(quantity);
-        } else {
-            CartElement ce = getElement(number);
-            if (quantity == 0) {
-                elements.remove(number);
+        if (quantity != 0) {
+            if (!hasElement(number)) {       
+                Item item = catalog.getItem(number);
+                CartElement ce = new CartElement(item, getCost());
+                ce.setQuantity(quantity);
+                elements.put(number, ce);
+                shiftNumberOfItems(quantity);
+            } else {
+                CartElement ce = getElement(number);
+                shiftNumberOfItems(quantity - ce.getQuantity());
+                ce.setQuantity(quantity);
             }
-            shiftNumberOfItems(quantity - ce.getQuantity());
-            ce.setQuantity(quantity);
+        } else {
+            if (hasElement(number)) {
+                CartElement ce = getElement(number);
+                setNumberOfItems(this.numberOfItems - ce.getQuantity());
+                elements.remove(number);
+                ce.setQuantity(quantity);
+            }
         }
     }
 
@@ -126,12 +133,20 @@ public class Cart {
      * @throws          InvalidCartQuantityException
      */    
     public synchronized void multiBulkUpdate(String number, String quantity) {
+        System.out.println(number);
+        System.out.println(quantity);
         String[] numberList = number.split(";");
         String[] quantityList = quantity.split(";");
         if (numberList.length != quantityList.length) {
-            throw new InvalidCartQuantityException("Invalid value for bulk order.");
+            throw new InvalidCartQuantityException("Invalid value for bulk update.");
         } else {
+            Set<String> numbers = new HashSet<String>();
             for (int i = 0; i < numberList.length; i++) {
+                if (!numbers.contains(numberList[i])) {
+                    numbers.add(numberList[i]);
+                } else {
+                    throw new InvalidBulkUpdateException("Invalid number values for bulk update.");
+                }
                 bulkUpdate(numberList[i], quantityList[i]);
             }
         }
