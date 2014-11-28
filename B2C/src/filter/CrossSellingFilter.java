@@ -31,7 +31,8 @@ public class CrossSellingFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+				throws IOException, ServletException {
 		if (!isActive) {
 			ServletContext sc = request.getServletContext();
 	        PriceManager pm = (PriceManager) sc.getAttribute("pm");

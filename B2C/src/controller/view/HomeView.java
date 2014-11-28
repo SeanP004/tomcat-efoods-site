@@ -47,7 +47,8 @@ public class HomeView extends EndPointServlet {
             }
 
             for (Category category : categories) {
-                itemsets.put(category.getName(), catalog.getItems(null, null, "" + category.getId(), null, "4", null, null));
+                itemsets.put(category.getName(), catalog.getItems(null, null, 
+                		"" + category.getId(), null, "4", null, null));
             }
             req.setAttribute("orders", ItemFilter.sorts);
             req.setAttribute("items",  itemsets);

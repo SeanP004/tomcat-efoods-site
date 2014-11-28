@@ -20,8 +20,10 @@ public class AdminView extends EndPointServlet {
 
         ServletContext sc           = getServletContext();
         String         target       = (String)req.getAttribute("target");
-        double         cartAvg      = ((sc.getAttribute("avgCartTime") == null) ? 0 : (double)(sc.getAttribute("avgCartTime")));
-        double         checkoutAvg  = ((sc.getAttribute("avgCheckoutTime") == null) ? 0 : (double)(sc.getAttribute("avgCheckoutTime")));
+        double         cartAvg      = ((sc.getAttribute("avgCartTime") == null) 
+        		? 0 : (double)(sc.getAttribute("avgCartTime")));
+        double         checkoutAvg  = ((sc.getAttribute("avgCheckoutTime") == null) 
+        		? 0 : (double)(sc.getAttribute("avgCheckoutTime")));
 
         req.setAttribute("cartAvg", cartAvg);
         req.setAttribute("checkoutAvg", checkoutAvg);
