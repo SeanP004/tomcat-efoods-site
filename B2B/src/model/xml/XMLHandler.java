@@ -110,7 +110,7 @@ public class XMLHandler {
         
         OrdersDAO dao = new OrdersDAO(r);
        
-        String xsltView = "reportRes/order.xslt";
+        String xsltView = "reportRes/xmlres/order.xslt";
         Writer sw = dao.getWriter(dao.getOrderFileNamePrefix());
        
         sw.write("<?xml version='1.0' encoding='UTF-8'?>\n");
