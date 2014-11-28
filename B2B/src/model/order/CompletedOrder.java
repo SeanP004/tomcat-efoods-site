@@ -32,7 +32,7 @@ public class CompletedOrder {
         this.itemNo = itemNo;
     }
 
-    public String getConferm() {
+    public String getConfirm() {
         return confirm;
     }
 
@@ -47,6 +47,5 @@ public class CompletedOrder {
     public void setWholesaler(String wholesaler) {
         this.wholesaler = wholesaler;
     }
-   
     
 }

@@ -55,6 +55,7 @@ public class OrderHandler {
 
         childName = new QName("key");
         SOAPElement key = order.addChildElement(childName);
+        key.addTextNode(config.get("key"));
 
         SOAPConnection sc = SOAPConnectionFactory.newInstance()
                 .createConnection();
