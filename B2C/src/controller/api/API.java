@@ -16,7 +16,9 @@ public class API extends RoutingServlet {
         ServletContext sc = getServletContext();
         String target     = (String)req.getAttribute("target");
 
-        if (target == null) {
+        if (res.isCommitted()) {
+            return;
+        } else if (target == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
             sc.getNamedDispatcher(target).forward(req, res);

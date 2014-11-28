@@ -1,53 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  
+
     <display-name>eFoods</display-name>
-    
+
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
-  
+
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/pages/Error404.jspx</location>
     </error-page>
-    
+
     <!-- Listener -->
-    
+
     <listener>
         <listener-class>listener.SessionCountListener</listener-class>
     </listener>
-     
-     
-    <!-- Filters -->
+
+    <!-- Context -->
     
-    <filter-mapping>
-        <filter-name>CartURL</filter-name>
-        <url-pattern>/api/cart</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>CartURL</filter-name>
-        <filter-class>filter.CartFilter</filter-class>
-    </filter>
-    
-    <filter-mapping>
-        <filter-name>CheckoutURL</filter-name>
-        <url-pattern>/checkout</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>CheckoutURL</filter-name>
-        <filter-class>filter.CheckoutFilter</filter-class>
-    </filter>
-     
+    <context-param>
+        <param-name>secret</param-name>
+        <param-value>4413secret</param-value>
+    </context-param>
+    <context-param>
+        <param-name>authUri</param-name>
+        <param-value>http://www.eecs.yorku.ca/~cse13261/4413</param-value>
+    </context-param>
+    <context-param>
+        <param-name>authCallback</param-name>
+        <param-value>/api/auth</param-value>
+    </context-param>
+    <context-param>
+        <param-name>shippingCost</param-name>
+        <param-value>5</param-value>
+    </context-param>
+    <context-param>
+        <param-name>shippingWaverCost</param-name>
+        <param-value>100</param-value>
+    </context-param>
+    <context-param>
+        <param-name>taxRate</param-name>
+        <param-value>0.13</param-value>
+    </context-param>
+    <context-param>
+        <param-name>userData</param-name>
+        <param-value>/WEB-INF/userData/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXsd</param-name>
+        <param-value>/WEB-INF/xmlres/PO.xsd</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXslt</param-name>
+        <param-value>/WEB-INF/xmlres/PO.xslt</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersXsltView</param-name>
+        <param-value>/assets/xmlres/POView.xslt</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ordersPrefix</param-name>
+        <param-value>/api/order/</param-value>
+    </context-param>
+
     <!-- Main Filter -->
 
     <filter-mapping>
-        <filter-name>RewriteURL</filter-name>
+        <filter-name>MainFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <filter>
-        <filter-name>RewriteURL</filter-name>
+        <filter-name>MainFilter</filter-name>
         <filter-class>controller.Main</filter-class>
         <init-param>
             <param-name>ignores</param-name>
@@ -58,8 +84,27 @@
         </init-param>
     </filter>
 
+    <!-- Filters -->
+
+    <filter-mapping>
+        <filter-name>CartURL</filter-name>
+        <url-pattern>/api/cart</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CartURL</filter-name>
+        <filter-class>filter.CartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CheckoutURL</filter-name>
+        <url-pattern>/checkout</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CheckoutURL</filter-name>
+        <filter-class>filter.CheckoutFilter</filter-class>
+    </filter>
+
     <!-- Main -->
-  
+
     <servlet>
         <servlet-name>Main</servlet-name>
         <servlet-class>controller.Main</servlet-class>
@@ -70,53 +115,22 @@
                 View=/*
             </param-value>
         </init-param>
-        <init-param>
-            <param-name>shippingCost</param-name>
-            <param-value>5</param-value>
-        </init-param>
-        <init-param>
-            <param-name>shippingWaverCost</param-name>
-            <param-value>100</param-value>
-        </init-param>
-        <init-param>
-            <param-name>taxRate</param-name>
-            <param-value>0.13</param-value>
-        </init-param>
-        <init-param>
-            <param-name>userData</param-name>
-            <param-value>/WEB-INF/userData/</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ordersXsd</param-name>
-            <param-value>/WEB-INF/xmlres/PO.xsd</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ordersXslt</param-name>
-            <param-value>/WEB-INF/xmlres/PO.xslt</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ordersXsltView</param-name>
-            <param-value>/assets/xmlres/POView.xslt</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ordersPrefix</param-name>
-            <param-value>/api/order/</param-value>
-        </init-param>
     </servlet>
- 
+
     <!-- APIs -->
- 
+
     <servlet>
         <servlet-name>API</servlet-name>
         <servlet-class>controller.api.API</servlet-class>
         <init-param>
-          <param-name>routes</param-name>
-          <param-value>
-                    CatalogAPI=/catalog
-                    CartAPI=/cart
-                    CheckoutAPI=/checkout
-                    OrdersAPI=/order/*,/order
-                </param-value>
+            <param-name>routes</param-name>
+            <param-value>
+                CatalogAPI=/catalog
+                CartAPI=/cart
+                !CheckoutAPI=/checkout
+                OrdersAPI=/order/*,/order
+                AuthAPI=/auth
+            </param-value>
         </init-param>
     </servlet>
     <servlet>
@@ -155,6 +169,10 @@
             <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>AuthAPI</servlet-name>
+        <servlet-class>controller.api.AuthAPI</servlet-class>
+    </servlet>
 
     <!-- Views -->
 
@@ -168,9 +186,9 @@
                 CatalogView=/browse
                 ItemView=/item/*
                 CartView=/cart
-                ConfirmationView=/confirmation
-                CheckoutView=/checkout
-                AdminView=/admin
+                !ConfirmationView=/confirm
+                !CheckoutView=/checkout
+                !AdminView=/admin
                 HomeView=/
             </param-value>
         </init-param>
@@ -230,5 +248,14 @@
             <param-name>target</param-name>
             <param-value>/WEB-INF/pages/AdminView.jspx</param-value>
         </init-param>
+        <init-param>
+            <param-name>restrictedUsers</param-name>
+            <param-value>
+                cse13261
+                cse13078
+                roumani
+            </param-value>
+        </init-param>
     </servlet>
+
 </web-app>

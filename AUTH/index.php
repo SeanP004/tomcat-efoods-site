@@ -1,7 +1,9 @@
 <?php
 
-    //error_reporting(E_ALL);
-    //ini_set('display_errors', 1);
+    require "compat.php";
+
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
     $initParams = parse_ini_file('config.ini');
     $authUri    = 'https://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).'/zoned';
@@ -25,33 +27,62 @@
         );
     }
 
-    if (isset($_POST['username']) && isset($_POST['password'])) {
-        $res = curl($authUri, $_POST['username'], $_POST['password']);
-        if ($res['status'] == 200) {
-            $json = json_decode($res['data']);
-            $signer = md5($json->account.':'.$json->name.':'.$initParams['secret']);
-            $params = implode('&', array(
-                'account='.urlencode($json->account),
-                'name='.urlencode($json->name),
-                'signer='.urlencode($signer)
-            ));
-            if (isset($_POST['ref'])) {
-                $params .= '&ref='.urlencode($_POST['ref']);
+    try {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (isset($_GET['ref']) && isset($_GET['signer'])) {
+                $referrer  = $_GET['ref'];
+                $signature = strtolower($_GET['signer']);
+            } else {
+                throw new Exception("Error: ref or signer is undefined.");
             }
-            header('Location: '.$initParams['uri'].'?'.$params);
-            exit();
+            if (isset($_GET['callback'])) {
+                $callback = $_GET['callback'];
+            }
         } else {
-            if (isset($_POST['ref'])) {
+            if (isset($_POST['ref']) && isset($_POST['signer'])) {
                 $referrer = $_POST['ref'];
-                $error = 'That username and password are incorrect.';
-                $included = true;
-                include 'view.php';
+                $signature = strtolower($_POST['signer']);
+            } else {
+                throw new Exception("Error: ref or signer is undefined.");
             }
-        }
-    } else {
-        if (isset($_GET['ref'])) {
-            $referrer = $_GET['ref'];
+            if (isset($_POST['callback'])) {
+                $callback = $_POST['callback'];
+            }
+            if (isset($_POST['username']) && isset($_POST['password'])) {
+                $res = curl($authUri, $_POST['username'], $_POST['password']);
+                if ($res['status'] == 200) {
+                    $json = json_decode($res['data']);
+                    $signer = md5($json->account.';'.$json->name.';'.$referrer.';'.$initParams['secret']);
+                    $params = implode('&', array(
+                        'account='.urlencode($json->account),
+                        'name='.urlencode($json->name),
+                        'signer='.urlencode($signer),
+                        'ref='.urldecode($referrer)
+                    ));
+                    if (!isset($callback)) {
+                        $callback = $initParams['uri'];
+                        if ($signature !== md5($referrer.';'.$initParams['secret'])) {
+                            echo $signature . "\n";
+                            echo md5($referrer.';'.$callback.';'.$initParams['secret']) . "\n";
+                            throw new Exception("Error: digital signature is incorrect.");
+                        }
+                    } else {
+                        if ($signature !== md5($referrer.';'.$callback.';'.$initParams['secret'])) {
+                            echo $signature . "\n";
+                            echo md5($referrer.';'.$callback.';'.$initParams['secret']) . "\n";
+                            throw new Exception("Error: digital signature is incorrect.");
+                        }
+                    }
+                    header('Location: '.$callback.'?'.$params);
+                    exit();
+                }
+            }
+            $error = 'That username and password are incorrect.';
         }
         $included = true;
         include 'view.php';
+    } catch (Exception $e) {
+        http_response_code(BAD_REQUEST);
+        echo $e->getMessage();
+        die();
     }

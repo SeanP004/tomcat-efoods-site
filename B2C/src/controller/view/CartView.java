@@ -19,6 +19,8 @@ public class CartView extends EndPointServlet {
             throws ServletException, IOException {
         super.doRequest(method, req, res);
 
+        if (res.isCommitted()) {return;}
+        
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
         String         target   = (String)req.getAttribute("target");

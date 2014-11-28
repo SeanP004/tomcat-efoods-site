@@ -4,7 +4,6 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import model.pricing.*;
-import model.account.*;
 import model.cart.*;
 import model.catalog.*;
 import model.checkout.*;
@@ -20,18 +19,21 @@ public class Main extends RoutingServlet implements Filter {
         ServletContext context = getServletContext();
         context.setAttribute("catalog", Catalog.getCatalog());
         context.setAttribute("clerk", OrdersClerk.getClerk(
-            new File(context.getRealPath(config.getInitParameter("userData"))),
-            new File(context.getRealPath(config.getInitParameter("ordersXsd"))),
-            new File(context.getRealPath(config.getInitParameter("ordersXslt"))),
-            context.getContextPath() + config.getInitParameter("ordersXsltView"),
-            context.getContextPath() + config.getInitParameter("ordersPrefix"),
-            config.getInitParameter("userData")
+            new File(context.getRealPath(context.getInitParameter("userData"))),
+            new File(context.getRealPath(context.getInitParameter("ordersXsd"))),
+            new File(context.getRealPath(context.getInitParameter("ordersXslt"))),
+            context.getContextPath() + context.getInitParameter("ordersXsltView"),
+            context.getContextPath() + context.getInitParameter("ordersPrefix"),
+            context.getInitParameter("userData")
         ));
         context.setAttribute("pm", PriceManager
                 .getPriceManager(new PricingRules(
-                        config.getInitParameter("shippingCost"),
-                        config.getInitParameter("shippingWaverCost"),
-                        config.getInitParameter("taxRate"))));
+                        context.getInitParameter("shippingCost"),
+                        context.getInitParameter("shippingWaverCost"),
+                        context.getInitParameter("taxRate"))));
+        context.setAttribute("secret",       context.getInitParameter("secret"));
+        context.setAttribute("authUri",      context.getInitParameter("authUri"));
+        context.setAttribute("authCallback", context.getInitParameter("authCallback"));
     }
 
     @Override
@@ -42,18 +44,17 @@ public class Main extends RoutingServlet implements Filter {
         ServletContext sc    = getServletContext();
         HttpSession sess     = req.getSession();
         Cart        cart     = (Cart)sess.getAttribute("cart");
-        Account     account  = (Account)sess.getAttribute("account");
         String      target   = (String)req.getAttribute("target");
-        String      host     = (req.isSecure() ? "https://" : "http://") 
+        String      host     = (req.isSecure() ? "https://" : "http://")
                              + req.getServerName() + ":" + req.getServerPort();
 
         req.setAttribute("host", host);
 
         if (cart == null) {
-            sess.setAttribute("cart", cart = new Cart());}        
-        if (account == null) {
-            sess.setAttribute("account", account = new Account());}
-        if (target == null) {
+            sess.setAttribute("cart", cart = new Cart());}
+        if (res.isCommitted()) {
+            return;
+        } else if (target == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
             sc.getNamedDispatcher(target).forward(req, res);
@@ -82,7 +83,7 @@ public class Main extends RoutingServlet implements Filter {
         //}
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response, 
+    public void doFilter(ServletRequest request, ServletResponse response,
                 FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = ((HttpServletRequest)request);
         String uri = req.getRequestURI().substring(req.getContextPath().length());

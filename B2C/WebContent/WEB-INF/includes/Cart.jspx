@@ -85,7 +85,7 @@
                         <span class="cart-label">Update</span>
                         <i class="glyphicon glyphicon-refresh"><!--  --></i>
                     </button>
-                    <a href="${pageContext.request.contextPath}/confirmation" class="btn btn-primary btn-icon-right">
+                    <a href="${pageContext.request.contextPath}/confirm" class="btn btn-primary btn-icon-right">
                         <span class="cart-label">Checkout</span>
                         <i class="glyphicon glyphicon-ok"><!--  --></i>
                     </a>

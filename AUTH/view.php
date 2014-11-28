@@ -59,6 +59,12 @@
                             <?php if (isset($referrer)): ?>
                             <input type="hidden" name="ref" value="<?php echo $referrer ?>" />
                             <?php endif ?>
+                            <?php if (isset($callback)): ?>
+                            <input type="hidden" name="callback" value="<?php echo $callback ?>" />
+                            <?php endif ?>
+                            <?php if (isset($signature)): ?>
+                            <input type="hidden" name="signer" value="<?php echo $signature ?>" />
+                            <?php endif ?>
                             <input type="submit" class="btn btn-custom btn-lg btn-block" value="Log in" />
                         </form>
                         <div class="panel-footer text-center">

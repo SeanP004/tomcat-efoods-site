@@ -18,6 +18,8 @@ public class CatalogAPI extends EndPointServlet {
     protected void doRequest(String method, HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         super.doRequest(method, req, res);
+        
+        if (res.isCommitted()) {return;}
 
         ServletContext sc      = getServletContext();
         String         target  = (String)req.getAttribute("target");

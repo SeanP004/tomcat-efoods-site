@@ -8,9 +8,9 @@ import model.cart.*;
 import model.catalog.*;
 
 /**
- * Servlet implementation class CartView
+ * Servlet implementation class ConfirmationView
  */
-//@WebServlet("/view/confirmation")
+//@WebServlet("/confirm")
 public class ConfirmationView extends EndPointServlet {
 
     @Override
@@ -18,6 +18,8 @@ public class ConfirmationView extends EndPointServlet {
             throws ServletException, IOException {
         super.doRequest(method, req, res);
 
+        if (res.isCommitted()) {return;}
+        
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
         String         target   = (String)req.getAttribute("target");

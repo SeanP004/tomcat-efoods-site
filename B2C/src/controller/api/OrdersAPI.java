@@ -18,6 +18,8 @@ public class OrdersAPI extends EndPointServlet {
             throws ServletException, IOException {
         super.doRequest(method, req, res);
 
+        if (res.isCommitted()) {return;}
+        
         ServletContext sc       = getServletContext();
         String         target   = (String)req.getAttribute("target");
         String         pathInfo = (String)req.getAttribute("pathInfo");

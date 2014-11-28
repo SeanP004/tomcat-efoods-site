@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import model.common.CommonUtil;
+import model.exception.AppException;
 
 /**
  * Servlet implementation class RoutingServlet
@@ -41,7 +43,9 @@ public abstract class RoutingServlet extends HttpServlet {
 
         // get attributes
         ServletContext context = getServletContext();
-        String pathInfo = (String)req.getAttribute("pathInfo");
+        HttpSession sess       = req.getSession();
+        String pathInfo        = (String)req.getAttribute("pathInfo");
+        String target          = null;
 
         // reset attributes
         req.setAttribute("pathInfo", null);
@@ -65,8 +69,30 @@ public abstract class RoutingServlet extends HttpServlet {
                 } else {
                     req.setAttribute("pathInfo", pathInfo.substring(uri.length()));
                 }
-                req.setAttribute("target", routes.get(uri));
+                req.setAttribute("target", target = routes.get(uri));
                 break;
+            }
+        }
+
+        // Authenication check
+
+        if (target != null && target.charAt(0) == '!') {
+            req.setAttribute("target", target.substring(1));
+            if (sess.getAttribute("account") == null) {
+                try {
+                    String host      = (String)req.getAttribute("host");
+                    String ref       = host + req.getRequestURI() + (req.getQueryString() == null 
+                                                ? "" : req.getQueryString());
+                    String callback  = host + req.getContextPath() + context.getAttribute("authCallback");
+                    String msg       = ref + ";" + callback + ";" + context.getAttribute("secret");
+                    String signer    = CommonUtil.md5sum(msg);
+
+                    res.sendRedirect(context.getAttribute("authUri")
+                            +"?ref="+ref+"&callback="+callback+"&signer="+signer);
+                } catch (Exception e) {
+                    // should never be reached
+                    throw new AppException(e);
+                }
             }
         }
 

@@ -20,6 +20,8 @@ public class CheckoutAPI extends EndPointServlet {
             throws ServletException, IOException {
         super.doRequest(method, req, res);
 
+        if (res.isCommitted()) {return;}
+        
         ServletContext sc       = getServletContext();
         HttpSession    sess     = req.getSession();
         String         target   = (String)req.getAttribute("target");
@@ -33,8 +35,6 @@ public class CheckoutAPI extends EndPointServlet {
             sc.setAttribute("clerk", clerk = OrdersClerk.getClerk());}
         if (cart == null) {
             sess.setAttribute("cart", cart = new Cart());}
-        if (account == null) {
-        	sess.setAttribute("account", account = new Account());}
 
         try {
             Receipt receipt = clerk.checkout(host, account, cart);
