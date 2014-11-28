@@ -1,19 +1,22 @@
 package model.order;
 
 import java.util.*;
-
 import model.xml.*;
 import model.common.CommonUtil;
 
+/**
+ * 
+ * Implement the Methods to access the SOAP to generate the requested data
+ * to form an html file to be stored physically to disk
+ *
+ */
 public class Generator {
 
-    public void generate(HashMap <String, String> config) throws Exception {
+    public void generate(HashMap<String, String> config) throws Exception {
 
-        // -----Get Details from XML
-
-        XMLHandler xmlh = new XMLHandler(config.get("dataURL"));
-
+        XMLHandler xmlh = new XMLHandler(config);
         OrderList orderlist = null;
+        
         try {
             List<String> files = xmlh.getFileDetails();
             orderlist = xmlh.getOrderDetails(files);
@@ -21,49 +24,26 @@ public class Generator {
             System.out.println("No Orders!");
         }
 
-        if (! (orderlist == null)) {
-            // ------------------------ Generate report
+        if (!(orderlist == null)) {
             CompletedOrderList col = new CompletedOrderList();
             CompletedOrder co = null;
-
-            // ---- PerformOrderOperation
-
             Map<String, Integer> list = orderlist.getList();
 
-            Iterator it = list.entrySet().iterator();
-
-            while (it.hasNext()) {
-
-                Map.Entry pairs = (Map.Entry) it.next();
-
-                Order o = new Order(pairs.getKey().toString(),
-                        Integer.parseInt(pairs.getValue().toString()));
-
+            for (Map.Entry<String, Integer> entry : list.entrySet()) {
+                String key = entry.getKey();
+                Object value = entry.getValue();
+                Order o = new Order(key, Integer.parseInt(value.toString()));
                 QuoteHandler q = new QuoteHandler(config);
-                double quotedPrices[] = q.getQuoteArray(o);
-
-                int minPriceIndex = q.getCheapPrice(quotedPrices);
-                // System.out.println("min ind = "+minPriceIndex);
-
-                OrderHandler po = new OrderHandler(config);
-
-                String conf = po.doOrder(minPriceIndex, o);
-
-              //  System.out.println(conf + pairs.getKey().toString() + " "
-                //        +  model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex]) + " "
-                  //      + po.getWholesalerName(minPriceIndex));
-                
-                System.out.println(conf);
-
-                co = new CompletedOrder(pairs.getKey().toString(),
-                        model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex]), conf,
-                        po.getWholesalerName(minPriceIndex));
-
-                // System.out.println(" ------ done -------- \n \n ");
-                it.remove(); // avoids a ConcurrentModificationException
-
+                double quotedPrices[]   = q.getQuoteArray(o);
+                int minPriceIndex       = q.getMinPrice(quotedPrices);
+                OrderHandler po         = new OrderHandler(config);
+                String conf             = po.doOrder(minPriceIndex, o);
+                co = new CompletedOrder(key,
+                        model.common.CommonUtil.roundOff(quotedPrices[minPriceIndex])
+                        , conf, po.getWholesalerName(minPriceIndex));
                 col.getoList().add(co);
             }
+            
             xmlh.createReport(col);
         }
     }
