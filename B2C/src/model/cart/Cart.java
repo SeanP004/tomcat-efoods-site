@@ -60,7 +60,6 @@ public class Cart {
             CartElement ce = getElement(number);
             ce.decrementQuantity();
             if (ce.getQuantity() <= 0) {
-                System.out.println("map size" + elements.size());
                 elements.remove(number);
             }
             shiftNumberOfItems(-1);
@@ -133,8 +132,6 @@ public class Cart {
      * @throws          InvalidCartQuantityException
      */    
     public synchronized void multiBulkUpdate(String number, String quantity) {
-        System.out.println(number);
-        System.out.println(quantity);
         String[] numberList = number.split(";");
         String[] quantityList = quantity.split(";");
         if (numberList.length != quantityList.length) {
