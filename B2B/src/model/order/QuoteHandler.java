@@ -1,6 +1,5 @@
 package model.order;
 
-import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.xml.soap.*;

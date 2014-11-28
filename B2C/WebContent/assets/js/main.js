@@ -42,7 +42,7 @@
                     b = false;
                 }
             });
-            if (b) {
+            if (b && !module.done) {
                 module.result = module.func.apply(null, module.deps.map(function (dep) {
                     return modules[dep].result;
                 }));
@@ -235,7 +235,10 @@ define('CartBtn', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart', 'CartTable
             });
         }
 
-        $(document).onReady(attachEvents);
+        $(document).onReady(function () {
+            console.log('called');
+            attachEvents();
+        });
 
         return {
             updataEventHandlers: attachEvents
@@ -429,7 +432,7 @@ define('Element', [], function () {
             },
 
             off: function(event) {
-                if (target) {
+                if (target && events[event]) {
                     events[event].forEach(function (ev) {
                         target.removeEventListener(event, ev);
                     });
@@ -440,6 +443,7 @@ define('Element', [], function () {
 
             onReady: function(readyFn) {
                 if (target) {
+                    console.log("ready");
                     if (target.readyState !== "loading") {
                         readyFn(target);
                     } else {

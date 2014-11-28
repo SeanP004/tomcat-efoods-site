@@ -1,19 +1,9 @@
 package model.order;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import javax.xml.namespace.QName;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPBodyElement;
-import javax.xml.soap.SOAPConnection;
-import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
+import java.net.*;
+import java.util.*;
+import javax.xml.namespace.*;
+import javax.xml.soap.*;
 
 /**
  * 
@@ -22,7 +12,7 @@ import javax.xml.soap.SOAPPart;
  */
 public class OrderHandler {
 
-    private static WholeSaler ws;
+    private WholeSaler ws;
     private HashMap<String, String> config;
 
     /**

@@ -42,7 +42,7 @@
                     b = false;
                 }
             });
-            if (b) {
+            if (b && !module.done) {
                 module.result = module.func.apply(null, module.deps.map(function (dep) {
                     return modules[dep].result;
                 }));

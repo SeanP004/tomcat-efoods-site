@@ -1,25 +1,13 @@
 package model.xml;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import model.common.XMLUtil;
-import model.order.CompletedOrderList;
-import model.order.Order;
-import model.order.OrderList;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import sun.jdbc.odbc.OdbcDef;
+import java.io.*;
+import java.net.*;
+import java.text.*;
+import java.util.*;
+import javax.xml.parsers.*;
+import model.common.*;
+import model.order.*;
+import org.w3c.dom.*;
 
 /**
  * 

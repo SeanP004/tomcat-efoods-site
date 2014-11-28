@@ -86,7 +86,7 @@ define('Element', [], function () {
             },
 
             off: function(event) {
-                if (target) {
+                if (target && events[event]) {
                     events[event].forEach(function (ev) {
                         target.removeEventListener(event, ev);
                     });

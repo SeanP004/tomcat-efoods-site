@@ -1,8 +1,7 @@
 package model.order;
 
-import java.util.*;
+import java.util.*;	
 import model.xml.*;
-import model.common.CommonUtil;
 
 /**
  * 
