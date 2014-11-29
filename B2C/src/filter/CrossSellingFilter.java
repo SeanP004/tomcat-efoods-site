@@ -29,6 +29,9 @@ public class CrossSellingFilter implements Filter {
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 * 
+	 * Ad hoc that will generated of a custom price override that can be changed
+	 * without recompiling the server.
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 				throws IOException, ServletException {

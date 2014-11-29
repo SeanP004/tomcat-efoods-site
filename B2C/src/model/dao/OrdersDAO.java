@@ -1,17 +1,37 @@
 package model.dao;
 
 import java.io.*;
+
 import model.account.*;
 
+/**
+ * 
+ * File System data access object for management and creation of files
+ * 
+ * Generate a new file. 
+ * Checks if the parent directory exist else create.
+ * File will be create if it does not exist.
+ *
+ */
 public class OrdersDAO {
 
     private File userData;
 
+    /**
+     * OrderDAO constructor for initalization.
+     * 
+     * @param userData   is the file path loction of parent directory
+     */
     public OrdersDAO(File userData) {
         this.userData = userData;
         maintainDirectory();
     }
 
+    /** 
+     * Automoatic generation of the file name according the date and time the
+     * method was called as a html file
+     * @return
+     */
     private String getOrderFileNamePrefix(String accId) {
         if (accId.matches("^[a-zA-Z]+[0-9]+$")) {
             accId = accId.replaceFirst("^[a-zA-Z]+", ""); 

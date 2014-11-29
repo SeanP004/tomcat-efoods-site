@@ -9,7 +9,9 @@ import model.cart.*;
 import model.checkout.*;
 
 /**
- * Servlet implementation class CartView
+ * Servlet implementation class CheckoutView
+ * 
+ * this will target call the checkout and generate the recipt to be outputed
  */
 //@WebServlet("/view/checkout")
 public class CheckoutView extends EndPointServlet{

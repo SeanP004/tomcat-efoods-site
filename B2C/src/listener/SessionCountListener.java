@@ -19,6 +19,9 @@ public class SessionCountListener implements HttpSessionListener {
 
 	/**
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
+     * 
+     * called when a new session event is triggered and the current time
+     * is recorded to session context.
      */
     public void sessionCreated(HttpSessionEvent event)  { 
         totalActiveSessions++;

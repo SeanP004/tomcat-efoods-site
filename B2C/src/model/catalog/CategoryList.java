@@ -3,6 +3,11 @@ package model.catalog;
 import javax.xml.bind.annotation.*;
 import java.util.*;
 
+/**
+ * 
+ * CategoryList store an list of object category
+ *
+ */
 @XmlRootElement(name="collection")
 @XmlType(propOrder={"filter", "categories"})
 public class CategoryList {

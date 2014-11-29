@@ -5,6 +5,13 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import controller.*;
 
+/**
+ * 
+ * Servlet implementation class View
+ * 
+ * the Class will route on determine of the url request accordingly.
+ *
+ */
 //@WebServlet("/view")
 public class View extends RoutingServlet {
 

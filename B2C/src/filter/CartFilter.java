@@ -37,6 +37,10 @@ public class CartFilter implements Filter {
 
     }
 
+    /**
+     * The filter is called when cart api is called this will generate
+     * the average time it take for a user to add a item to cart
+     */
     public void doFilter(ServletRequest request, ServletResponse response, 
                 FilterChain chain) throws IOException, ServletException {
         

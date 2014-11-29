@@ -10,6 +10,8 @@ import model.catalog.*;
 
 /**
  * Servlet implementation class CartView
+ * 
+ * the servlet will traget the cart to ui
  */
 //@WebServlet("/view/cart")
 public class CartView extends EndPointServlet {

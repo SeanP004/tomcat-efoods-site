@@ -10,6 +10,8 @@ import model.catalog.*;
 
 /**
  * Servlet implementation class HomeView page.
+ * 
+ * traget the home page
  */
 // @WebServlet("/view")
 public class HomeView extends EndPointServlet {

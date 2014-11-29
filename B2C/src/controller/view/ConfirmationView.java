@@ -9,6 +9,8 @@ import model.catalog.*;
 
 /**
  * Servlet implementation class ConfirmationView
+ * 
+ * target the confirm page
  */
 //@WebServlet("/confirm")
 public class ConfirmationView extends EndPointServlet {

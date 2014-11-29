@@ -9,6 +9,8 @@ import model.exception.*;
 
 /**
  * Servlet implementation class ItemView
+ * 
+ * target the the items
  */
 //@WebServlet("/view/item/*")
 public class ItemView extends EndPointServlet {

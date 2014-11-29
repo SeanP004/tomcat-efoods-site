@@ -9,6 +9,8 @@ import model.catalog.*;
 
 /**
  * Servlet implementation class CatalogView page.
+ * 
+ * this will traget the view the catalog
  */
 // @WebServlet("/view/browse")
 public class CatalogView extends EndPointServlet {

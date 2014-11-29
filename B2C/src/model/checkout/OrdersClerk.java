@@ -7,6 +7,12 @@ import model.dao.*;
 import model.exception.*;
 import model.account.*;
 
+/**
+ * 
+ * OrderClerk is a singleton object that manage the generation of the 
+ * the recipt creation to checkout
+ *
+ */
 public class OrdersClerk {
 
     private static OrdersClerk singleton = null;
@@ -55,6 +61,14 @@ public class OrdersClerk {
         }
     }
 
+    /**
+     * get purcahse orders according to the host location
+     * 
+     * @param host	the host location
+     * @return an object of ordersList
+     * 
+     * @throws OrderNotFoundException when a issue occur
+     */
     public synchronized OrdersList getPurchaseOrders(String host)
                 throws OrderNotFoundException {
         File[] files = dao.getPurchaseOrders();
@@ -64,6 +78,16 @@ public class OrdersClerk {
         return new OrdersList(host + prefix, files);
     }
 
+    /**
+     * get purcahse orders according to the host location
+     * 
+     * @param host	the host location
+     * @param accId  the account info
+     * 
+     * @return an object of ordersList    
+     * 
+     * @throws OrderNotFoundException
+     */
     public synchronized OrdersList getPurchaseOrders(String host, String accId)
                 throws OrderNotFoundException {
         File[] files = dao.getPurchaseOrders(accId);

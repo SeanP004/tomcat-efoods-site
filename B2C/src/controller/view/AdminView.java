@@ -7,6 +7,7 @@ import controller.*;
 
 /**
  * Servlet implementation class AdminView
+ * this will output the target to admin
  */
 //@WebServlet("/admin")
 public class AdminView extends EndPointServlet {
