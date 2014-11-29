@@ -145,7 +145,7 @@
                 !CheckoutAPI=/checkout
                 OrdersAPI=/order/*,/order
                 AuthAPI=/auth
-                LoginAPI=/login
+                !LoginAPI=/login
             </param-value>
         </init-param>
     </servlet>
@@ -268,14 +268,14 @@
             <param-name>target</param-name>
             <param-value>/WEB-INF/pages/AdminView.jspx</param-value>
         </init-param>
-        <init-param>
+        <!--<init-param>
             <param-name>restrictedUsers</param-name>
             <param-value>
                 cse13261
                 cse13078
                 roumani
             </param-value>
-        </init-param>
+        </init-param>-->
     </servlet>
 
 </web-app>
