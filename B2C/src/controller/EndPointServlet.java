@@ -39,8 +39,8 @@ public abstract class EndPointServlet extends HttpServlet {
         if (sess.getAttribute("account") != null) {
             @SuppressWarnings("unchecked")
             List<String> restrictedUsers = (List<String>)sc.getAttribute("restrictedUsers");
-            Account account = (Account)sc.getAttribute("account");
-            if (restrictedUsers != null && !restrictedUsers.contains(account)) {
+            Account account = (Account)sess.getAttribute("account");
+            if (restrictedUsers != null && !restrictedUsers.contains(account.getId())) {
                 res.sendError(HttpServletResponse.SC_FORBIDDEN);
             }
         }

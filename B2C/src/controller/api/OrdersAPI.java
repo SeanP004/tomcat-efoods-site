@@ -49,7 +49,7 @@ public class OrdersAPI extends EndPointServlet {
             }
             req.getRequestDispatcher(target).forward(req, res);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     } // doGet
