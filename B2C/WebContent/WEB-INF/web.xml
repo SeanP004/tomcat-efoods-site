@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<web-app 
+<web-app
     id="WebApp_ID"
     version="3.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -25,8 +25,35 @@
         <listener-class>listener.SessionCountListener</listener-class>
     </listener>
 
+    <!-- Ad-Hoc Filters: DO NOT MOVE! -->
+
+    <filter-mapping>
+        <filter-name>CartURL</filter-name>
+        <url-pattern>/api/cart</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CartURL</filter-name>
+        <filter-class>filter.CartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CheckoutURL</filter-name>
+        <url-pattern>/checkout</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CheckoutURL</filter-name>
+        <filter-class>filter.CheckoutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CrossSelling</filter-name>
+        <url-pattern>/api/cart</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>CrossSelling</filter-name>
+        <filter-class>filter.CrossSellingFilter</filter-class>
+    </filter>
+
     <!-- Context -->
-    
+
     <context-param>
         <param-name>secret</param-name>
         <param-value>4413secret</param-value>
@@ -89,33 +116,6 @@
                 /WEB-INF
             </param-value>
         </init-param>
-    </filter>
-
-    <!-- Filters -->
-
-    <filter-mapping>
-        <filter-name>CartURL</filter-name>
-        <url-pattern>/api/cart</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>CartURL</filter-name>
-        <filter-class>filter.CartFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>CheckoutURL</filter-name>
-        <url-pattern>/checkout</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>CheckoutURL</filter-name>
-        <filter-class>filter.CheckoutFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>CrossSelling</filter-name>
-        <url-pattern>/api/cart</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>CrossSelling</filter-name>
-        <filter-class>filter.CrossSellingFilter</filter-class>
     </filter>
 
     <!-- Main -->
