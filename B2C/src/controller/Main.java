@@ -73,7 +73,10 @@ public class Main extends RoutingServlet implements Filter {
         doRequest("POST", req, res);
     }
 
-    // Filter Methods: URL Rewrite
+    // Filter Methods: Main filter
+    // Prevent forwarded calls, assets,
+    // and WEB-INF urls from being
+    // routed via the Servlets.
 
     public void init(FilterConfig fConfig) throws ServletException {
         String[] ignores = fConfig.getInitParameter("ignores").split("[ \n]+");

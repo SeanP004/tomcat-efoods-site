@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+
+<web-app 
+    id="WebApp_ID"
+    version="3.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                        http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
     <display-name>eFoods</display-name>
 
@@ -138,6 +145,7 @@
                 !CheckoutAPI=/checkout
                 OrdersAPI=/order/*,/order
                 AuthAPI=/auth
+                LoginAPI=/login
             </param-value>
         </init-param>
     </servlet>
@@ -181,6 +189,10 @@
         <servlet-name>AuthAPI</servlet-name>
         <servlet-class>controller.api.AuthAPI</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginAPI</servlet-name>
+        <servlet-class>controller.api.LoginAPI</servlet-class>
+    </servlet>
 
     <!-- Views -->
 
@@ -196,7 +208,7 @@
                 CartView=/cart
                 !ConfirmationView=/confirm
                 !CheckoutView=/checkout
-                !AdminView=/admin
+                AdminView=/admin
                 HomeView=/
             </param-value>
         </init-param>

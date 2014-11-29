@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import model.account.*;
 import model.common.*;
-import model.exception.AppException;
+import model.exception.*;
 
 /**
  * Callback servlet for authenication.

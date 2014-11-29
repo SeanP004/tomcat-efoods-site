@@ -2,8 +2,8 @@
 
     require "compat.php";
 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+    //error_reporting(E_ALL);
+    //ini_set('display_errors', 1);
 
     $initParams = parse_ini_file('config.ini');
     $authUri    = 'https://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).'/zoned';
@@ -40,13 +40,13 @@
             }
         } else {
             if (isset($_POST['ref']) && isset($_POST['signer'])) {
-                $referrer = $_POST['ref'];
+                $referrer = urldecode($_POST['ref']);
                 $signature = strtolower($_POST['signer']);
             } else {
                 throw new Exception("Error: ref or signer is undefined.");
             }
             if (isset($_POST['callback'])) {
-                $callback = $_POST['callback'];
+                $callback = urldecode($_POST['callback']);
             }
             if (isset($_POST['username']) && isset($_POST['password'])) {
                 $res = curl($authUri, $_POST['username'], $_POST['password']);
@@ -57,7 +57,7 @@
                         'account='.urlencode($json->account),
                         'name='.urlencode($json->name),
                         'signer='.urlencode($signer),
-                        'ref='.urldecode($referrer)
+                        'ref='.urlencode($referrer)
                     ));
                     if (!isset($callback)) {
                         $callback = $initParams['uri'];

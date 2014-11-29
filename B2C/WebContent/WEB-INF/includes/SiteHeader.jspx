@@ -33,14 +33,19 @@
                                 <span class="cart-label">Cart</span>
                                 <span class="badge">${cart.numberOfItems}</span>
                             </a></li>
-                            <li class="user"><a href="#">
-                                <i class="glyphicon glyphicon-user"><!--  --></i>
+                            <li class="user">
                                 <c:choose>
                                     <c:when test="${not empty account}">
-                                        <span class="user-label">${account.name}</span>
+                                        <a href="#">
+                                            <i class="glyphicon glyphicon-user"><!--  --></i>
+                                            <span class="user-label">${account.name}</span>
+                                        </a>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="user-label">Sign In</span>
+                                        <a href="#">
+                                            <i class="glyphicon glyphicon-user"><!--  --></i>
+                                            <span class="user-label">Sign In</span>
+                                        </a>
                                     </c:otherwise>
                                 </c:choose>
                             </a></li>

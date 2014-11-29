@@ -37,14 +37,6 @@ public class CartAPI extends EndPointServlet {
             sess.setAttribute("cart", cart = new Cart());}
 
         try {
-
-            // TODO: add variable for listener as analytics
-            // Management wants to be able to determine the average time it
-            // takes a client to add an item to the cart and the average time
-            // between a fresh visit and checkout (in the same session).
-            // Provide a mechanism by which these two averages can be viewed
-            // in real time.
-
             if (action == null) {
                 action = "list";
             }

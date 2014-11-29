@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -81,14 +82,18 @@ public abstract class RoutingServlet extends HttpServlet {
             if (sess.getAttribute("account") == null) {
                 try {
                     String host      = (String)req.getAttribute("host");
-                    String ref       = host + req.getRequestURI() + (req.getQueryString() == null 
-                                                ? "" : req.getQueryString());
-                    String callback  = host + req.getContextPath() + context.getAttribute("authCallback");
+                    String ref       = host + req.getRequestURI() + 
+                                          (req.getQueryString() == null 
+                                              ? "" : req.getQueryString());
+                    String callback  = host + req.getContextPath() + 
+                                          context.getAttribute("authCallback");
                     String msg       = ref + ";" + callback + ";" + context.getAttribute("secret");
                     String signer    = CommonUtil.md5sum(msg);
 
                     res.sendRedirect(context.getAttribute("authUri")
-                            +"?ref="+ref+"&callback="+callback+"&signer="+signer);
+                            + "?ref=" + URLEncoder.encode(ref, "UTF-8")
+                            + "&callback=" + URLEncoder.encode(callback, "UTF-8")
+                            + "&signer=" + signer);
                 } catch (Exception e) {
                     // should never be reached
                     throw new AppException(e);
