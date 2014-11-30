@@ -71,58 +71,64 @@ repository. The components are:
 
 #### The Authentication Component ####
 
-> AUTH
-> ├── assets
-> │   ├── css
-> │   └── images
-> └── zoned
+`
+    AUTH
+    ├── assets
+    │   ├── css
+    │   └── images
+    └── zoned
+`
 
 #### The Business-to-Business, Procurement, Component ####
 
-> B2B
-> ├── res
-> │   ├── css
-> │   └── xmlres
-> └── src
->     ├── controller
->     └── model
->         ├── common
->         ├── exception
->         ├── order
->         └── xml
+`
+    B2B
+    ├── res
+    │   ├── css
+    │   └── xmlres
+    └── src
+        ├── controller
+        └── model
+            ├── common
+            ├── exception
+            ├── order
+            └── xml
+`
 
 #### The Business-to-Client, Main, Component ####
 
-> B2C
-> ├── src
-> │   ├── controller
-> │   │   ├── api
-> │   │   └── view
-> │   ├── filter
-> │   ├── listener
-> │   ├── model
-> │   │   ├── account
-> │   │   ├── cart
-> │   │   ├── catalog
-> │   │   ├── checkout
-> │   │   ├── common
-> │   │   ├── dao
-> │   │   ├── exception
-> │   │   └── pricing
-> │   └── tests
-> ├── WebContent
-> │   ├── assets
-> │   │   ├── css
-> │   │   ├── fonts
-> │   │   ├── js
-> │   │   └── xmlres
-> │   ├── META-INF
-> │   └── WEB-INF
-> │       ├── includes
-> │       ├── pages
-> │       ├── tests
-> │       └── xmlres
-> └── web-src
->     ├── fonts
->     ├── js
->     └── less
+`
+    B2C
+    ├── src
+    │   ├── controller
+    │   │   ├── api
+    │   │   └── view
+    │   ├── filter
+    │   ├── listener
+    │   ├── model
+    │   │   ├── account
+    │   │   ├── cart
+    │   │   ├── catalog
+    │   │   ├── checkout
+    │   │   ├── common
+    │   │   ├── dao
+    │   │   ├── exception
+    │   │   └── pricing
+    │   └── tests
+    ├── WebContent
+    │   ├── assets
+    │   │   ├── css
+    │   │   ├── fonts
+    │   │   ├── js
+    │   │   └── xmlres
+    │   ├── META-INF
+    │   └── WEB-INF
+    │       ├── includes
+    │       ├── pages
+    │       ├── tests
+    │       └── xmlres
+    └── web-src
+        ├── fonts
+        ├── js
+        └── less
+`
