@@ -1,4 +1,5 @@
-# EECS 4413 Project C, eFoods #
+EECS 4413 Project C, eFoods
+===========================
 
 This repository holds the source code for the Building
 E-Commerce Systems, [EECS 4413](http://www.eecs.yorku.ca/course_archive/2014-15/F/4413/)
@@ -6,10 +7,12 @@ final project, for Fall 2014, with [Professor Hamzeh Roumani](http://www.eecs.yo
 [York University](http://www.eecs.yorku.ca). The project description is available at
 http://www.eecs.yorku.ca/~roumani/course/4413/res/projC/.
 
-## Contents ##
+Contents
+--------
 
 * License
 * This Repo
+    * Overall Directory Structures
 * B2C
     * Installation
         * Prerequisites
@@ -31,7 +34,8 @@ http://www.eecs.yorku.ca/~roumani/course/4413/res/projC/.
     * Configuration
     * Usage
 
-## License ##
+License
+-------
 
 EECS 4413 Project C "eFoods"
 Copyright 2014. Vincent Chu, Michael Leung, Manusha Patabendi.
@@ -57,7 +61,8 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## This Repo ##
+This Repo
+---------
 
 The project consists of three separate, but related components.
 Each component is stored in a different directory in this
@@ -67,9 +72,9 @@ repository. The components are:
 * interactive procurement component B2C, the online frontend
 * client site, the main component.
 
-### Overall Directory Structures ###
+## Overall Directory Structures ##
 
-#### The Authentication Component ####
+### The Authentication Component ###
 
     AUTH
     ├── assets
@@ -77,7 +82,7 @@ repository. The components are:
     │   └── images
     └── zoned
 
-#### The Business-to-Business, Procurement, Component ####
+### The Business-to-Business, Procurement, Component ###
 
     B2B
     ├── res
@@ -91,7 +96,7 @@ repository. The components are:
             ├── order
             └── xml
 
-#### The Business-to-Client, Main, Component ####
+### The Business-to-Client, Main, Component ###
 
     B2C
     ├── src
