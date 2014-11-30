@@ -12,8 +12,8 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
             .removeClass('hidden');
     }
 
-    function updateView(request) {
-        request
+    function updateView() {
+        $http.get(api)
             .onError(showError)
             .onSuccess(function (data) {
                 var doc = (new DOMParser()).parseFromString(data, "application/xml");
@@ -21,6 +21,7 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
 
                 if (!error.elem()) {
                     $('.navbar .cart .badge').html($('cart', doc).attr('size'));
+                    $$('.cart-btn .badge').html('');
                     $$('item', doc).each(function (item) {
                         var number = item.attr('number');
                         var quantity = item.parent().attr('quantity');
@@ -36,8 +37,6 @@ define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $ht
     }
 
     return {
-        updateView: function () {
-            updateView($http.get(api));
-        }
+        updateView: updateView
     };
 });
