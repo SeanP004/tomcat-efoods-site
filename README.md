@@ -29,9 +29,21 @@ installation and development. The components are:
 Installation
 ------------
 
-For development:
+For development (in general), run the following
+commands in the console:
 
-    mkdir projc
-    cd projc
+    mkdir ProjC
+    cd ProjC
     git init
     git clone git@bitbucket.org:vwchu/eecs4413-projc.git
+
+For deployment, download the following packages (where X.X is
+the version of each of the downloaded packages):
+
+    https://bitbucket.org/vwchu/eecs4413-projc/downloads/AUTHvX.X.zip
+    https://bitbucket.org/vwchu/eecs4413-projc/downloads/B2BvX.X.jar
+    https://bitbucket.org/vwchu/eecs4413-projc/downloads/B2CvX.X.war
+
+For more detailed instructions with regards to installation,
+setup and configuration, see the README of each specific
+component.
