@@ -76,58 +76,68 @@ repository. The components are:
 
 ### The Authentication Component ###
 
-    AUTH
-    ├── assets
-    │   ├── css
-    │   └── images
-    └── zoned
+```
+#!text
+    AUTH                    # Root directory
+    ├── assets              # Static assets for the HTML markup
+    │   ├── css             # Stylesheet
+    │   └── images          # Logo and favicon
+    └── zoned               # HTTP basic auth required
+```
 
 ### The Business-to-Business, Procurement, Component ###
 
-    B2B
-    ├── res
-    │   ├── css
-    │   └── xmlres
-    └── src
-        ├── controller
-        └── model
-            ├── common
-            ├── exception
-            ├── order
-            └── xml
+```
+#!text
+    B2B                     # Root directory
+    ├── res                 # Configs, Output assets
+    │   ├── css             # Stylesheet
+    │   └── xmlres          # XML rendering assets
+    └── src                 # Java source code
+        ├── controller      # Main app startup class
+        └── model           # Business logic (model)
+            ├── common      # Shared utilities
+            ├── exception   # Exception handlers
+            ├── order       # Order data structure
+            └── xml         # XML generators and handlers
+```
 
 ### The Business-to-Client, Main, Component ###
 
-    B2C
-    ├── src
-    │   ├── controller
-    │   │   ├── api
-    │   │   └── view
-    │   ├── filter
-    │   ├── listener
-    │   ├── model
-    │   │   ├── account
-    │   │   ├── cart
-    │   │   ├── catalog
-    │   │   ├── checkout
-    │   │   ├── common
-    │   │   ├── dao
-    │   │   ├── exception
-    │   │   └── pricing
-    │   └── tests
-    ├── WebContent
-    │   ├── assets
-    │   │   ├── css
-    │   │   ├── fonts
-    │   │   ├── js
-    │   │   └── xmlres
-    │   ├── META-INF
-    │   └── WEB-INF
-    │       ├── includes
-    │       ├── pages
-    │       ├── tests
-    │       └── xmlres
-    └── web-src
-        ├── fonts
-        ├── js
-        └── less
+```
+#!text
+    B2C                     # Root directory
+    ├── src                 # Java source code
+    │   ├── controller      # Controller servlet
+    │   │   ├── api         # API controllers
+    │   │   └── view        # View controllers
+    │   ├── filter          # Filters (ad-hoc)
+    │   ├── listener        # Listeners (ad-hoc)
+    │   ├── model           # Core business logic (model)
+    │   │   ├── account     # Account management
+    │   │   ├── cart        # Cart data structures
+    │   │   ├── catalog     # Catalog data structures
+    │   │   ├── checkout    # Checkout logic
+    │   │   ├── common      # Shared utilities
+    │   │   ├── dao         # Data access layer
+    │   │   ├── exception   # Exception handling
+    │   │   └── pricing     # Pricing logic
+    │   └── tests           # Test classes
+    ├── WebContent          # Web content directory
+    │   ├── assets          # Static assets for the HTML markup
+    │   │   ├── css         # Stylesheet (generated)
+    │   │   ├── fonts       # Fonts (generated)
+    │   │   ├── js          # JavaScript (generated)
+    │   │   └── xmlres      # XML rendering assets
+    │   ├── META-INF        # Context.xml (database config)
+    │   └── WEB-INF         # Private web content and configs
+    │       ├── includes    # JSP fragments
+    │       ├── pages       # JSP pages
+    │       ├── tests       # Test JSP pages
+    │       └── xmlres      # XML rendering assets (private)
+    └── web-src             # Source web (client-side) subproject
+        ├── fonts           # Fonts (source)
+        ├── js              # Source JavaScript files
+        └── less            # Source Stylesheets
+```
+
