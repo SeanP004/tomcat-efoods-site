@@ -171,7 +171,7 @@ define('Ajax', ['Element'], function ($) {
 define('Cart', ['Element', 'Elements', 'Ajax', 'FormData'], function ($, $$, $http, $form) {
     'use strict';
 
-    var api = '/eFoods/api/cart';
+    var api = ContextPath + '/api/cart';
 
     function showError(error) {
         $('.error')
@@ -215,7 +215,7 @@ define('CartBtn', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart', 'CartTable
     function ($, $$, $http, $form, $cart, $ct) {
         'use strict';
 
-        var api = '/eFoods/api/cart';
+        var api = ContextPath + '/api/cart';
 
         function addToCart(number) {
             var form = $form();
@@ -235,10 +235,7 @@ define('CartBtn', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart', 'CartTable
             });
         }
 
-        $(document).onReady(function () {
-            console.log('called');
-            attachEvents();
-        });
+        $(document).onReady(attachEvents);
 
         return {
             updataEventHandlers: attachEvents
@@ -249,7 +246,7 @@ define('CartBtn', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart', 'CartTable
 define('CartTable', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart'], function ($, $$, $http, $form, $cart) {
     'use strict';
 
-    var api = '/eFoods/api/cart';
+    var api = ContextPath + '/api/cart';
 
     function showError(error) {
         $('.error')
@@ -443,7 +440,6 @@ define('Element', [], function () {
 
             onReady: function(readyFn) {
                 if (target) {
-                    console.log("ready");
                     if (target.readyState !== "loading") {
                         readyFn(target);
                     } else {
@@ -668,7 +664,7 @@ define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'CartBt
 
         if (!$('.search-filters').elem()) {return;}
 
-        var searchUri     = '/eFoods/browse?'
+        var searchUri     = ContextPath + '/browse?'
           , searchTabs    = $$('.search-filters .nav-tabs li a')
           , searchMore    = $('.search-filters .nav-tabs li a[data-id="more"]').parent()
           , searchOpts    = $('.search-options')
@@ -712,7 +708,11 @@ define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'CartBt
 
         function updateSearchResults() {
             var form = $form(searchForm.elem());
-            window.history.pushState(null, $('title').html(), searchUri + form.encode());
+            var uri  = searchUri + form.encode();
+            var ref  = encodeURIComponent(uri);
+            window.history.pushState(null, $('title').html(), uri);
+            $('.signin').attr('href', ContextPath + '/api/login?ref=' + ref);
+            $('.signout').attr('href', ContextPath + '/api/login?action=logout&ref=' + ref);
             $http
                 .get(searchUri + form.encode())
                 .onError(showError)

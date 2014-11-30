@@ -5,7 +5,7 @@ define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'CartBt
 
         if (!$('.search-filters').elem()) {return;}
 
-        var searchUri     = '/eFoods/browse?'
+        var searchUri     = ContextPath + '/browse?'
           , searchTabs    = $$('.search-filters .nav-tabs li a')
           , searchMore    = $('.search-filters .nav-tabs li a[data-id="more"]').parent()
           , searchOpts    = $('.search-options')
@@ -49,7 +49,11 @@ define('Search', ['Element', 'Elements', 'Ajax', 'FormData', 'Template', 'CartBt
 
         function updateSearchResults() {
             var form = $form(searchForm.elem());
-            window.history.pushState(null, $('title').html(), searchUri + form.encode());
+            var uri  = searchUri + form.encode();
+            var ref  = encodeURIComponent(uri);
+            window.history.pushState(null, $('title').html(), uri);
+            $('.signin').attr('href', ContextPath + '/api/login?ref=' + ref);
+            $('.signout').attr('href', ContextPath + '/api/login?action=logout&ref=' + ref);
             $http
                 .get(searchUri + form.encode())
                 .onError(showError)

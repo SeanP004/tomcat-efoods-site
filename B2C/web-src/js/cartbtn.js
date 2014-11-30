@@ -3,7 +3,7 @@ define('CartBtn', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart', 'CartTable
     function ($, $$, $http, $form, $cart, $ct) {
         'use strict';
 
-        var api = '/eFoods/api/cart';
+        var api = ContextPath + '/api/cart';
 
         function addToCart(number) {
             var form = $form();

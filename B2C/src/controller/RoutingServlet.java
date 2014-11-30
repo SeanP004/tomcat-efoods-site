@@ -84,7 +84,7 @@ public abstract class RoutingServlet extends HttpServlet {
                     String host      = (String)req.getAttribute("host");
                     String ref       = host + req.getRequestURI() + 
                                           (req.getQueryString() == null 
-                                              ? "" : req.getQueryString());
+                                              ? "" : '?' + req.getQueryString());
                     String callback  = host + req.getContextPath() + 
                                           context.getAttribute("authCallback");
                     String msg       = ref + ";" + callback + ";" + context.getAttribute("secret");

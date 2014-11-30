@@ -2,7 +2,7 @@
 define('CartTable', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart'], function ($, $$, $http, $form, $cart) {
     'use strict';
 
-    var api = '/eFoods/api/cart';
+    var api = ContextPath + '/api/cart';
 
     function showError(error) {
         $('.error')
