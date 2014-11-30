@@ -19,6 +19,7 @@ public class Cost {
     private List<PriceFilter> filters;
     private Cart cart;
     private double total;
+    private double discount;
     private double shipping;
     private double tax;
     private double grandTotal;
@@ -44,6 +45,16 @@ public class Cost {
     @XmlElement
     public double getTotal() {
         return roundOff(total);
+    }
+
+    @XmlElement
+    public double getDiscountedTotal() {
+        return roundOff(total - discount);
+    }
+
+    @XmlElement
+    public double getDiscount() {
+        return roundOff(discount);
     }
 
     @XmlElement
@@ -75,6 +86,14 @@ public class Cost {
         return total;
     }
 
+    double getRawDiscountedTotal() {
+        return total - discount;
+    }
+
+    double getRawDiscount() {
+        return discount;
+    }
+
     double getRawTax() {
         return tax;
     }
@@ -83,8 +102,14 @@ public class Cost {
         return grandTotal;
     }
 
+    // Setters
+    
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public void setShipping(double shipping) {
@@ -98,9 +123,10 @@ public class Cost {
     public void setGrandTotal(double grandTotal) {
         this.grandTotal = grandTotal;
     }
-    
+
     void reset() {
     	setTotal(0);
+    	setDiscount(0);
     	setShipping(0);
     	setTax(0);
     	setGrandTotal(0);

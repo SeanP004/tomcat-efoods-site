@@ -51,58 +51,68 @@ public class CrossSellingFilter implements Filter {
             sc.setAttribute("priceFilters", filters = new HashMap<String, PriceFilter>());}
         if (!filters.containsKey(this.getClass().getName())) {
             PriceFilter po = new PriceFilter() {
+                private boolean hasItem(String number, Cart cart, String item) {
+                    return cart.hasElement(number) || item.equals(number);
+                }
+                private double getPrice(String number) {
+                    return Catalog.getCatalog().getItem(number).getPrice();
+                }
+                private double getExtendedCost(String number, Cart cart) {
+                    return cart.hasElement(number) ? cart.getElement(number).extendedCost() : 0;
+                }
                 @Override
-                public boolean filter(Cost cost, CartElement ce, int qty, PriceManager pm) {
-                    Cart         cart     = cost.getCart();
-                    PricingRules rules    = pm.getPricingRules();
-                    String       number   = ce.getItem().getNumber();
-                    int          delta    = qty - ce.getQuantity();
-                    double       discount = 0.5;
-                    double       price1   = Catalog.getCatalog().getItem("2002H712").getPrice();
-                    double       price2   = Catalog.getCatalog().getItem("1409S413").getPrice();
-                    double       itemCost;
-
-                    System.out.println(cost.getTotal());
+                public int getFilterType() {
+                    return TOTAL;
+                }
+                @Override
+                public boolean filter(Cost cost, CartElement ce, int qty, PriceManager pm) {                   
                     
-                    if ((!cart.hasElement("2002H712") && !number.equals("2002H712")) ||
-                        (!cart.hasElement("1409S413") && !number.equals("1409S413"))) {
+                    Cart   cart   = cost.getCart();
+                    String number = ce.getItem().getNumber();
+
+                    if (!hasItem("2002H712", cart, number) || !hasItem("1409S413", cart, number)) {
                         if (cost.hasFilter(this)) {
-                            cost.removeFilter(this);
-                        }
+                            cost.removeFilter(this);}
                         return false;
                     }
 
-                    if (cost.hasFilter(this)) {
-                        if (number.equals("2002H712")) {
-                            itemCost = price1 * delta;
-                        } else if (number.equals("1409S413")) {
-                            itemCost = price2 * delta;
+                    double itemCost;
+                    double discount    = 0.5;
+                    int    delta       = qty - ce.getQuantity();
+                    double price1      = getPrice("2002H712");
+                    double price2      = getPrice("1409S413");
+                    double extendCost1 = getExtendedCost("2002H712", cart);
+                    double extendCost2 = getExtendedCost("1409S413", cart);
+
+                    if (number.equals("2002H712")) {
+                        if (qty == 0) {
+                            itemCost = price1 * delta - extendCost2;
+                        } else if (ce.getQuantity() == 0) {
+                            itemCost = price1 * qty + extendCost2;
                         } else {
-                            return false;
+                            itemCost = price1 * delta;
+                        }
+                    } else if (number.equals("1409S413")) {
+                        if (qty == 0) {
+                            itemCost = price2 * delta - extendCost1;
+                        } else if (ce.getQuantity() == 0) {
+                            itemCost = price2 * qty + extendCost1;
+                        } else {
+                            itemCost = price2 * delta;
                         }
                     } else {
-                        if (number.equals("2002H712")) {
-                            itemCost = price1 * qty + cart.getElement("1409S413").extendedCost();
-                        } else if (number.equals("1409S413")) {
-                            itemCost = price2 * qty + cart.getElement("2002H712").extendedCost();
-                        } else {
-                            itemCost = cart.getElement("2002H712").extendedCost()
-                                     + cart.getElement("1409S413").extendedCost();
-                        }
+                        return false;
                     }
 
-                    cost.setTotal(cost.getTotal() - itemCost + (itemCost * discount));
-                    cost.setShipping(cost.getTotal() == 0 ||
-                            cost.getTotal() > rules.getShippingWaverCost()
-                                ? 0 : rules.getShippingCost());
-                    cost.setTax((cost.getTotal() + cost.getShipping()) * rules.getTaxRate());
-                    cost.setGrandTotal(cost.getTotal() + cost.getTax() + cost.getShipping());
+                    cost.setDiscount(cost.getDiscount() + itemCost * discount);
+                    //System.out.println("discount: " + cost.getDiscount());
 
-                    cost.addFilter(this);
-
-                    System.out.println(cost.getTotal());
-                    System.out.println("original: " + itemCost);
-                    System.out.println("discounted: " + itemCost * discount);
+                    if (qty <= 0) {
+                        cost.removeFilter(this);
+                        return false;
+                    } else if (!cost.hasFilter(this)) {
+                        cost.addFilter(this);
+                    }
 
                     return true;
                 }

@@ -4,7 +4,7 @@
   - Title: Confirmation
   -
   - Description:
-  -     Fragment for the Confirmation 
+  -     Fragment for the Confirmation
   -
   - Parameters:
   -     cart    the shopping cart
@@ -24,39 +24,7 @@
                 <h1>Order Summary</h1>
                 <h3>Sure you want to checkout the currently selected items?</h3>
             </div>
-            <p>Shipping and additional costs are calculated based
-                on the values you have in the cart before tax.</p>
-            <table class="table">
-                <tr><td>Order subtotal</td>
-                    <td>$<f:formatNumber
-                                groupingUsed="true"
-                                maxFractionDigits="2"
-                                minFractionDigits="2"
-                                minIntegerDigits="1"
-                            >${cart.cost.total}</f:formatNumber></td></tr>
-                <tr><td>Shipping and handling</td>
-                    <td>$<f:formatNumber
-                                groupingUsed="true"
-                                maxFractionDigits="2"
-                                minFractionDigits="2"
-                                minIntegerDigits="1"
-                            >${cart.cost.shipping}</f:formatNumber></td></tr>
-                <tr><td>Tax</td>
-                    <td>$<f:formatNumber
-                                groupingUsed="true"
-                                maxFractionDigits="2"
-                                minFractionDigits="2"
-                                minIntegerDigits="1"
-                            >${cart.cost.tax}</f:formatNumber></td></tr>
-                <tr><th>Total</th>
-                    <th>$<f:formatNumber
-                                groupingUsed="true"
-                                maxFractionDigits="2"
-                                minFractionDigits="2"
-                                minIntegerDigits="1"
-                            >${cart.cost.grandTotal}</f:formatNumber></th></tr>
-            </table>
-
+            <jsp:include page="OrderSummary.jspx"></jsp:include>
             <div class="row button-row">
                 <div class="col-sm-6 text-left">
                     <a href="${pageContext.request.contextPath}/cart" class="btn btn-default btn-icon-left">

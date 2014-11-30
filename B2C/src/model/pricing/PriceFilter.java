@@ -11,6 +11,20 @@ import model.cart.CartElement;
  */
 public interface PriceFilter {
 
+    // Constants
+    
+    int TOTAL    = 1;
+    int SHIPPING = 2;
+    int TAX      = 3;
+
+    /**
+     * Returns the filter type.
+     * One of TOTAL, SHIPPING or TAX.
+     * 
+     * @return the filter type.
+     */
+    int getFilterType();
+
     /**
      * Perform filter of the cost, given its
      * corresponding price manager. Returns a

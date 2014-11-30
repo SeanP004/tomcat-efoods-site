@@ -39,7 +39,7 @@ public class OrdersClerk {
 
     // Public
 
-    public synchronized Receipt checkout(String host, Account customer, Cart cart)
+    public synchronized Receipt checkout(String host, Account customer, Cart cart, boolean clear)
                 throws OrderCheckoutException {
         try {
             if (cart.getNumberOfItems() > 0) {
@@ -51,7 +51,7 @@ public class OrdersClerk {
                 writer.write("<?xml version='1.0' encoding='UTF-8'?>\n");
                 writer.write("<?xml-stylesheet type='text/xsl' href='" + xsltView + "'?>\n");
                 XMLUtil.generate(writer, receipt, xsd, xslt);
-                cart.clear();
+                if (clear) {cart.clear();}
                 return receipt;
             } else {
                 throw new OrderCheckoutException("Requires at least one item in the cart");
@@ -59,6 +59,11 @@ public class OrdersClerk {
         } catch (IOException e) {
             throw new OrderCheckoutException(e);
         }
+    }
+
+    public synchronized Receipt checkout(String host, Account customer, Cart cart)
+            throws OrderCheckoutException {
+        return checkout(host, customer, cart, true);
     }
 
     /**

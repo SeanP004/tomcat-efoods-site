@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Title: OrderSummary
+  -
+  - Description:
+  -     Fragment for the OrderSummary
+  -
+  - Parameters:
+  -     cart    the shopping cart
+  -->
+
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:f="http://java.sun.com/jsp/jstl/fmt"
+    version="2.0"
+    >
+
+    <p>Shipping and additional costs are calculated based
+        on the values you have in the cart before tax.</p>
+    <table class="table">
+        <tr><td>Order subtotal</td>
+            <td>$<f:formatNumber
+                        groupingUsed="true"
+                        maxFractionDigits="2"
+                        minFractionDigits="2"
+                        minIntegerDigits="1"
+                    >${cart.cost.total}</f:formatNumber></td></tr>
+        <c:if test="${cart.cost.discount gt 0}">
+            <tr><td>Discounts</td>
+                <td>$<f:formatNumber
+                            groupingUsed="true"
+                            maxFractionDigits="2"
+                            minFractionDigits="2"
+                            minIntegerDigits="1"
+                        >${cart.cost.discount}</f:formatNumber></td></tr>
+        </c:if>
+        <tr><td>Shipping and handling</td>
+            <td>$<f:formatNumber
+                        groupingUsed="true"
+                        maxFractionDigits="2"
+                        minFractionDigits="2"
+                        minIntegerDigits="1"
+                    >${cart.cost.shipping}</f:formatNumber></td></tr>
+        <tr><td>Tax</td>
+            <td>$<f:formatNumber
+                        groupingUsed="true"
+                        maxFractionDigits="2"
+                        minFractionDigits="2"
+                        minIntegerDigits="1"
+                    >${cart.cost.tax}</f:formatNumber></td></tr>
+        <tr><th>Total</th>
+            <th>$<f:formatNumber
+                        groupingUsed="true"
+                        maxFractionDigits="2"
+                        minFractionDigits="2"
+                        minIntegerDigits="1"
+                    >${cart.cost.grandTotal}</f:formatNumber></th></tr>
+    </table>
+
+</jsp:root>

@@ -40,7 +40,7 @@
     </xsl:template>
 
     <xsl:template match="cost">
-        <total><xsl:value-of select="./total" /></total>
+        <total><xsl:value-of select="./discountedTotal" /></total>
         <shipping><xsl:value-of select="./shipping" /></shipping>
         <HST><xsl:value-of select="./tax" /></HST>
         <grandTotal><xsl:value-of select="./grandTotal" /></grandTotal>

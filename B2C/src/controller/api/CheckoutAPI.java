@@ -37,9 +37,10 @@ public class CheckoutAPI extends EndPointServlet {
             sess.setAttribute("cart", cart = new Cart());}
 
         try {
-            Receipt receipt = clerk.checkout(host, account, cart);
+            Receipt receipt = clerk.checkout(host, account, cart, false);
             req.setAttribute("data", XMLUtil.generate(sw, receipt).toString());
             req.setAttribute("status", "Successfully checked out.");
+            cart.clear();
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());
         }
