@@ -1,5 +1,6 @@
 package model.pricing;
 
+import java.util.*;
 import javax.xml.bind.annotation.*;
 import model.cart.*;
 import static model.common.CommonUtil.*;
@@ -15,6 +16,7 @@ import static model.common.CommonUtil.*;
 public class Cost {
 
     private PriceManager pm;
+    private List<PriceFilter> filters;
     private Cart cart;
     private double total;
     private double shipping;
@@ -34,6 +36,7 @@ public class Cost {
     Cost(PriceManager priceManager, Cart cart) {
         this.cart = cart;
         this.pm = priceManager;
+        this.filters = new ArrayList<PriceFilter>();
     }
 
     // Getters
@@ -101,6 +104,20 @@ public class Cost {
     	setShipping(0);
     	setTax(0);
     	setGrandTotal(0);
+    }
+
+    // Filters
+    
+    public void addFilter(PriceFilter pf) {
+        filters.add(pf);
+    }
+    
+    public boolean hasFilter(PriceFilter pf) {
+        return filters.contains(pf);
+    }
+    
+    public void removeFilter(PriceFilter pf) {
+        filters.remove(pf);
     }
 
     // Public Setters

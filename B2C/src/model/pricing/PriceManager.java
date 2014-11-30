@@ -17,12 +17,13 @@ public class PriceManager{
     private static PriceManager singleton = null;
 
     private PricingRules pricingRules;
-    private ArrayList<PriceOverride> priceFilter = new ArrayList<PriceOverride>();
+    private List<PriceFilter> priceFilter;
 
-    private PriceManager(PricingRules pricingRules) {
-        this.pricingRules = pricingRules;
+    private PriceManager(PricingRules rules, List<PriceFilter> filters) {
+        this.pricingRules = rules;
+        this.priceFilter = filters == null ? new ArrayList<PriceFilter>() : filters;
     }
-    
+
     public PricingRules getPricingRules (){
     	return pricingRules;
     }
@@ -47,16 +48,16 @@ public class PriceManager{
                     ? 0 : pricingRules.getShippingCost());
         cost.setTax((cost.getTotal() + cost.getShipping()) * pricingRules.getTaxRate());
         cost.setGrandTotal(cost.getTotal() + cost.getTax() + cost.getShipping());
-    	for (PriceOverride po : priceFilter){
-    		if (po.override(cost, singleton)) {return;}
+    	for (PriceFilter po : priceFilter) {
+    		if (po.filter(cost, ce, quantity, this)) {return;}
     	}
     }
     
-    public void addPriceFilter(PriceOverride po) {
+    public void addPriceFilter(PriceFilter po) {
     	priceFilter.add(po);
     }
     
-    public void removePriceFilter(PriceOverride po) {
+    public void removePriceFilter(PriceFilter po) {
     	priceFilter.remove(po);
     }
 
@@ -66,15 +67,16 @@ public class PriceManager{
 
     // Static
 
-    public static PriceManager getPriceManager(PricingRules pricingRules) {
-        if (pricingRules != null && singleton == null) {
-            singleton = new PriceManager(pricingRules);
+    public static PriceManager getPriceManager(
+                PricingRules rules, List<PriceFilter> filters) {
+        if (rules != null && singleton == null) {
+            singleton = new PriceManager(rules, filters);
         }
         return singleton;
     }
 
     public static PriceManager getPriceManager() {
-        return getPriceManager(null);
+        return getPriceManager(null, null);
     }
 
 } // PriceManager

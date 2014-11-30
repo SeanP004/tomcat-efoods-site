@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.*;
 public class OrderList {
 
     private Map<String, Integer> list;
-    private int                  numberOfOrders;
+    private int numberOfOrders;
 
     /**
      * Order constructor

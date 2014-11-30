@@ -1,7 +1,6 @@
 package model.account;
 
 import javax.xml.bind.annotation.*;
-import model.exception.*;
 
 /**
  * The Account object represents a logged customer

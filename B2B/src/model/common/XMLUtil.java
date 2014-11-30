@@ -16,11 +16,12 @@ public class XMLUtil {
 
     // Private Static
 
-    private static final SchemaFactory                             sf      = SchemaFactory
-                                                                                   .newInstance(W3C_XML_SCHEMA_NS_URI);
-    private static final TransformerFactory                        tf      = TransformerFactory
-                                                                                   .newInstance();
-    private static final Map<Class<? extends Object>, JAXBContext> jaxbCtx = new HashMap<Class<? extends Object>, JAXBContext>();
+    private static final SchemaFactory
+            sf = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI);
+    private static final TransformerFactory
+            tf = TransformerFactory.newInstance();
+    private static final Map<Class<? extends Object>, JAXBContext>
+            jaxbCtx = new HashMap<Class<? extends Object>, JAXBContext>();
 
     /**
      * For performance, we will cache our {@link JAXBContext} instances and only

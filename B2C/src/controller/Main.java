@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.*;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import model.pricing.*;
@@ -30,10 +31,23 @@ public class Main extends RoutingServlet implements Filter {
                 .getPriceManager(new PricingRules(
                         context.getInitParameter("shippingCost"),
                         context.getInitParameter("shippingWaverCost"),
-                        context.getInitParameter("taxRate"))));
+                        context.getInitParameter("taxRate")),
+                        configPriceFilters(context)));
         context.setAttribute("secret",       context.getInitParameter("secret"));
         context.setAttribute("authUri",      context.getInitParameter("authUri"));
         context.setAttribute("authCallback", context.getInitParameter("authCallback"));
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<PriceFilter> configPriceFilters(ServletContext sc) {
+        List<PriceFilter> filters = new ArrayList<PriceFilter>();
+        Map<String, PriceFilter> lookup  = (Map<String, PriceFilter>)sc.getAttribute("priceFilters"); 
+        if (lookup == null) {
+            sc.setAttribute("priceFilters", lookup = new HashMap<String, PriceFilter>());}
+        for (String key : lookup.keySet()) {
+            filters.add(lookup.get(key));
+        }
+        return filters;
     }
 
     @Override

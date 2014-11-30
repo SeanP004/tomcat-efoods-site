@@ -1,6 +1,5 @@
 package listener;
 
-import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
