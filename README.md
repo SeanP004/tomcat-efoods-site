@@ -71,14 +71,19 @@ repository. The components are:
 
 #### The Authentication Component ####
 
+``` 
+#!text
     AUTH
     ├── assets
     │   ├── css
     │   └── images
     └── zoned
+```
 
 #### The Business-to-Business, Procurement, Component ####
 
+``` 
+#!text
     B2B
     ├── res
     │   ├── css
@@ -90,9 +95,12 @@ repository. The components are:
             ├── exception
             ├── order
             └── xml
+```
 
 #### The Business-to-Client, Main, Component ####
 
+``` 
+#!text
     B2C
     ├── src
     │   ├── controller
@@ -126,3 +134,4 @@ repository. The components are:
         ├── fonts
         ├── js
         └── less
+```
