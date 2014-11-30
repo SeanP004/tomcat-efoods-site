@@ -40,12 +40,17 @@
                                 <c:when test="${not empty account}">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="glyphicon glyphicon-user"><!--  --></i>
-                                        <span class="user-label">${account.name}</span>
+                                        <span class="hidden-xs hidden-sm user-label">${account.name}</span>
                                     </a>
-                                    <ul class="dropdown-menu" role="menu"><li>
-                                        <a class="signout"
-                                           href="${ctx}/api/login?action=logout&amp;ref=${request}">Sign out</a>
-                                    </li></ul>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li class="visible-xs visible-sm">
+                                            <h5 class="mini-name">${account.name}</h5>
+                                        </li>
+                                        <li class="visible-xs visible-sm divider"></li>
+                                        <li><a class="signout"
+                                               href="${ctx}/api/login?action=logout&amp;ref=${request}">Sign out</a>
+                                        </li>
+                                    </ul>
                                 </c:when>
                                 <c:otherwise>
                                     <a class="signin" href="${ctx}/api/login?ref=${request}">

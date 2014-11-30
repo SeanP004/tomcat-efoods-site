@@ -5823,6 +5823,17 @@ body:not(.storefront) .page .container.main {
   margin-left: 5px;
   vertical-align: top;
 }
+.navbar-nav > li .dropdown-menu .mini-name {
+  padding: 3px 20px;
+  white-space: nowrap;
+  clear: both;
+  margin: 0;
+  line-height: 1.42857143;
+}
+.navbar-right .dropdown-menu {
+  left: auto;
+  right: 0;
+}
 .dropdown-toggle:hover + .dropdown-menu,
 .dropdown-menu:hover,
 .dropdown-toggle:focus + .dropdown-menu,
