@@ -1,8 +1,7 @@
 B2C: Frontend Client Website
 ============================
 
-Content
--------
+## Content ##
 
 * Getting Started
     * Prerequisites
@@ -16,8 +15,7 @@ Content
     * APIs
 * Documentation
 
-Getting Started
----------------
+## Getting Started ##
 
 ### Prerequisites ###
 
@@ -32,7 +30,7 @@ Getting Started
 * Java Development Kit 1.7
 * Eclipse Java EE IDE for Web Developers 4.4
 
-**For frontend development**
+##### For frontend development: #####
 
 * Node.js v0.10.32 or later
 * NPM (Node.js Package Manager) 1.3.6 or later
