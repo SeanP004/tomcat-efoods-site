@@ -20,7 +20,6 @@ Content
     * Installation
     * Configurations
 * Versioning
-* Documentation
 * Structure
     * Program Layout
     * Site Layout
@@ -66,12 +65,12 @@ For development:
         git init
         git clone git@bitbucket.org:vwchu/eecs4413-projc.git
 
-2.  Open **Eclipse**.
-3.  Click **Import** on the **File** menu.
-4.  Select **Existing Projects into Workspace**.
-5.  Browse to the project directory and select **B2C**.
-6.  Check **eFoods**.
-7.  Click **Finish**.
+2.  Open Eclipse.
+3.  Click "Import" on the "File" menu.
+4.  Select "Existing Projects into Workspace".
+5.  Browse to the project directory and select "B2C".
+6.  Check "eFoods".
+7.  Click "Finish".
 
 8.  Start the database, by running the command,
     assuming that it has been configured and tables
@@ -79,9 +78,9 @@ For development:
 
         derby_start
 
-9.  Run the project in the **Project Explorer**.
-10.  Right-click, click **Run As** > **Run on Server**.
-11. Add the project to the server, and Click **Finish**.
+9.  Select the project in the "Project Explorer".
+10. Right-click, click "Run As" > "Run on Server".
+11. Add the project to the server, and Click "Finish".
 
 12. To develop for the frontend, run follow these
     additional commands on the terminal:
