@@ -1,2 +1,0 @@
-AUTH: The Authenication Service
-===============================
