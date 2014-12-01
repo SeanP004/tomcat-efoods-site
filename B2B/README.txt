@@ -19,6 +19,7 @@ Content
     * Prerequisites
     * Installation
     * Configurations
+    * Scheduler
 * Versioning
 * Structure
     * Program Layout (Development)
@@ -133,6 +134,48 @@ Configurations
         WHALIFAX            # The URL to where the WSDL file for WHALIFAX
         key                 # Agreed secret key with authenticate service
         xslt                # The URL to xml template to format the files output
+
+
+Scheduler
+------------------------------
+
+The below is the explaination for the setup of a scheduler
+
+For Windows build setup
+
+Use Window Scheduler
+1. Update the configuration setting within config.ini are correct, 
+   before proceeding.
+   As necessary, see Configurations section.
+
+2.  Ensure the permissions of the folders and files are set so
+    that they are readable and accessible to the web server.
+
+3.  Configure the Scheduler Tasks in Windows, as follows (for example):
+
+        Action:             Start a program
+        Program/script:     location where jdk java.exe is located
+                            example: 
+        Arguments:          -c controller.main where B2B is located
+        Start in:           B2B
+
+For Linux build setup
+
+Use Cron Scheduler
+
+1. In Terminal, install or create or edit my own cron jobs.
+        crontab -e
+        1 2 3 4 5 java /path/to/controller.main
+
+        Where,
+
+        -   1: Minute (0-59)
+        -   2: Hours (0-23)
+        -   3: Day (0-31)
+        -   4: Month (0-12 [12 == December])
+        -   5: Day of the week(0-7 [7 or 0 == sunday])
+        -   /path/to/command - Script or command name to schedule
+
 
 ========================================
 Versioning
