@@ -164,10 +164,6 @@
             <param-name>target</param-name>
             <param-value>/WEB-INF/xmlres/APIResponse.jspx</param-value>
         </init-param>
-        <init-param>
-            <param-name>transform</param-name>
-            <param-value>/WEB-INF/xmlres/CartElementDigest.xslt</param-value>
-        </init-param>
     </servlet>
     <servlet>
         <servlet-name>CheckoutAPI</servlet-name>

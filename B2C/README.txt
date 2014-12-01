@@ -127,7 +127,7 @@ For deployment:
 Configurations
 ------------------------------
 
-    WebContent/WEB-INF/web.xml
+    WebContent/WEB-INF/web.xml:
 
         Context Params:
 
@@ -143,13 +143,12 @@ Configurations
             ordersXsltView      # Path to purchase order XML transform, from XML to HTML
             ordersPrefix        # Canonical URI to orders (relative to context path)
 
-        Init Parms:
+        Init Params:
 
             MainFilter:
 
                 ignores         # A list of URL paths relative to context path to ignore in
                                   the internal routing service. (newline delimited)
-
             RoutingServlets:
 
                 routes          # A list of Servlet and URL sub paths pairs (relative to
@@ -159,7 +158,40 @@ Configurations
                                   prefixed by exclamation mark, the routing requires
                                   authentication.
 
+            EndPointServlets:
 
+                target          # URL to JSP or static file to render the response to
+                                  the user. (optional)
+                restrictedUsers # A list of user account IDs that the Servlet allows access
+                                  to. Requires that authenication is enabled. (newline
+                                  delimited). (optional)
+
+    WebContent/META-INF/context.xml:
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <Context privileged="true" reloadable="true">
+            <WatchedResource>WEB-INF/web.xml</WatchedResource>
+            <Manager pathname="" />
+            <Resource
+                name="jdbc/EECS"
+                factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+                type="javax.sql.DataSource"
+                driverClassName="org.apache.derby.jdbc.ClientDriver"
+                url="jdbc:derby://localhost:64413/CSE"
+                username="student"
+                password="secret"
+            />
+            <ResourceLink
+                global="jdbc/EECS"
+                name="jdbc/EECS"
+                type="javax.sql.DataSource"
+            />
+        </Context>
+
+        -   /Context/Resource/@driver       Specify the database driver and type
+        -   /Context/Resource/@url          Specify the URL and port to the database
+        -   /Context/Resource/@username     Specify the database username (credentials)
+        -   /Context/Resource/@passwrod     Specify the database password (credentials)
 
 ========================================
 Versioning
