@@ -5,8 +5,162 @@
 ##
 ##  A component of the EECS 4413 Project C, eFoods.
 ##
-##  Written by Vincent Chu (vwchu@yorku.ca)
+##  Written by Michael Leung (mmleung7@yorku.ca)
 ##  Revised on December 1, 2014
 ##  Copyright 2014. All right reserved.
 ##
 ############################################################
+
+========================================
+Content
+========================================
+
+* Getting Started
+    * Prerequisites
+    * Installation
+    * Configurations
+* Versioning
+* Structure
+    * Program Layout (Development)
+
+========================================
+Getting Started
+========================================
+
+Prerequisites
+------------------------------
+
+Basic Requirements:
+
+* Java 7 and J2EE or later
+* Apache Tomcat v8.0 Server or later
+* XML files generated as eFoods orders
+
+For development:
+
+* Java Development Kit 1.7
+* Eclipse Java EE IDE for Web Developers 4.4
+
+Installation
+------------------------------
+
+For development:
+
+NOTE:   if the project has been prepared for during B2C to 
+        setup of the eFoods please skip steps 1 to 4.
+        Please start at step 5 as preparation for installition
+        as already been prepared.
+
+1.  Run the commands on the terminal:
+
+        cd ~/workspace
+        mkdir ProjC
+        cd ProjC
+        git init
+        git clone git@bitbucket.org:vwchu/eecs4413-projc.git
+
+2.  Open Eclipse.
+3.  Click "Import" on the "File" menu.
+4.  Select "Existing Projects into Workspace".
+5.  Browse to the project directory and select "B2B".
+6.  Check "B2B".
+7.  Click "Finish".
+
+8.  Select the project in the "Project Explorer".
+9.  Right-click, click "Run As" > "Java Application".
+
+10. Console will display a message once the application is
+    finished generating the requested files.
+    The following message will be generated as shown below:
+    " ------ HTML file has be Generated -------- "  when done
+        or
+    "No Orders" when it can not find orders.
+    The generated reports can be found in the 
+    ./reports directory inside where B2B is stored.
+
+For deployment:
+
+1.  Download the latest version of package executable jar at:
+
+        https://bitbucket.org/vwchu/eecs4413-projc/downloads/B2B-<version>.jar
+
+    where <version> is version and build identifier using the
+    the Semantic Versioning guidelines (http://semver.org/).
+
+2.  Extract to WAR file into your Tomcat server instance.
+
+        mkdir B2B
+        cd B2B
+        jar -xvf B2B-<version>.jar
+
+3.  Update the config file as necessary, see Configurations section.
+
+4.  To execute, run the following command in the terminal:
+
+        java controller.Main
+
+5.  Console will display a message once the application is
+    finished generating the requested files.
+    The following message will be generated as shown below:
+        " ------ HTML file has be Generated -------- "  when done
+        or
+        "No Orders" when it can not find orders.
+    The generated reports can be found in the 
+    ./reports directory inside where B2B is stored.
+
+6. To view the generated, can be opened by a Web Browser.
+   open the folder ./reports located in B2B and click on one of 
+   the generated reports.
+   or 
+   In Terminal run the following commands:
+        firefox file://<file path of report>
+
+
+Configurations
+------------------------------
+
+    ./res/config.ini:
+    
+        Each lines of the configuration file is formated in the following:
+        <variable name>=<variable value>
+
+        storeDir            # The directory where the generated report files
+                              are located and stored in.
+        dataURL             # The URL directory location where the eFoods reports 
+                              are stored for extracting data.
+        WTORONTO            # The URL to where the WSDL file for WTORONTO 
+        WVANCOUVER          # The URL to where the WSDL file for WVANCOUVER
+        WHALIFAX            # The URL to where the WSDL file for WHALIFAX
+        key                 # Agreed secret key with authenticate service
+        xslt                # The URL to xml template to format the files output
+
+========================================
+Versioning
+========================================
+
+For transparency into our release cycle and in striving to maintain
+backward compatibility, Bootstrap is maintained under the Semantic
+Versioning guidelines (http://semver.org/). Sometimes we screw up,
+but we'll adhere to those rules whenever possible.
+
+========================================
+Structure
+========================================
+
+Program Layout (Development)
+------------------------------
+
+    B2B
+    ├── reports
+    ├── res
+    │   ├── css
+    │   └── xmlres 
+    └── src
+        ├── controller
+        └── model
+            ├── common
+            ├── exception
+            ├── order
+            └── xml
+
+
