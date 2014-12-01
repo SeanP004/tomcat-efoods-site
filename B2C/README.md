@@ -45,11 +45,12 @@ B2C: Frontend Client Website
 
 1.  Run the commands on the terminal:
 
-    cd ~/workspace
-    mkdir ProjC
-    cd ProjC
-    git init
-    git clone git@bitbucket.org:vwchu/eecs4413-projc.git
+        cd ~/workspace
+        mkdir ProjC
+        cd ProjC
+        git init
+        git clone git@bitbucket.org:vwchu/eecs4413-projc.git
+
 
 2.  Open **Eclipse**.
 3.  Click **Import** on the **File** menu.
@@ -63,6 +64,7 @@ B2C: Frontend Client Website
 
         derby_start
 
+
 9.  Run the project in the **Project Explorer**.
 10.  Right-click, click **Run As** > **Run on Server**.
 11. Add the project to the server, and Click **Finish**.
@@ -75,6 +77,7 @@ B2C: Frontend Client Website
         npm install
         grunt dev
 
+
 #### For deployment: ####
 
 
@@ -85,174 +88,38 @@ B2C: Frontend Client Website
 ```
 #!text
     B2C
-    ├── README.md
     ├── src
     │   ├── controller
     │   │   ├── api
-    │   │   │   ├── API.java
-    │   │   │   ├── AuthAPI.java
-    │   │   │   ├── CartAPI.java
-    │   │   │   ├── CatalogAPI.java
-    │   │   │   ├── CheckoutAPI.java
-    │   │   │   ├── LoginAPI.java
-    │   │   │   └── OrdersAPI.java
-    │   │   ├── EndPointServlet.java
-    │   │   ├── Main.java
-    │   │   ├── RoutingServlet.java
     │   │   └── view
-    │   │       ├── AdminView.java
-    │   │       ├── CartView.java
-    │   │       ├── CatalogView.java
-    │   │       ├── CheckoutView.java
-    │   │       ├── ConfirmationView.java
-    │   │       ├── HomeView.java
-    │   │       ├── ItemView.java
-    │   │       └── View.java
     │   ├── filter
-    │   │   ├── CartFilter.java
-    │   │   ├── CheckoutFilter.java
-    │   │   └── CrossSellingFilter.java
     │   ├── listener
-    │   │   └── SessionCountListener.java
     │   ├── model
     │   │   ├── account
-    │   │   │   └── Account.java
     │   │   ├── cart
-    │   │   │   ├── CartElement.java
-    │   │   │   └── Cart.java
     │   │   ├── catalog
-    │   │   │   ├── Catalog.java
-    │   │   │   ├── CategoryFilter.java
-    │   │   │   ├── Category.java
-    │   │   │   ├── CategoryList.java
-    │   │   │   ├── ItemFilter.java
-    │   │   │   ├── Item.java
-    │   │   │   └── ItemList.java
     │   │   ├── checkout
-    │   │   │   ├── OrdersClerk.java
-    │   │   │   ├── OrdersList.java
-    │   │   │   └── Receipt.java
     │   │   ├── common
-    │   │   │   ├── CommonUtil.java
-    │   │   │   └── XMLUtil.java
     │   │   ├── dao
-    │   │   │   ├── CatalogDBAO.java
-    │   │   │   ├── CatalogDB.java
-    │   │   │   ├── CatalogDBQuery.java
-    │   │   │   └── OrdersDAO.java
     │   │   ├── exception
-    │   │   │   ├── AppException.java
-    │   │   │   ├── CategoryNotFoundException.java
-    │   │   │   ├── DataAccessException.java
-    │   │   │   ├── InvalidBulkUpdateException.java
-    │   │   │   ├── InvalidCartQuantityException.java
-    │   │   │   ├── InvalidQueryFilterException.java
-    │   │   │   ├── ItemNotFoundException.java
-    │   │   │   ├── OrderCheckoutException.java
-    │   │   │   ├── OrderNotFoundException.java
-    │   │   │   ├── PricingRuleValueException.java
-    │   │   │   ├── UserAccessDeniedException.java
-    │   │   │   └── XMLGenerationException.java
     │   │   └── pricing
-    │   │       ├── Cost.java
-    │   │       ├── PriceFilter.java
-    │   │       ├── PriceManager.java
-    │   │       └── PricingRules.java
     │   └── tests
-    │       ├── TestCart.java
-    │       └── TestCatalogModel.java
     ├── WebContent
     │   ├── assets
     │   │   ├── css
-    │   │   │   └── main.css
     │   │   ├── fonts
-    │   │   │   ├── _flaticon.css
-    │   │   │   ├── flaticon.eot
-    │   │   │   ├── flaticon.html
-    │   │   │   ├── flaticon.svg
-    │   │   │   ├── flaticon.ttf
-    │   │   │   ├── flaticon.woff
-    │   │   │   ├── glyphicons-halflings-regular.eot
-    │   │   │   ├── glyphicons-halflings-regular.svg
-    │   │   │   ├── glyphicons-halflings-regular.ttf
-    │   │   │   └── glyphicons-halflings-regular.woff
     │   │   ├── js
-    │   │   │   └── main.js
     │   │   └── xmlres
-    │   │       └── POView.xslt
     │   ├── META-INF
-    │   │   ├── context.xml
-    │   │   └── MANIFEST.MF
     │   └── WEB-INF
     │       ├── includes
-    │       │   ├── AddToCartButton.jspx
-    │       │   ├── Cart.jspx
-    │       │   ├── CatalogItem.jspx
-    │       │   ├── CatalogList.jspx
-    │       │   ├── CategoryPic.jspx
-    │       │   ├── CategoryQuickLinks.jspx
-    │       │   ├── Checkout.jspx
-    │       │   ├── Confirmation.jspx
-    │       │   ├── ErrorMessage.jspx
-    │       │   ├── Footer.jspx
-    │       │   ├── Header.jspx
-    │       │   ├── Item.jspx
-    │       │   ├── ItemsShowcase.jspx
-    │       │   ├── OrderSummary.jspx
-    │       │   ├── Search.jspx
-    │       │   ├── SiteHeader.jspx
-    │       │   └── Splash.jspx
     │       ├── pages
-    │       │   ├── AdminView.jspx
-    │       │   ├── CartView.jspx
-    │       │   ├── CatalogView.jspx
-    │       │   ├── CheckoutView.jspx
-    │       │   ├── ConfirmationView.jspx
-    │       │   ├── Error404.jspx
-    │       │   ├── HomeView.jspx
-    │       │   └── ItemView.jspx
     │       ├── tests
-    │       ├── web.xml
     │       └── xmlres
-    │           ├── APIResponse.jspx
-    │           ├── PO.xsd
-    │           └── PO.xslt
     └── web-src
-        ├── bower.json
         ├── fonts
-        │   ├── _flaticon.css
-        │   ├── flaticon.eot
-        │   ├── flaticon.html
-        │   ├── flaticon.svg
-        │   ├── flaticon.ttf
-        │   └── flaticon.woff
-        ├── Gruntfile.js
         ├── js
-        │   ├── ajax.js
-        │   ├── cartbtn.js
-        │   ├── cart.js
-        │   ├── carttable.js
-        │   ├── element.js
-        │   ├── elements.js
-        │   ├── formdata.js
-        │   ├── functions.js
-        │   ├── search.js
-        │   └── template.js
-        ├── less
-        │   ├── base.less
-        │   ├── bootstrap.less
-        │   ├── buttons.less
-        │   ├── cart.less
-        │   ├── catalog.less
-        │   ├── footer.less
-        │   ├── header.less
-        │   ├── itempic.less
-        │   ├── jumbotron.less
-        │   ├── main.less
-        │   ├── mixins.less
-        │   ├── search.less
-        │   └── variables.less
-        └── package.json
+        └── less
 ```
 
 #### Site Layout ####
@@ -276,11 +143,56 @@ B2C: Frontend Client Website
         └── login
 ```
 
+#### APIs ####
+
+| Method | Url             | Description                                                       |
+| ------ | --------------- | ----------------------------------------------------------------- |
+| `GET`  | `/api/catalog`  | Query the catalog for items and categories.                       |
+|        |                 |                                                                   |
+|        |                 | * `type`               - Required, specifies the type of query.   |
+|        |                 |     * `itemlist`       - Get a list of items.                     |
+|        |                 |         * `orderBy`    - Sort order: one of `number`, `name`,     |
+|        |                 |                          `price`, `catid`.                        |
+|        |                 |         * `searchTerm` - Filter items by name.                    |
+|        |                 |         * `category`   - Filter items by category.                |
+|        |                 |         * `offset`     - Return results after given offset.       |
+|        |                 |         * `fetch`      - Return a specific number of results.     |
+|        |                 |         * `minPrice`   - Filter items by minimum price.           |
+|        |                 |         * `maxPrice`   - Filter items by maximum price.           |
+|        |                 |     * `item`           - Get a specific item.                     |
+|        |                 |         * `number`     - Unique identifier of specific item.      |
+|        |                 |     * `catlist`        - Get a list of categories.                |
+|        |                 |         * `orderBy`    - Sort order: one of `id`, `name`.         |
+|        |                 |         * `searchTerm` - Filter categories by name.               |
+|        |                 |         * `offset`     - Return results after given offset.       |
+|        |                 |         * `fetch`      - Return a specific number of results.     |
+|        |                 |     * `category`       - Get a specific category.                 |
+|        |                 |         * `id`         - Unique identifier of specific category.  |
+|        |                 |                                                                   |
+| `GET`  | `/api/cart`     | Query the content of the shopping cart.                           |
+|        |                 |                                                                   |
+|        |                 | * `action`             - Required, specifies the type of action.  |
+|        |                 |     * `list`           - Get cart status and list of items.       |
+|        |                 |                                                                   |
+| `POST` | `/api/cart`     | Perform action on the shopping cart.                              |
+|        |                 |                                                                   |
+|        |                 | * `action`             - Required, specifies the type of action.  |
+|        |                 |     * `add`            - Add item to cart.                        |
+|        |                 |         * `number`     - Unique identifier of specific item.      |
+|        |                 |     * `remove`         - Remove item from cart.                   |
+|        |                 |         * `number`     - Unique identifier of specific item.      |
+|        |                 |     * `bulk`           - Perform a bulk update operation on cart. |
+|        |                 |         * `number`     - Unique identifier of specific item(s).   |
+|        |                 |                          Semi-colon separated list of IDs.        |
+|        |                 |         * `quantity`   - Corresponding quantities to update cart. |
+|        |                 |                          Semi-colon separated list of quantities. |
+|        |                 |                                                                   |
+
 ### Database ###
 
 The table schema is as follows:
 
-The **CATEGORY** table:
+#### The **CATEGORY** table: ####
 
 | COLUMN_NAME          | TYPE_NAME | DEC& | NUM& | COLUM& | COLUMN_DEF | CHAR_OCTE& | IS_NULL& |
 | -------------------- | --------- | ---- | ---- | ------ | ---------- | ---------- | -------- |
@@ -289,7 +201,7 @@ The **CATEGORY** table:
 | DESCRIPTION          | VARCHAR   | NULL | NULL | 50     | NULL       | 100        | YES      |
 | PICTURE              | BLOB      | NULL | NULL | 10485& | NULL       | NULL       | YES      |
 
-The **ITEM** table:
+#### The **ITEM** table: ####
 
 | COLUMN_NAME          | TYPE_NAME | DEC& | NUM& | COLUM& | COLUMN_DEF | CHAR_OCTE& | IS_NULL& |
 | -------------------- | --------- | ---- | ---- | ------ | ---------- | ---------- | -------- |
