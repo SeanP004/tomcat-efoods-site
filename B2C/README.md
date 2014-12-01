@@ -61,7 +61,7 @@ B2C: Frontend Client Website
 8.  Start the database, by running the command,
     assuming that it has been provided already:
 
-    derby_start
+        derby_start
 
 9.  Run the project in the **Project Explorer**.
 10.  Right-click, click **Run As** > **Run on Server**.
@@ -70,10 +70,10 @@ B2C: Frontend Client Website
 12. To develop for the frontend, run follow these
     additional commands on the terminal:
 
-    cd ~/workspace/ProjC/B2C/web-src
-    bower install
-    npm install
-    grunt dev
+        cd ~/workspace/ProjC/B2C/web-src
+        bower install
+        npm install
+        grunt dev
 
 #### For deployment: ####
 
