@@ -107,17 +107,19 @@ For deployment:
         cd ..
         mv eFoods /path/to/tomcat
 
-3.  Start the database, by running the command,
+3.  Updated the config files as necessary, see Configuration section.
+    Requires that the AUTH subproject has been configured as well.
+4.  Start the database, by running the command,
     assuming that it has been configured and tables
     setup (see Database section) already:
 
         derby_start
 
-4.  Start the Tomcat server, by running the command:
+5.  Start the Tomcat server, by running the command:
 
         tomcat_start
 
-5.  Open a web browser and go to:
+6.  Open a web browser and go to:
 
         http://localhost/eFoods
 

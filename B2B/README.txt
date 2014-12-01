@@ -47,7 +47,7 @@ Installation
 
 For development:
 
-NOTE:   if the project has been prepared for during B2C to 
+NOTE:   if the project has been prepared for during B2C to
         setup of the eFoods please skip steps 1 to 4.
         Please start at step 5 as preparation for installition
         as already been prepared.
@@ -76,7 +76,7 @@ NOTE:   if the project has been prepared for during B2C to
     " ------ HTML file has be Generated -------- "  when done
         or
     "No Orders" when it can not find orders.
-    The generated reports can be found in the 
+    The generated reports can be found in the
     ./reports directory inside where B2B is stored.
 
 For deployment:
@@ -106,13 +106,13 @@ For deployment:
         " ------ HTML file has be Generated -------- "  when done
         or
         "No Orders" when it can not find orders.
-    The generated reports can be found in the 
+    The generated reports can be found in the
     ./reports directory inside where B2B is stored.
 
 6. To view the generated, can be opened by a Web Browser.
-   open the folder ./reports located in B2B and click on one of 
+   open the folder ./reports located in B2B and click on one of
    the generated reports.
-   or 
+   or
    In Terminal run the following commands:
         firefox file://<file path of report>
 
@@ -121,15 +121,15 @@ Configurations
 ------------------------------
 
     ./res/config.ini:
-    
+
         Each lines of the configuration file is formated in the following:
         <variable name>=<variable value>
 
         storeDir            # The directory where the generated report files
                               are located and stored in.
-        dataURL             # The URL directory location where the eFoods reports 
+        dataURL             # The URL directory location where the eFoods reports
                               are stored for extracting data.
-        WTORONTO            # The URL to where the WSDL file for WTORONTO 
+        WTORONTO            # The URL to where the WSDL file for WTORONTO
         WVANCOUVER          # The URL to where the WSDL file for WVANCOUVER
         WHALIFAX            # The URL to where the WSDL file for WHALIFAX
         key                 # Agreed secret key with authenticate service
@@ -141,41 +141,42 @@ Scheduler
 
 The below is the explaination for the setup of a scheduler
 
-For Windows build setup
+For Windows:
 
-Use Window Scheduler
-1. Update the configuration setting within config.ini are correct, 
-   before proceeding.
-   As necessary, see Configurations section.
+    Use Window Scheduler:
 
-2.  Ensure the permissions of the folders and files are set so
-    that they are readable and accessible to the web server.
+    1. Update the configuration setting within config.ini are correct,
+       before proceeding.
+       As necessary, see Configurations section.
 
-3.  Configure the Scheduler Tasks in Windows, as follows (for example):
+    2.  Ensure the permissions of the folders and files are set so
+        that they are readable and accessible to the web server.
 
-        Action:             Start a program
-        Program/script:     location where jdk java.exe is located
-                            example: 
-        Arguments:          -c controller.main where B2B is located
-        Start in:           B2B
+    3.  Configure the Scheduler Tasks in Windows, as follows (for example):
 
-For Linux build setup
+            Action:             Start a program
+            Program/script:     Location where jdk java.exe is located
+            Arguments:          -c controller.main where B2B is located
+            Start in:           where B2B is located
 
-Use Cron Scheduler
+For Linux (UNIX):
 
-1. In Terminal, install or create or edit my own cron jobs.
-        crontab -e
-        1 2 3 4 5 java /path/to/controller.main
+    Use Cron Scheduler
 
-        Where,
+    1. In Terminal, install or create or edit my own cron jobs.
 
-        -   1: Minute (0-59)
-        -   2: Hours (0-23)
-        -   3: Day (0-31)
-        -   4: Month (0-12 [12 == December])
-        -   5: Day of the week(0-7 [7 or 0 == sunday])
-        -   /path/to/command - Script or command name to schedule
+            crontab -e
 
+                1 2 3 4 5 java /path/to/controller.main
+
+                Where,
+
+                -   1: Minute (0-59)
+                -   2: Hours (0-23)
+                -   3: Day (0-31)
+                -   4: Month (0-12 [12 == December])
+                -   5: Day of the week(0-7 [7 or 0 == sunday])
+                -   /path/to/command - Script or command name to schedule
 
 ========================================
 Versioning
@@ -193,17 +194,14 @@ Structure
 Program Layout (Development)
 ------------------------------
 
-    B2B
-    ├── reports
-    ├── res
-    │   ├── css
-    │   └── xmlres 
-    └── src
-        ├── controller
-        └── model
-            ├── common
-            ├── exception
-            ├── order
-            └── xml
-
-
+    B2B                     # Root directory
+    ├── res                 # Configs, Output assets
+    │   ├── css             # Stylesheet
+    │   └── xmlres          # XML rendering assets
+    └── src                 # Java source code
+        ├── controller      # Main app startup class
+        └── model           # Business logic (model)
+            ├── common      # Shared utilities
+            ├── exception   # Exception handlers
+            ├── order       # Order data structure
+            └── xml         # XML generators and handlers
