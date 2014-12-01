@@ -189,6 +189,7 @@ B2C: Frontend Client Website
 |        |               |         * quantity   - Corresponding quantities to update cart. |
 |        |               |                        Semi-colon separated list of quantities. |
 | ------ | ------------- | --------------------------------------------------------------- |
+```
 
 ### Database ###
 
