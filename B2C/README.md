@@ -145,48 +145,50 @@ B2C: Frontend Client Website
 
 #### APIs ####
 
-| Method | Url             | Description                                                       |
-| ------ | --------------- | ----------------------------------------------------------------- |
-| `GET`  | `/api/catalog`  | Query the catalog for items and categories.                       |
-|        |                 |                                                                   |
-|        |                 | * `type`               - Required, specifies the type of query.   |
-|        |                 |     * `itemlist`       - Get a list of items.                     |
-|        |                 |         * `orderBy`    - Sort order: one of `number`, `name`,     |
-|        |                 |                          `price`, `catid`.                        |
-|        |                 |         * `searchTerm` - Filter items by name.                    |
-|        |                 |         * `category`   - Filter items by category.                |
-|        |                 |         * `offset`     - Return results after given offset.       |
-|        |                 |         * `fetch`      - Return a specific number of results.     |
-|        |                 |         * `minPrice`   - Filter items by minimum price.           |
-|        |                 |         * `maxPrice`   - Filter items by maximum price.           |
-|        |                 |     * `item`           - Get a specific item.                     |
-|        |                 |         * `number`     - Unique identifier of specific item.      |
-|        |                 |     * `catlist`        - Get a list of categories.                |
-|        |                 |         * `orderBy`    - Sort order: one of `id`, `name`.         |
-|        |                 |         * `searchTerm` - Filter categories by name.               |
-|        |                 |         * `offset`     - Return results after given offset.       |
-|        |                 |         * `fetch`      - Return a specific number of results.     |
-|        |                 |     * `category`       - Get a specific category.                 |
-|        |                 |         * `id`         - Unique identifier of specific category.  |
-|        |                 |                                                                   |
-| `GET`  | `/api/cart`     | Query the content of the shopping cart.                           |
-|        |                 |                                                                   |
-|        |                 | * `action`             - Required, specifies the type of action.  |
-|        |                 |     * `list`           - Get cart status and list of items.       |
-|        |                 |                                                                   |
-| `POST` | `/api/cart`     | Perform action on the shopping cart.                              |
-|        |                 |                                                                   |
-|        |                 | * `action`             - Required, specifies the type of action.  |
-|        |                 |     * `add`            - Add item to cart.                        |
-|        |                 |         * `number`     - Unique identifier of specific item.      |
-|        |                 |     * `remove`         - Remove item from cart.                   |
-|        |                 |         * `number`     - Unique identifier of specific item.      |
-|        |                 |     * `bulk`           - Perform a bulk update operation on cart. |
-|        |                 |         * `number`     - Unique identifier of specific item(s).   |
-|        |                 |                          Semi-colon separated list of IDs.        |
-|        |                 |         * `quantity`   - Corresponding quantities to update cart. |
-|        |                 |                          Semi-colon separated list of quantities. |
-|        |                 |                                                                   |
+```
+#!text
+| Method | Url           | Description                                                     |
+| ------ | ------------- | --------------------------------------------------------------- |
+| GET    | /api/catalog  | Query the catalog for items and categories.                     |
+|        |               |                                                                 |
+|        |               | * type               - Required, specifies the type of query.   |
+|        |               |     * itemlist       - Get a list of items.                     |
+|        |               |         * orderBy    - Sort order: one of number, name,         |
+|        |               |                          price, catid.                          |
+|        |               |         * searchTerm - Filter items by name.                    |
+|        |               |         * category   - Filter items by category.                |
+|        |               |         * offset     - Return results after given offset.       |
+|        |               |         * fetch      - Return a specific number of results.     |
+|        |               |         * minPrice   - Filter items by minimum price.           |
+|        |               |         * maxPrice   - Filter items by maximum price.           |
+|        |               |     * item           - Get a specific item.                     |
+|        |               |         * number     - Unique identifier of specific item.      |
+|        |               |     * catlist        - Get a list of categories.                |
+|        |               |         * orderBy    - Sort order: one of id, name.             |
+|        |               |         * searchTerm - Filter categories by name.               |
+|        |               |         * offset     - Return results after given offset.       |
+|        |               |         * fetch      - Return a specific number of results.     |
+|        |               |     * category       - Get a specific category.                 |
+|        |               |         * id         - Unique identifier of specific category.  |
+| ------ | ------------- | --------------------------------------------------------------- |
+| GET    | /api/cart     | Query the content of the shopping cart.                         |
+|        |               |                                                                 |
+|        |               | * action             - Required, specifies the type of action.  |
+|        |               |     * list           - Get cart status and list of items.       |
+| ------ | ------------- | --------------------------------------------------------------- |
+| POST   | /api/cart     | Perform action on the shopping cart.                            |
+|        |               |                                                                 |
+|        |               | * action             - Required, specifies the type of action.  |
+|        |               |     * add            - Add item to cart.                        |
+|        |               |         * number     - Unique identifier of specific item.      |
+|        |               |     * remove         - Remove item from cart.                   |
+|        |               |         * number     - Unique identifier of specific item.      |
+|        |               |     * bulk           - Perform a bulk update operation on cart. |
+|        |               |         * number     - Unique identifier of specific item(s).   |
+|        |               |                        Semi-colon separated list of IDs.        |
+|        |               |         * quantity   - Corresponding quantities to update cart. |
+|        |               |                        Semi-colon separated list of quantities. |
+| ------ | ------------- | --------------------------------------------------------------- |
 
 ### Database ###
 
