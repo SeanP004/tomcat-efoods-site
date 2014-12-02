@@ -8,8 +8,8 @@ import model.catalog.*;
  * The price manager class is a singleton in
  * the system that determines and computes how
  * all the items are priced and taxes, shipping,
- * totals are calculated, by on a set pricing rules,
- * the sticker of the items from the database, and
+ * totals are calculated, given a set pricing rules,
+ * the sticker price of the items from the database, and
  * the quantity of items being purchased.
  */
 public class PriceManager{
