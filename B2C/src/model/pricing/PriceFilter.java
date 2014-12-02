@@ -37,6 +37,6 @@ public interface PriceFilter {
      * @param pm    the price manager
      * @return      boolean flag to stop cascade of filters,
      */
-	boolean filter(Cost cost, CartElement ce, int qty, PriceManager pm);
+    boolean filter(Cost cost, CartElement ce, int qty, PriceManager pm);
 
 }
