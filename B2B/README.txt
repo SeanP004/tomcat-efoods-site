@@ -187,7 +187,7 @@ Versioning
 ========================================
 
 For transparency into our release cycle and in striving to maintain
-backward compatibility, Bootstrap is maintained under the Semantic
+backward compatibility, this project is maintained under the Semantic
 Versioning guidelines (http://semver.org/). Sometimes we screw up,
 but we'll adhere to those rules whenever possible.
 
