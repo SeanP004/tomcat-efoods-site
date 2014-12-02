@@ -3,7 +3,6 @@ package tests;
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import model.catalog.*;
 
