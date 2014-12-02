@@ -159,15 +159,15 @@ For Windows:
     3.  Configure the Scheduler Tasks in Windows, as follows (for example):
 
             Action:             Start a program
-            Program/script:     Location where jdk java.exe is located
-            Arguments:          -c controller.main where B2B is located
-            Start in:           where B2B is located
+            Program/script:     C:\Program Files\Java\jdk1.7.0_45\bin\java.exe
+            Arguments:          controller.Main
+            Start in:           C:\path\to\B2B
 
 For Linux (UNIX):
 
     Use Cron Scheduler
 
-    1. In Terminal, install or create or edit my own cron jobs.
+    1. In Terminal, to install or create or edit cron jobs:
 
             crontab -e
 
