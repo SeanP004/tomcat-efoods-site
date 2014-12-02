@@ -7,7 +7,7 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import model.catalog.*;
 
-@WebServlet("/tests/catalog")
+//@WebServlet("/tests/catalog")
 public class TestCatalogModel extends HttpServlet {
 
     @Override
