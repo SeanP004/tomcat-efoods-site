@@ -103,7 +103,7 @@ For deployment:
 
         mkdir eFoods
         cd eFoods
-        jar -xvf B2C-<version>.war
+        jar -xvf ../B2C-<version>.war
         cd ..
         mv eFoods /path/to/tomcat
 

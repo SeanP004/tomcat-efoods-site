@@ -34,8 +34,7 @@ Prerequisites
 Basic Requirements:
 
 * Java 7 and J2EE or later
-* Apache Tomcat v8.0 Server or later
-* XML files generated as eFoods orders
+* Configured instance of B2C
 
 For development:
 
@@ -73,11 +72,18 @@ NOTE:   if the project has been prepared for during B2C to
 10. Console will display a message once the application is
     finished generating the requested files.
     The following message will be generated as shown below:
-    " ------ HTML file has be Generated -------- "  when done
-        or
-    "No Orders" when it can not find orders.
+
+        " ------ HTML file has be Generated -------- "  when complete, or
+        "No Orders"                                     when it can not find orders.
+
     The generated reports can be found in the
     ./reports directory inside where B2B is stored.
+
+11. To view the generated, can be opened by a Web Browser.
+    open the folder ./reports located in B2B and click on one of
+    the generated reports. Or in Terminal run the following commands:
+
+        firefox file://<file path of report>
 
 For deployment:
 
@@ -92,7 +98,7 @@ For deployment:
 
         mkdir B2B
         cd B2B
-        jar -xvf B2B-<version>.jar
+        jar -xvf ../B2B-<version>.jar
 
 3.  Update the config file as necessary, see Configurations section.
 
@@ -103,24 +109,23 @@ For deployment:
 5.  Console will display a message once the application is
     finished generating the requested files.
     The following message will be generated as shown below:
-        " ------ HTML file has be Generated -------- "  when done
-        or
-        "No Orders" when it can not find orders.
+
+        " ------ HTML file has be Generated -------- "  when complete, or
+        "No Orders"                                     when it can not find orders.
+
     The generated reports can be found in the
     ./reports directory inside where B2B is stored.
 
-6. To view the generated, can be opened by a Web Browser.
-   open the folder ./reports located in B2B and click on one of
-   the generated reports.
-   or
-   In Terminal run the following commands:
-        firefox file://<file path of report>
+6.  To view the generated, can be opened by a Web Browser.
+    open the folder ./reports located in B2B and click on one of
+    the generated reports. Or in Terminal run the following commands:
 
+        firefox file://<file path of report>
 
 Configurations
 ------------------------------
 
-    ./res/config.ini:
+    ./config.ini:
 
         Each lines of the configuration file is formated in the following:
         <variable name>=<variable value>
@@ -135,11 +140,10 @@ Configurations
         key                 # Agreed secret key with authenticate service
         xslt                # The URL to xml template to format the files output
 
-
 Scheduler
 ------------------------------
 
-The below is the explaination for the setup of a scheduler
+Below is a brief instruction for setting up a scheduled task.
 
 For Windows:
 
@@ -167,7 +171,7 @@ For Linux (UNIX):
 
             crontab -e
 
-                1 2 3 4 5 java /path/to/controller.main
+                1 2 3 4 5 java /path/to/controller.Main
 
                 Where,
 
@@ -195,7 +199,7 @@ Program Layout (Development)
 ------------------------------
 
     B2B                     # Root directory
-    ├── res                 # Configs, Output assets
+    ├── res                 # Output assets
     │   ├── css             # Stylesheet
     │   └── xmlres          # XML rendering assets
     └── src                 # Java source code

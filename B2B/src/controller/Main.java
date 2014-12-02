@@ -24,7 +24,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         String workingDir = System.getProperty("user.dir");
         Generator start = new Generator();
-        start.generate(generateInfo(new File(workingDir + "/res/config.ini")));
+        start.generate(generateInfo(new File(workingDir + "/config.ini")));
     }
 
 }
