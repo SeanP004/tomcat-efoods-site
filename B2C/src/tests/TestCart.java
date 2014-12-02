@@ -10,7 +10,7 @@ import model.catalog.*;
 /**
  * Servlet implementation class TestCart
  */
-@WebServlet("/tests/cart")
+//@WebServlet("/tests/cart")
 public class TestCart extends HttpServlet {
 
     @Override
