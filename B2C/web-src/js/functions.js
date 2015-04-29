@@ -5,7 +5,7 @@
     // Basics
     // --------------------
 
-	function typeOf(val) {
+    function typeOf(val) {
         var type = typeof val;
         if (type === 'object') {
             if (!val) {return 'null';}
