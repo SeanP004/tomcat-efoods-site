@@ -1,6 +1,6 @@
 
 define('Ajax', ['Element'], function ($) {
-	'use strict';
+    'use strict';
 
     function Ajax(method, url, data) {
         var xhr = new XMLHttpRequest();

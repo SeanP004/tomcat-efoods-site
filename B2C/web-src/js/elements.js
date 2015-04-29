@@ -1,6 +1,6 @@
 
 define('Elements', ['Element'], function ($) {
-	'use strict';
+    'use strict';
 
     return function (query, docNode) {
         var targets;
