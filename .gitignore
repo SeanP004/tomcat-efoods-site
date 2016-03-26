@@ -3,3 +3,4 @@ Thumb.db
 desktop.ini
 node_modules
 *.class
+.vagrant
