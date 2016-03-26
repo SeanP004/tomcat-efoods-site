@@ -1,8 +1,6 @@
 --<ScriptOptions statementTerminator=';'/>
 
--- CONNECT 'jdbc:derby:eFoods;create=true';
--- RUN 'DB.sql';
-
+CONNECT 'jdbc:derby:eFoods;create=true';
 CREATE SCHEMA ROUMANI;
 SET SCHEMA ROUMANI;
 
