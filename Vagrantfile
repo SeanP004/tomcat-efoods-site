@@ -1,71 +1,134 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
+require_relative 'setup/environ.rb'
+
 Vagrant.configure(2) do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
+  vmshared_symlink = 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/'
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "base"
+  def deep_transform(object, block)
+    if object.is_a? Array then
+      return object.map! do |item|
+        deep_transform(item, block)
+      end
+    elsif object.is_a? Hash then
+      return object.each do |key, value|
+        object[key] = deep_transform(value, block)
+      end
+    else
+      return block.call(object)
+    end
+  end
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  machines = deep_transform(Environ.machines, lambda { |object|
+    if object.is_a? Proc then object.call else object end
+  })
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  base_machine = machines[:default]
+  machines.each do |machine_name, machine|
+    unless machine_name == :default then
+      machine_data = base_machine.merge(machine) do |key, oldval, newval|
+        if oldval.is_a? Array then
+          oldval + newval
+        elsif oldval.is_a? Hash then
+          oldval.merge(newval)
+        else
+          newval
+        end
+      end
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
+      # Configure and initialize machine
+      config.vm.define machine_name do |vmconfig|
+        machine_params = machine_data[:params]
+        vmconfig.vm.box = machine_params[:box]
+        vmconfig.vm.network machine_params[:network], ip: machine_params[:ip]
+        vmconfig.vm.provider 'virtualbox' do |vb|
+          vb.customize [
+            'modifyvm', :id,
+            '--name', machine_params[:boxname],
+            '--groups', machine_params[:groups],
+            '--natdnshostresolver1', 'on',
+            '--memory', machine_params[:memory],
+            '--cpus', machine_params[:cpus],
+          ]
+        end
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+        machine_ssh = machine_data[:sshparams]
+        vmconfig.ssh.username = machine_ssh[:username]
+        vmconfig.ssh.shell = machine_ssh[:shell]
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+        # Attach shared folders to machine
+        machine_data[:syncdirs].each do |syncdir|
+          if syncdir.is_a? Array then
+            fields = [:hostpath, :vmpath, :options]
+            syncdir.push({}) if syncdir.length == 2
+            syncdir = [fields, syncdir].transpose.to_h
+          end
+          sfopts_default = {
+            id: syncdir[:vmpath].gsub(/\W+/, "_"),
+            create: true,
+            symlink: true,
+            owner: 'vagrant',
+            group: 'vagrant',
+          }
+          sfconfig = sfopts_default.merge(syncdir[:options] ||= {})
+          vmconfig.vm.synced_folder syncdir[:hostpath], syncdir[:vmpath] do |sf|
+            sfconfig.each do |key, value|
+              case key
+                when :create        then sf.create = value
+                when :disabled      then sf.disabled = value
+                when :group         then sf.group = value
+                when :mount_options then sf.mount_options = value
+                when :owner         then sf.owner = value
+                when :type          then sf.type = value
+                else
+                  sf[key] = value
+              end
+            end # sfconfig.each
+          end # vmconfig.vm.synced_folder
+          if sfconfig[:symlink]
+            vmconfig.vm.provider 'virtualbox' do |vb|
+              vb.customize [
+                'setextradata', :id,
+                "#{vmshared_symlink}/#{sfconfig[:id]}", 1
+              ]
+            end
+          end
+        end # machine_data[:syncdirs]
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
+        # Run machine provisioning scripts
+        machine_data[:scripts].each do |script|
+          if script.is_a? Array then
+            fields = [:name, :script, :options]
+            script.push({}) if script.length == 2
+            script = [fields, script].transpose.to_h
+          end
+          shopts_default = {
+            inline: true,
+            privileged: true,
+            run: 'once',
+          }
+          shconfig = shopts_default.merge(script[:options] ||= {})
+          shconfig[:name] = "#{machine_name}_#{script[:name]}"
+          shconfig[if shconfig.delete(:inline) then :inline else :path end] = script[:script]
+          vmconfig.vm.provision "shell", run: shconfig.delete(:run) do |sh|
+            shconfig.each do |key, value|
+              case key
+                when :name        then sh.name = value
+                when :inline      then sh.inline = value
+                when :path        then sh.path = value
+                when :privileged  then sh.privileged = value
+                when :args        then sh.args = value
+                when :env         then sh.env = value
+                else
+                  sh[key] = value
+              end
+            end # shconfig.each
+          end # vmconfig.vm.provision "shell"
+        end # machine_data[:scripts]
 
-  # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
-  # such as FTP and Heroku are also available. See the documentation at
-  # https://docs.vagrantup.com/v2/push/atlas.html for more information.
-  # config.push.define "atlas" do |push|
-  #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
-  # end
+      end # config.vm.define
+    end # unless machine_name == :default
+  end # machines.each
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   sudo apt-get update
-  #   sudo apt-get install -y apache2
-  # SHELL
 end
