@@ -39,6 +39,7 @@ USERS="$HOME/vagrant_root/setup/users.sample.txt"
   #     libapache2-mod-php5
   #     openssl
   #   loads the apache2 mod_rewrite module
+  #   opens access to the server logs
   #
   install_basics() {
     sudo apt-get update
@@ -49,6 +50,8 @@ USERS="$HOME/vagrant_root/setup/users.sample.txt"
     define export PATH '$PATH:$HOME/bin:.'
     sudo a2enmod rewrite
     sudo service apache2 restart
+    sudo chmod +rx /var/log/apache2
+    sudo chmod +r /var/log/apache2/*.log
   }
 
 ## Routines: OpenSSL
