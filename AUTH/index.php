@@ -6,7 +6,7 @@
     //ini_set('display_errors', 1);
 
     $initParams  = parse_ini_file('config.ini');
-    $authBaseUri = 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
+    $authBaseUri = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
     $authUri     = $authBaseUri.dirname($_SERVER['PHP_SELF']).'/zoned';
 
     function curl($uri, $username, $password) {

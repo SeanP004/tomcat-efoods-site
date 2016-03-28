@@ -60,7 +60,7 @@
     </context-param>
     <context-param>
         <param-name>authUri</param-name>
-        <param-value>https://localhost/eFoods</param-value>
+        <param-value>http://localhost/eFoods</param-value>
     </context-param>
     <context-param>
         <param-name>authCallback</param-name>
