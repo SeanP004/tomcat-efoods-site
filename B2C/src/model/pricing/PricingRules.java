@@ -11,29 +11,29 @@ import model.exception.*;
 public class PricingRules {
 
     private double shippingCost;
-    private double shippingWaverCost;
+    private double shippingWaiverCost;
     private double taxRate;
-    
+
     public PricingRules() { }
 
-    public PricingRules(double shippingCost, double shippingWaverCost, double taxRate) {
+    public PricingRules(double shippingCost, double shippingWaiverCost, double taxRate) {
         this.shippingCost = shippingCost;
-        this.shippingWaverCost = shippingWaverCost;
+        this.shippingWaiverCost = shippingWaiverCost;
         this.taxRate = taxRate;
     }
 
-    public PricingRules(String shippingCost, String shippingWaverCost, String taxRate) {
-        this(parseDouble(shippingCost), parseDouble(shippingWaverCost), parseTaxRate(taxRate));
+    public PricingRules(String shippingCost, String shippingWaiverCost, String taxRate) {
+        this(parseDouble(shippingCost), parseDouble(shippingWaiverCost), parseTaxRate(taxRate));
     }
-    
+
     // Getters
-    
+
     public double getShippingCost() {
         return shippingCost;
     }
 
     public double getShippingWaverCost() {
-        return shippingWaverCost;
+        return shippingWaiverCost;
     }
 
     public double getTaxRate() {
@@ -46,8 +46,8 @@ public class PricingRules {
         this.shippingCost = shippingCost;
     }
 
-    public void setShippingWaverCost(double shippingWaverCost) {
-        this.shippingWaverCost = shippingWaverCost;
+    public void setShippingWaverCost(double shippingWaiverCost) {
+        this.shippingWaiverCost = shippingWaiverCost;
     }
 
     public void setTaxRate(double taxRate) {
@@ -71,5 +71,5 @@ public class PricingRules {
         }
         return rate;
     }
-    
+
 } // PricingRules

@@ -7,7 +7,7 @@
         factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
         type="javax.sql.DataSource"
         driverClassName="org.apache.derby.jdbc.ClientDriver"
-        url="jdbc:derby://roumani.eecs.yorku.ca:64413/CSE"
+        url="jdbc:derby://localhost:1527/eFoods"
         username="student"
         password="secret"
     />

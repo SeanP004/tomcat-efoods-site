@@ -169,7 +169,7 @@ Configurations
             authUri             # URI to authenticate service
             authCallback        # URI to authenticate callback (relative to context path)
             shippingCost        # Inital shipping cost, in dollars
-            shippingWaverCost   # Minimum total of a cart to waiver shipping cost, in dollar
+            shippingWaiverCost  # Minimum total of a cart to waiver shipping cost, in dollar
             taxRate             # Tax rate, as fraction of 1
             userData            # Directory to store the users' purchase orders
             ordersXsd           # Path to purchase order XML schema

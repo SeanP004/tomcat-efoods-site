@@ -34,9 +34,7 @@ public abstract class EndPointServlet extends HttpServlet {
         ServletContext sc = getServletContext();
         HttpSession sess  = req.getSession();
         String host       = (String)req.getAttribute("host");
-        String ref        = host + req.getRequestURI() + 
-                                (req.getQueryString() == null 
-                                    ? "" : '?' + req.getQueryString());
+        String ref        = host + req.getRequestURI() + (req.getQueryString() == null  ? "" : '?' + req.getQueryString());
 
         req.setAttribute("target", (String)sc.getAttribute("target://" + getServletName()));
         req.setAttribute("request", URLEncoder.encode(ref, "UTF-8"));

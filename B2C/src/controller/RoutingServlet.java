@@ -82,15 +82,14 @@ public abstract class RoutingServlet extends HttpServlet {
             if (sess.getAttribute("account") == null) {
                 try {
                     String host      = (String)req.getAttribute("host");
-                    String ref       = host + req.getRequestURI() + 
-                                          (req.getQueryString() == null 
-                                              ? "" : '?' + req.getQueryString());
-                    String callback  = host + req.getContextPath() + 
-                                          context.getAttribute("authCallback");
+                    String authUri   = (String)context.getAttribute("authUri");
+                    String query     = req.getQueryString() == null ? "" : '?' + req.getQueryString();
+                    String ref       = host + req.getRequestURI() + query;
+                    String callback  = host + req.getContextPath() + context.getAttribute("authCallback");
                     String msg       = ref + ";" + callback + ";" + context.getAttribute("secret");
                     String signer    = CommonUtil.md5sum(msg);
 
-                    res.sendRedirect(context.getAttribute("authUri")
+                    res.sendRedirect(authUri.replace("localhost", req.getServerName())
                             + "?ref=" + URLEncoder.encode(ref, "UTF-8")
                             + "&callback=" + URLEncoder.encode(callback, "UTF-8")
                             + "&signer=" + signer);

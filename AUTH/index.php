@@ -5,8 +5,9 @@
     //error_reporting(E_ALL);
     //ini_set('display_errors', 1);
 
-    $initParams = parse_ini_file('config.ini');
-    $authUri    = 'https://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).'/zoned';
+    $initParams  = parse_ini_file('config.ini');
+    $authBaseUri = 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
+    $authUri     = $authBaseUri.dirname($_SERVER['PHP_SELF']).'/zoned';
 
     function curl($uri, $username, $password) {
         $ch = curl_init();
@@ -60,7 +61,7 @@
                         'ref='.urlencode($referrer)
                     ));
                     if (!isset($callback)) {
-                        $callback = $initParams['uri'];
+                        $callback = str_replace('localhost', $_SERVER['SERVER_NAME'], $initParams['uri']);
                         if ($signature !== md5($referrer.';'.$initParams['secret'])) {
                             echo $signature . "\n";
                             echo md5($referrer.';'.$callback.';'.$initParams['secret']) . "\n";

@@ -30,7 +30,7 @@ public class Main extends RoutingServlet implements Filter {
         context.setAttribute("pm", PriceManager
                 .getPriceManager(new PricingRules(
                         context.getInitParameter("shippingCost"),
-                        context.getInitParameter("shippingWaverCost"),
+                        context.getInitParameter("shippingWaiverCost"),
                         context.getInitParameter("taxRate")),
                         configPriceFilters(context)));
         context.setAttribute("secret",       context.getInitParameter("secret"));
@@ -41,7 +41,7 @@ public class Main extends RoutingServlet implements Filter {
     @SuppressWarnings("unchecked")
     private List<PriceFilter> configPriceFilters(ServletContext sc) {
         List<PriceFilter> filters = new ArrayList<PriceFilter>();
-        Map<String, PriceFilter> lookup  = (Map<String, PriceFilter>)sc.getAttribute("priceFilters"); 
+        Map<String, PriceFilter> lookup  = (Map<String, PriceFilter>)sc.getAttribute("priceFilters");
         if (lookup == null) {
             sc.setAttribute("priceFilters", lookup = new HashMap<String, PriceFilter>());}
         for (String key : lookup.keySet()) {
@@ -59,8 +59,7 @@ public class Main extends RoutingServlet implements Filter {
         HttpSession sess     = req.getSession();
         Cart        cart     = (Cart)sess.getAttribute("cart");
         String      target   = (String)req.getAttribute("target");
-        String      host     = (req.isSecure() ? "https://" : "http://")
-                             + req.getServerName() + ":" + req.getServerPort();
+        String      host     = (req.isSecure() ? "https://" : "http://") + req.getServerName() + ":" + req.getServerPort();
 
         req.setAttribute("host", host);
 

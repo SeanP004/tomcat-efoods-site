@@ -60,7 +60,7 @@
     </context-param>
     <context-param>
         <param-name>authUri</param-name>
-        <param-value>http://www.eecs.yorku.ca/~cse13261/4413</param-value>
+        <param-value>https://localhost/eFoods</param-value>
     </context-param>
     <context-param>
         <param-name>authCallback</param-name>
@@ -71,7 +71,7 @@
         <param-value>5</param-value>
     </context-param>
     <context-param>
-        <param-name>shippingWaverCost</param-name>
+        <param-name>shippingWaiverCost</param-name>
         <param-value>100</param-value>
     </context-param>
     <context-param>

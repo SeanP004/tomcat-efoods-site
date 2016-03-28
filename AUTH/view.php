@@ -11,7 +11,6 @@
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
         <link rel="shortcut icon" href="assets/images/favicon.ico" />
-        <script src="assets/js/main.js" async="async"></script>
     </head>
     <body>
 
