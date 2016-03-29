@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -84,7 +85,7 @@ public abstract class RoutingServlet extends HttpServlet {
                     String host      = (String)req.getAttribute("host");
                     String authUri   = (String)context.getAttribute("authUri");
                     String query     = req.getQueryString() == null ? "" : '?' + req.getQueryString();
-                    String ref       = host + req.getRequestURI() + query;
+                    String ref       = host + req.getRequestURI() + URLDecoder.decode(query, "UTF-8");
                     String callback  = host + req.getContextPath() + context.getAttribute("authCallback");
                     String msg       = ref + ";" + callback + ";" + context.getAttribute("secret");
                     String signer    = CommonUtil.md5sum(msg);

@@ -63,14 +63,16 @@
                     if (!isset($callback)) {
                         $callback = str_replace('localhost', $_SERVER['SERVER_NAME'], $initParams['uri']);
                         if ($signature !== md5($referrer.';'.$initParams['secret'])) {
-                            echo $signature . "\n";
-                            echo md5($referrer.';'.$callback.';'.$initParams['secret']) . "\n";
+                            //echo $signature . "\n";
+                            //echo md5($referrer.';'.$callback.';'.$initParams['secret']) . "\n";
+                            //echo $referrer.';'.$callback.';'.$initParams['secret'] . "\n";
                             throw new Exception("Error: digital signature is incorrect.");
                         }
                     } else {
                         if ($signature !== md5($referrer.';'.$callback.';'.$initParams['secret'])) {
-                            echo $signature . "\n";
-                            echo md5($referrer.';'.$callback.';'.$initParams['secret']) . "\n";
+                            //echo $signature . "\n";
+                            //echo md5($referrer.';'.$callback.';'.$initParams['secret']) . "\n";
+                            //echo $referrer.';'.$callback.';'.$initParams['secret'] . "\n";
                             throw new Exception("Error: digital signature is incorrect.");
                         }
                     }
