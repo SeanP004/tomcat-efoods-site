@@ -279,6 +279,7 @@ NVM_VERSION=${NVM_VERSION:-0.31.0}
     elif [[ 'stop' == $1 ]]; then
       $TOMCAT_HOME/bin/shutdown.sh
     elif [[ 'deploy' == $1 ]]; then
+      tomcat_manage clean
       compile_servlets
     elif [[ 'backup' == $1 ]]; then
       cp -a $classes $classes-$(date '+%y%m%d%H%M')
