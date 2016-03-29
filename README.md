@@ -15,9 +15,9 @@ Each component is stored in a different directory in this
 repository. Each component has its own `README.md` for more details on
 installation and development. The components are:
 
-1. `B2C`, the frontend client website
-2. `B2B`, the non-interactive, offline business-to-business procurement application
-3. `AUTH`, the authentication service
+1. [B2C](B2C/README.md), the frontend client website
+2. [B2B](B2B/README.md), the non-interactive, offline business-to-business procurement application
+3. [AUTH](AUTH/README.md), the authentication service
 
 ## Requirements
 
