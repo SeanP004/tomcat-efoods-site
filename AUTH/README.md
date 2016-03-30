@@ -73,6 +73,9 @@ Parameters | Description
 
     SSLRequireSSL
 
+**Note:** With HTTPS, because the SSL certificate on the server is self-signed, your browser may warn you about the site being 
+insecure or prevent you from accessing the page. Please select, `Continue Anyways` or `Add to Exceptions` and ignore the error.
+
 ## <a name="struct"></a>Structure
 
     AUTH            # Root directory
