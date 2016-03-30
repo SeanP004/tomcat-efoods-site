@@ -29,6 +29,7 @@
     run the command:
 
         cd vagrant_root/B2C/web-src
+        nvm use node
         npm install --no-bin-links
         grunt
 
