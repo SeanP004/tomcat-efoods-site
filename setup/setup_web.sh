@@ -66,6 +66,8 @@ NVM_VERSION=${NVM_VERSION:-0.31.0}
           define declare $varname "$value" /dev/stdout
         elif [[ $arg == '-F'* ]]; then
           helpers+=(${arg:2})
+        elif [[ $arg == '-'* ]]; then
+          echo "Warning: create_command bad option $arg"
         else
           define declare $arg "$(eval echo '$'$arg)" /dev/stdout
         fi
@@ -309,12 +311,54 @@ NVM_VERSION=${NVM_VERSION:-0.31.0}
     fi
   }
 
+## Routines: B2B
+
+  #
+  # b2b_compile()
+  #   compiles the java source code in the B2B/src
+  #   directory into the B2B/bin directory.
+  #
+  b2b_compile() {
+    cd $HOME/vagrant_root/B2B/src
+    local fileset=$(mktemp 'java.txt.XXXXX')
+    find . | grep '[.]java$' | sed 's|^[.]/||' > $fileset
+    javac -d ../bin @$fileset
+    rm $fileset
+  }
+
+  #
+  # b2b_manage(action)
+  #   manages the B2B application
+  # action:
+  #   run     - runs the application
+  #   compile - recompiles the application's binaries
+  #   backup  - creates a backups of the application's binaries
+  #   clean   - cleans the application's binaries
+  #
+  b2b_manage() {
+    local b2b=$HOME/vagrant_root/B2B
+    if [[ 'run' == $1 ]]; then
+      if [[ ! -f controller/Main.class ]]; then
+        b2b_manage compile
+      fi
+      (cd $b2b; java -cp '.:bin' controller.Main)
+    elif [[ 'compile' == $1 ]]; then
+      b2b_manage clean
+      b2b_compile
+    elif [[ 'backup' == $1 ]]; then
+      cp -a $b2b/bin $b2b/bin-$(date '+%y%m%d%H%M')
+    elif [[ 'clean' == $1 ]]; then
+      rm -rf $b2b/bin/*
+    fi
+  }
+
 ## Main
 
   install_basics
   install_tomcat
   install_derby
   install_nodejs
+  create_command b2b_manage -Fb2b_compile
   create_command tomcat_manage TOMCAT_HOME -Fcompile_servlets
   create_command derby_manage DERBY_HOME DERBY_PORT
   derby_manage deploy
