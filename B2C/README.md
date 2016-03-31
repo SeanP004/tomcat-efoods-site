@@ -88,7 +88,7 @@ XPath                         | Description
 `/Context/Resource/@driver`   | Specify the database driver and type
 `/Context/Resource/@url`      | Specify the URL and port to the database
 `/Context/Resource/@username` | Specify the database username (credentials)
-`/Context/Resource/@passwrod` | Specify the database password (credentials)
+`/Context/Resource/@password` | Specify the database password (credentials)
 
 ## <a name="struct"></a>Structure
 
