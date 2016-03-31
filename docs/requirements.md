@@ -5,7 +5,7 @@
 ## Technological Platform
 
 * The project must be developed using **JEE** (servlets, jspx, tomcat, MVC, etc.)
-* Any **JavaScript** you use must be your own. You __may not__ use any library
+* Any **JavaScript** you use must be your own. You **may not** use any library
   such as jQuery, Ext, or Dojo.
 * You may use **images** or **CSS** developed by others with proper attribution.
   In that case, include an **acknowledgment** section in your report.
@@ -126,7 +126,7 @@ Add support for the following:
   may withdraw it at any time (w/o recompiling).
 * Add a search facility to enable clients to look for items.
 
-## Analysis of Part 2 (B2B
+## Analysis of Part 2 (B2B)
 
 This off-line, non-interactive system runs asynchronously with the web server.
 It consolidates all the P/Os of the day to generate a procurement order: a list
