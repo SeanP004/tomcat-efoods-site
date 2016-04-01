@@ -65,3 +65,7 @@ installation and development. The components are:
 5.  To stop (halt), suspend or delete (destroy) the virtual
     machine, use the commands: `vagrant halt`, `vagrant suspend`,
     or `vagrant destroy`. To restore the machine, run `vagrant up`.
+
+## Note
+
+This project will not be maintained. Use at your own risk.
