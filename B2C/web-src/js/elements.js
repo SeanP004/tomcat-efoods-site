@@ -35,7 +35,7 @@ define('Elements', ['Element'], function ($) {
             },
 
             concat: function (elems) {
-                elements.concat(elems.elements());
+                elements = elements.concat(elems.elements());
                 return this;
             },
 
