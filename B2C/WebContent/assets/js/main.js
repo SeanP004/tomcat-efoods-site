@@ -1,11 +1,11 @@
 
 (function (global) {
-	'use strict';
+    'use strict';
 
     // Basics
     // --------------------
 
-	function typeOf(val) {
+    function typeOf(val) {
         var type = typeof val;
         if (type === 'object') {
             if (!val) {return 'null';}
@@ -105,7 +105,7 @@
 }(window));
 
 define('Ajax', ['Element'], function ($) {
-	'use strict';
+    'use strict';
 
     function Ajax(method, url, data) {
         var xhr = new XMLHttpRequest();
@@ -342,7 +342,7 @@ define('CartTable', ['Element', 'Elements', 'Ajax', 'FormData', 'Cart'], functio
 });
 
 define('Element', [], function () {
-	'use strict';
+    'use strict';
 
     return function $(query, docNode) {
         var target;
@@ -493,7 +493,7 @@ define('Element', [], function () {
 }); // define Element
 
 define('Elements', ['Element'], function ($) {
-	'use strict';
+    'use strict';
 
     return function (query, docNode) {
         var targets;
@@ -528,7 +528,7 @@ define('Elements', ['Element'], function ($) {
             },
 
             concat: function (elems) {
-                elements.concat(elems.elements());
+                elements = elements.concat(elems.elements());
                 return this;
             },
 
