@@ -46,6 +46,9 @@ NVM_VERSION=${NVM_VERSION:-0.31.0}
   #     declare an environment variable to include
   #   -F<function>
   #     name of function to include
+  #   <variable>
+  #     declare an environment variable to include.
+  #     same as: -D<variable>=$<variable>
   #
   create_command() {
     local arg fn varname value
