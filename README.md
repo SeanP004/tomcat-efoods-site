@@ -47,7 +47,7 @@ installation and development. The components are:
     server and database respectively. The server listens to port 8080
     by default and the database server listens to port 1527 by default.
 
-    For `tomcat_manage`, the avaiable operations:
+    For `tomcat_manage`, the available operations:
 
       * `start`   - starts the server
       * `stop`    - stops the server
@@ -55,7 +55,7 @@ installation and development. The components are:
       * `backup`  - backups the java binaries
       * `clean`   - cleans the java binaries
 
-    For `derby_manage`, the avaiable operations:
+    For `derby_manage`, the available operations:
 
       * `start`   - starts the database server
       * `stop`    - stops the database server
